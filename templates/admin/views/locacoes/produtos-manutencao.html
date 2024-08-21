@@ -1,0 +1,123 @@
+{% extends "dashboard.html" %}
+
+{% block conteudo %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{url('admin/dashboard')}}">
+                Dashboard
+            </a></li>
+        <li class="breadcrumb-item"><a href="{{url('admin/locacoes')}}">
+                Locações
+            </a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+            Produtos em Manutenção
+        </li>
+    </ol>
+</nav>
+{{flash()}}
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white border-buttom d-flex justify-content-between align-items-center">
+        <div><span class="badge"><span class="text-secondary">
+                    {{formatarNumero(total.produtos)}} produtos em manutenção
+                </span></span></div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped" id="tabelaCategorias">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Produto</th>
+                        <th>Responsável pela Última Locação</th>
+                        <th>Última Atualização</th>
+                        <th class="text-center">Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for produto in produtos %}
+                    <tr>
+                        <th>{{ produto.id }}</th>
+                        <td>{{ produto.titulo }}</td>
+                        <td>{{ produto.retirado_por }}</td>
+                        <td>{{ produto.updated_at|date("d/m/Y H:i") }}</td>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-info btn-sm" onclick="detalharProduto({{ produto.id }}, '{{ produto.estado_atual }}')" data-bs-toggle="modal" data-bs-target="#detalharModal" tooltip="tooltip" title="Detalhar">
+                                <i class="fa-solid fa-info-circle"></i>
+                            </button>
+                            <a href="{{ url('admin/produtos/deletar/'~produto.id) }}" tooltip="tooltip" title="Deletar">
+                                <i class="fa-solid fa-trash m-1"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="detalharModal" tabindex="-1" aria-labelledby="detalharModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="detalharModalLabel">Detalhar Produto</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="detalharForm" method="post" action="{{ url('admin/produtos/atualizar-status') }}">
+                            <input type="hidden" name="produto_id" id="produto_id">
+
+                            <div class="mb-3">
+                                <label for="status" class="form-label">Status do Produto</label>
+                                <select class="form-select" name="status" id="status" required>
+                                    <option value="1">Disponível</option>
+                                    <option value="3">Em Manutenção</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3" id="parecerContainer" style="display: none;">
+                                <label for="parecer" class="form-label">Parecer</label>
+                                <textarea class="form-control" name="parecer" id="parecer" rows="3" placeholder="Descreva o parecer..."></textarea>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                <button type="submit" class="btn btn-primary">Salvar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function detalharProduto(produtoId, estadoAtual) {
+                // Definir o ID do produto no modal
+                document.getElementById('produto_id').value = produtoId;
+
+                // Definir o status atual no modal
+                var statusSelect = document.getElementById('status');
+                statusSelect.value = estadoAtual;
+
+                // Mostrar ou ocultar o campo de parecer com base no status atual
+                var parecerContainer = document.getElementById('parecerContainer');
+                if (estadoAtual === '3') {
+                    parecerContainer.style.display = 'block';
+                } else {
+                    parecerContainer.style.display = 'none';
+                }
+
+                // Adicionar evento para mudar o campo de parecer com base na seleção
+                statusSelect.addEventListener('change', function() {
+                    if (this.value === '3') {
+                        parecerContainer.style.display = 'block';
+                        document.getElementById('parecer').setAttribute('required', 'required');
+                    } else {
+                        parecerContainer.style.display = 'none';
+                        document.getElementById('parecer').removeAttribute('required');
+                    }
+                });
+            }
+        </script>
+    </div>
+</div>
+{% endblock %}

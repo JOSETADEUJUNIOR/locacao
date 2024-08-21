@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Relatório de Categorias</title>
+    <style>
+        /* Adicione seus estilos CSS aqui */
+        /* Seus outros estilos CSS aqui */
+        body {
+            font-family: Arial, sans-serif;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #337ab7;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body style="margin-left: 20px; margin-right: 20px;">
+    <h1>Relatório de Categorias</h1>
+    <table>
+        <tr>
+            <th>id</th>
+            <th>Título</th>
+            <th class>Tipo categoria</th>
+            <th class="text-center">Status</th>
+            <th>Visualizar</th>
+        </tr>
+        {% for categoria in categorias %}
+        <tr>
+            <th>{{categoria.id}}</th>
+            <td class="fw-bold">{{categoria.titulo}}</td>
+            <td class="fw-bold">{{categoria.tipo_categoria}}</td>
+            <td class="text-center">
+                {% if categoria.status == 1 %}
+                <i class="fa-solid fa-circle text-success" tooltip="tooltip" title="Ativo">Ativa</i>
+                {% else %}
+                <i class="fa-solid fa-circle text-danger" tooltip="tooltip" title="Inativo">Inativa</i>
+                {% endif %}
+            </td>
+            <td class="text-center">
+                {% if categoria.arquivo %}
+
+                <a data-fancybox="gallery" data-caption="{{categoria.arquivo}}" target="_blank" class="overflow zoom"
+                    href="{{url('uploads/categoria/arquivo/'~categoria.arquivo)}}">
+                    {{url('uploads/categoria/'~categoria.arquivo)}}
+                </a>
+
+                {% endif %}
+
+            </td>
+        </tr>
+        {%endfor%}
+    </table>
+    <p>Total de Banners: {{ total.categorias }}</p>
+</body>
+
+</html>

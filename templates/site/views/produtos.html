@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+
+
+<body>
+    <section class="breadcrumb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1 class="title">
+                        Produtos
+                    </h1>
+                </div>
+                <div class="menu col-md-6 d-flex align-items-center">
+                    <a href="{{ url('/produtos') }}" class="previous">Home</a>
+                    <img src="{{ url('templates/site/assets/img/arrow-right.svg')}}" class="arrow">
+                    <p class="current">Produtos</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="page__products category_products">
+        <div class="container">
+            <div class="row is--desktop mt-4 pt-5 pb-3">
+                <div class="col-md-3 d-flex flex-column justify-content-center">
+                    <img src="{{ url('templates/site/assets/img/line.webp')}}" class="title__line">
+                    <h2 class="products__title">
+                        Nossas <span class="mark__blue">categorias</span><br>
+                        de produtos
+                    </h2>
+                </div>
+                    {% if categorias %}
+                    {% for categoria in categorias %}
+                    {% if categoria.tipo_categoria == 'produto' %}
+                    <div class="col-md-3">
+                        <a href="{{ url('uploads/categoria/arquivo/'~categoria.arquivo)}}" class="product__category" target="_blank">
+                            <img src="{{ url('uploads/categoria/'~categoria.imagem)}}" class="photo__product" alt="Produto">
+    
+                            <div class="product__overlay">
+                                <h3 class="product__name">{{categoria.titulo}}</h3>
+                                <img src="{{ url('templates/site/assets/img/icon-dots.svg')}}" class="icon__dots" alt="Veja Mais">
+                            </div>
+                        </a>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                    
+            </div>
+    
+            <div class="row is--mobile py-5">
+    
+                <div class="col-md-12 p-4">
+                    <img src="{{ url('templates/site/assets/img/line.webp')}}" class="title__line">
+                    <h2 class="products__title">
+                        Nossas<br>
+                        <span class="mark__blue">categorias</span><br>
+                        de produtos
+                    </h2>
+                </div>
+                <div class="owl-carousel owl-theme products__mobile">
+    
+                    {% if categorias %}
+                    {% for categoria in categorias %}
+                    <div class="item">
+                        <a href="{{ url('uploads/categoria/'~categoria.arquivo)}}" class="product__category">
+                            <img src="{{ url('uploads/categoria/'~categoria.imagem)}}" class="photo__product" alt="Produto">
+                            <h3 class="product__name text-center">Infantil</h3>
+                        </a>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+    
+            </div>
+    
+            
+        </div>
+    </section>
+
+</body>
+
+<!-- Mirrored from arthrom.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 04 Apr 2024 00:14:40 GMT -->
+
+</html>
+{% endblock %}

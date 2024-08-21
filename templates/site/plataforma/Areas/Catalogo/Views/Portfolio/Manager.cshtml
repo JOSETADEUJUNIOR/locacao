@@ -1,0 +1,105 @@
+﻿@model Data.Models.Portfolio
+@{
+    ViewBag.Title = "Produtos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="portlet light ">
+    <div class="portlet-title">
+        <div class="caption font-green">
+            <i class="fa fa-list font-green"></i>
+            <span class="caption-subject bold uppercase">Gerenciar @ViewBag.Title</span>
+        </div>
+        <div class="tools"> </div>
+    </div>
+    <div class="portlet-body">
+        <div class="page-content-col">
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.Partial("~/Views/Shared/_AlertasGrid.cshtml")
+                    <div class="portlet  ">
+                        <div class="portlet-body form">
+                            @using (Html.BeginForm("Manager", "Portfolio", FormMethod.Post, new { @id = "registerForm" }))
+                            {
+                                if (Request.QueryString["r"] != null)
+                                {
+                                    if (Request.QueryString["r"].Equals("duplicar"))
+                                    {
+                                        Model.Portfolio_ID = 0;
+                                    }
+                                }
+
+                                @Html.HiddenFor(model => model.Portfolio_ID)
+                                @Html.HiddenFor(model => model.Ativo)
+                                @Html.HiddenFor(model => model.Excluido)
+                                @Html.HiddenFor(model => model.Url)
+                                @Html.ValidationSummary(true)
+                                @Html.AntiForgeryToken()
+
+                            <div class="form-body clearfix">
+
+                                <div class="row">
+
+                                    @if (Tiles.Idioma == "true")
+                                    {
+                                        /*Valida se o Idioma esta ativo no painel admin*/
+                                        @Html.Partial("~/Views/Fields/_selectField2.cshtml", new Plataforma.Models.SelectField("Idioma", "Idioma_ID", Model.Idioma_ID.ToString(), "Idioma_ID", "required", 2))
+                                    }
+                                    @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Produto", "Nome", Model.Nome, "required", 8))
+                                    @Html.Partial("~/Views/Fields/_selectField.cshtml", new Plataforma.Models.SelectField("Categoria", "Categoria_ID", Model.Categoria_ID.ToString(), "Categoria_ID", "required", 4))
+
+                                    @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Formas de pedir ao convênio:", "Extra1", Model.Extra1, "required", 9))
+                                    @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Ordem", "Ordem", Model.Ordem.ToString(), "required", 3))
+                                    @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("SubTítulo", "Extra2", Model.Extra2, "", 6))
+                                    @Html.Partial("~/Views/Fields/_txtImageField.cshtml", new Plataforma.Models.UploadField("Imagem", "Imagem", Model.Imagem, "required", 6, 1))
+                                    @Html.Partial("~/Views/Fields/_txtArea.cshtml", new Plataforma.Models.TextField("Indicações", "Extra3", Model.Extra3, "", 12))
+                                    @Html.Partial("~/Views/Fields/_txtArea.cshtml", new Plataforma.Models.TextField("Descrição", "Descricao", Model.Descricao, "", 12))
+
+                                    @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Texto botão 1", "Extra4", Model.Extra4, "", 6))
+                                    @Html.Partial("~/Views/Fields/_txtFileField.cshtml", new Plataforma.Models.UploadField("Arquivo", "Extra5", Model.Extra5, "", 6, 2))
+
+                                    @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Texto botão 2", "Extra6", Model.Extra6, "", 6))
+                                    @Html.Partial("~/Views/Fields/_txtFileField.cshtml", new Plataforma.Models.UploadField("Arquivo", "Extra7", Model.Extra7, "", 6, 3))
+
+                                    @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Texto botão 3", "Extra8", Model.Extra8, "", 6))
+                                    @Html.Partial("~/Views/Fields/_txtFileField.cshtml", new Plataforma.Models.UploadField("Arquivo", "Extra9", Model.Extra9, "", 6, 4))
+
+
+                                </div>
+                            </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn blue">Salvar</button>
+                                    <a href="@Url.RouteUrl("catalogo.portfolios")" class="btn default">Cancelar</a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section styles{
+
+    <style>
+        input[type=checkbox], input[type=radio] {
+            width: 35px;
+        }
+    </style>
+
+}
+
+@section scripts{
+    <script>
+        function Limpa() {
+            $("#Imagem").val("");
+        }
+
+
+    </script>
+
+
+
+}

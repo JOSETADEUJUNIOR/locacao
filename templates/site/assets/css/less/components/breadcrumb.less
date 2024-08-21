@@ -1,0 +1,63 @@
+// out: false
+
+@import "../base/_pallete.less";
+
+.breadcrumb {
+    background-color: rgb(0, 20, 56);
+    background-image: url('/assets/img/breadcrumb-full.webp');
+    background-repeat: no-repeat;
+    background-position: right -415px top 0;
+    background-size: auto;
+
+    .row {
+        padding-top: 185px;
+        padding-bottom: 48px;
+
+        .title {
+            font: 700 36px @raleway;
+            color: white;
+            margin-bottom: 20px;
+
+            @media screen and (min-width: 768px) {
+                font-size: 46px;
+                margin-bottom: 0;
+            }
+        }
+
+        .menu {
+
+            .previous {
+                font: 400 16px @raleway;
+                color: white;
+                margin-right: 9px;
+            }
+
+            .arrow {
+                margin-right: 9px;
+                width: 13px;
+            }
+
+            .current {
+                font: 600 16px @raleway;
+                color: @softBlue;
+            }
+
+            @media screen and (min-width: 768px) {
+                justify-content: flex-end;
+            }
+        }
+
+        @media screen and (min-width: 768px) {
+            padding-top: 223px;
+            padding-bottom: 84px;
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        background-color: rgb(0, 20, 56);
+        background-image: url('/assets/img/breadcrumb-full.webp');
+        background-repeat: no-repeat;
+        background-position: right 40px top 0;
+        background-size: cover;
+    }
+}

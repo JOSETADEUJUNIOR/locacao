@@ -1,0 +1,176 @@
+{% extends "dashboard.html" %}
+
+{% block conteudo %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{{url('admin/dashboard')}}">
+                Dashboard
+            </a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="{{url('admin/congregacoes/listar')}}">
+                Congregações
+            </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            {% if congregacao.id %}Atualizar{%else%}Cadastrar{%endif%}
+        </li>
+    </ol>
+</nav>
+
+{{ flash() }}
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
+        <form class="formularioAjax"
+            action="{% if congregacao.id %}{{url('admin/congregacoes/editar/'~congregacao.id)}}{%else%}{{url('admin/congregacoes/cadastrar')}}{%endif%}"
+            method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="setor_id" class="form-label">Setor</label>
+                        <select class="form-select" name="setor_id" id="setor_id">
+                            {% for setor in setores %}
+                            <option value="{{setor.id}}" {% if congregacao.setor_id==setor.id %}selected{%endif%}>
+                                {{setor.nome}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="nome" class="form-label">Nome</label>
+                        <input type="text" name="nome" id="nome" value="{{congregacao.nome}}" class="form-control">
+                    </div>
+                </div>
+               
+            </div>
+            
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="cep" class="form-label">CEP</label>
+                        <input type="text" name="cep" id="cep" onchange="BuscarCep()" value="{{congregacao.cep}}" class="form-control cep2">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="endereco" class="form-label">Endereço</label>
+                        <input type="text" name="endereco" id="endereco" value="{{congregacao.endereco}}" class="form-control rua">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="bairro" class="form-label">Bairro</label>
+                        <input type="text" name="bairro" id="bairro" value="{{congregacao.bairro}}" class="form-control bairro">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="estado" class="form-label">Estado</label>
+                        <input type="text" name="estado" id="estado" value="{{congregacao.estado}}" class="form-control estado">
+                    </div>
+                </div>
+               
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="telefone" class="form-label">Telefone</label>
+                        <input type="text" name="telefone" id="telefone" value="{{congregacao.telefone}}" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">E-mail</label>
+                        <input type="email" name="email" id="email" value="{{congregacao.email}}" class="form-control">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="ministerio" class="form-label">Ministério</label>
+                        <input type="text" name="ministerio" id="ministerio" value="{{congregacao.ministerio}}" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="quantidade_irmaos" class="form-label">Quantidade de Irmãos</label>
+                        <input type="text" name="quantidade_irmaos" id="quantidade_irmaos" value="{{congregacao.quantidade_irmaos}}" class="form-control">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="numero_livro_manutencao" class="form-label">Número do Livro de Manutenção</label>
+                        <input type="text" name="numero_livro_manutencao" id="numero_livro_manutencao" value="{{congregacao.numero_livro_manutencao}}" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="horarios_cultos" class="form-label">Horários dos Cultos</label>
+                        <input type="text" name="horarios_cultos" id="horarios_cultos" value="{{congregacao.horarios_cultos}}" class="form-control">
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="observacao" class="form-label">Observações</label>
+                <textarea name="observacao" id="observacao" class="form-control" rows="3">{{congregacao.observacao}}</textarea>
+            </div>
+            
+            <!-- Galeria de Fotos -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mb-3">
+                        <label for="fotos" class="form-label">Fotos da Congregação</label>
+                        <input class="form-control" type="file" id="fotos" name="fotos[]" accept=".png, .jpg, .jpeg, .webp" multiple>
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    {% if fotos %}
+                    {% for imagem in fotos %}
+                    <div class="gallery">
+                        <div style="background-color: red;">
+                            <input type="checkbox" name="remover_fotos[]" value="{{ imagem.id }}">deletar a foto <!-- Checkbox para selecionar a foto para remoção -->
+                        </div>
+                        <a data-fancybox="gallery" data-caption="{{imagem.foto}}" class="overflow zoom" href="{{url('uploads/congregacoes/'~imagem.foto)}}">
+                          <img src="{{url('uploads/congregacoes/thumbs/'~imagem.foto)}}" alt="galeria">
+                        </a>
+                    </div>
+                    {%endfor%}
+                    {% else %}
+                    <img src="{{url('templates/admin/assets/img/semcapa.png')}}" class="capa" />
+                    {% endif %}  
+                </div>
+            </div>
+            <!-- Fim da Galeria -->
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Status</label>
+                        <select class="form-select" name="status">
+                            <option value="1" {% if congregacao.status=='1' %}selected{%endif%}>Ativo</option>
+                            <option value="0" {% if congregacao.status=='0' %}selected{%endif%}>Inativo</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-grid">
+                <input type="submit" class="btn btn-dark" value="{% if congregacao.id %}Atualizar{%else%}Cadastrar{%endif%}">
+            </div>
+
+        </form>
+    </div>
+</div>
+</div>
+{% endblock %}

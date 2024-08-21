@@ -1,0 +1,227 @@
+﻿@model Data.Models.Cliente
+@using Framework.Tools
+@{
+    ViewBag.Title = "Dental";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+<div class="portlet light ">
+    <div class="portlet-title">
+        <div class="caption font-green">
+            <i class="fa fa-list font-green"></i>
+            <span class="caption-subject bold uppercase">Gerenciar @ViewBag.Title</span>
+        </div>
+        <div class="tools"> </div>
+    </div>
+    <div class="portlet-body">
+        <div class="page-content-col">
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.Partial("~/Views/Shared/_AlertasGrid.cshtml")
+                    <div class="portlet  ">
+                        <div class="portlet-body form">
+                            @using (Html.BeginForm("Manager", "Dental", FormMethod.Post, new { @id = "registerForm" }))
+                            {
+                                @Html.HiddenFor(model => model.Cliente_ID)
+                                @Html.HiddenFor(model => model.Ativo)
+                                @Html.HiddenFor(model => model.Excluido)
+                                @Html.HiddenFor(model => model.Dental)
+                                @Html.HiddenFor(model => model.UserId)
+                                @Html.HiddenFor(model => model.Url)
+                                if (Model.Cliente_ID > 0)
+                                {
+                                    @Html.HiddenFor(model => model.Senha)
+                                }
+                                @Html.ValidationSummary(true)
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-body clearfix dental">
+
+                                    <div class="row">
+                                        @if (Tiles.Idioma == "true")
+                                        {
+                                            /*Valida se o Idioma esta ativo no painel admin*/
+                                            @Html.Partial("~/Views/Fields/_selectField.cshtml", new Plataforma.Models.SelectField("Idioma", "Idioma_ID", "", "Idioma_ID", "required", 12))
+                                        }
+                                        @if (Model.Cliente_ID > 0)
+                                        {
+                                            @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Email", "Email", Model.Email, "required", 4))
+                                            @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Nome", "Nome", Model.Nome, "required", 4))
+                                            @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("CNPJ", "CPFCNPJ", Model.CPFCNPJ, "required", 4))
+                                        }
+                                        else
+                                        {
+                                            @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Email", "Email", Model.Email, "required", 3))
+                                            @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Nome", "Nome", Model.Nome, "required", 3))
+                                            @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("CNPJ", "CPFCNPJ", Model.CPFCNPJ, "required", 3))
+                                            @Html.Partial("~/Views/Fields/_passField.cshtml", new Plataforma.Models.TextField("Senha", "Senha", Model.Senha, "required", 3))
+                                        }
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Celular", "TelefoneCelular", Model.TelefoneCelular, "required", 4))
+                                        @Html.Partial("~/Views/Fields/_txtImageField.cshtml", new Plataforma.Models.UploadField("Logo", "Imagem", Model.Imagem, "required", 4, 1))
+
+                                        @Html.Partial("~/Views/Fields/_txtCheck.cshtml", new Plataforma.Models.CheckField("Habilitado", "Habilitado", (Model.Habilitado == true ? true : false), "required", 3))
+                                    </div>
+                                    <div class="row">
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("CEP", "CEP", Model.CEP, "required", 4))
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Endereço", "Endereco", Model.Endereco, "required", 4))
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Número", "Numero", Model.Numero, "required", 4))
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Bairro", "Bairro", Model.Bairro, "required", 3))
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Complemento", "Complemento", Model.Complemento, "", 3))
+                                        @Html.Partial("~/Views/Fields/_selectField2.cshtml", new Plataforma.Models.SelectField("Estado", "Estado_ID", "", "Estado_ID", "required", 3))
+                                        @Html.Partial("~/Views/Fields/_selectField3.cshtml", new Plataforma.Models.SelectField("Cidades", "Cidade", "", "Municipio_ID", "required", 3))
+
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn blue">Salvar</button>
+                                    <a href="@Url.RouteUrl("cms.dentals")" class="btn default">Cancelar</a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+@section scripts{
+
+    <script>
+
+        if ($("#CEP").length > 0) {
+            $("#CEP").mask('99.999-999');
+        }
+
+        function getCEP() {
+            var cep = $("#CEP").val().replace(".", "");
+            cep = cep.replace("-", "");
+
+            if (cep != "") {
+
+                $.getJSON("//viacep.com.br/ws/" + cep + "/json/?callback=?", function (dados) {
+
+                    if (!("erro" in dados)) {
+
+                        $.getJSON('/estadoscidades.json', (data) => {
+                            let options = '<option value="">Selecione o Estado</option>';
+
+                            for (val of data) {
+                                options += '<option value="' + val.sigla + '">' + val.nome + '</option>';
+                            }
+
+                            $("#Estado_ID").html(options);
+
+                            $("#Endereco").val(dados.logradouro);
+                            $("#Bairro").val(dados.bairro);
+                            $('#Estado_ID').val(dados.uf);
+
+                            $("#Estado_ID").change(() => {
+                                let options_cidades = '<option value="">Selecione a Cidade</option>';
+                                let str = $("#Estado_ID").val();
+
+                                var validacidades = "";
+
+                                for (val of data) {
+                                    if (val.sigla == str) {
+
+                                        $.each(val.cidades, function (key, value) {
+                                            options_cidades += '<option value="' + value + '">' + value + '</option>';
+                                        });
+                                    }
+                                }
+
+                                $("#Cidade").html(options_cidades);
+
+                                $('#Cidade').val(dados.localidade);
+
+                            }).change();
+
+                        });
+
+                    }
+                    else {
+                        $("#CEP").val("");
+                    }
+
+                }).done(function () {
+                    $("#Numero").focus();
+                });
+
+
+            } else {
+
+            }
+        }
+
+        function getCidadeEstado() {
+            var cep = $("#CEP").val().replace(".", "");
+            cep = cep.replace("-", "");
+
+            if (cep != "") {
+
+                $.getJSON("//viacep.com.br/ws/" + cep + "/json/?callback=?", function (dados) {
+
+                    if (!("erro" in dados)) {
+
+                        $.getJSON('/estadoscidades.json', (data) => {
+                            let options = '<option value="">Selecione o Estado</option>';
+
+                            for (val of data) {
+                                options += '<option value="' + val.sigla + '">' + val.nome + '</option>';
+                            }
+
+                            $("#Estado_ID").html(options);
+
+                            $('#Estado_ID').val(dados.uf);
+
+                            $("#Estado_ID").change(() => {
+                                let options_cidades = '<option value="">Selecione a Cidade</option>';
+                                let str = $("#Estado_ID").val();
+
+                                var validacidades = "";
+
+                                for (val of data) {
+                                    if (val.sigla == str) {
+
+                                        $.each(val.cidades, function (key, value) {
+                                            options_cidades += '<option value="' + value + '">' + value + '</option>';
+                                        });
+                                    }
+                                }
+
+                                $("#Cidade").html(options_cidades);
+
+                                $('#Cidade').val(dados.localidade);
+
+                            }).change();
+
+                        });
+
+                    }
+                    else {
+                        $("#CEP").val("");
+                    }
+
+                }).done(function () {
+                });
+
+
+            } else {
+
+            }
+        }
+
+        getCidadeEstado();
+
+        $("#CEP").on("change", function () {
+
+            getCEP();
+
+        });
+    </script>
+
+}

@@ -1,0 +1,105 @@
+<footer class="page__footer">
+    <div class="container">
+        <div class="row cta">
+            <div class="col-md-9">
+                <h2 class="cta__title">
+                    Possui dúvidas sobre nossos produtos?
+                </h2>
+            </div>
+
+            <div class="col-md-3 btn">
+                <a href="{{ url('/contato') }}" class="btn__white2 btn__cta">Entre em contato</a>
+            </div>
+        </div>
+
+        <div class="row footer">
+
+            <div class="col-md-3 col__1">
+                <a href="{{ url()}}">
+                    <img src="{{ url('templates/site/assets/img/logo-arthrom-w.svg')}}" alt="Arthrom"
+                        class="logo__footer">
+                </a>
+                <p class="footer__text"></p>
+                <a href="{{ url('/compliance#denuntiation') }}" class="d-flex central" target="_blank">
+                    <img src="{{ url('templates/site/assets/img/icon-phone.svg')}}" alt="Central de Denúncia"
+                        class="icon__phone">
+                    <p class="central__text">Central de Denúncia</p>
+                </a>
+                <div class="d-flex justify-content-between social__footer">
+                    <a href="{{configs().config_instagram}}" target="_blank">
+                        <img src="{{ url('templates/site/assets/img/icon-insta.svg')}}" alt="Instagram"
+                            class="icon__menu">
+                    </a>
+                    <a href="{{configs().config_facebook}}" target="_blank">
+                        <img src="{{ url('templates/site/assets/img/icon-face1.svg')}}" alt="Facebook"
+                            class="icon__menu">
+                    </a>
+
+                    <a href="{{configs().config_linkedin}}" target="_blank">
+                        <img src="{{ url('templates/site/assets/img/icon-linkedin.svg')}}" alt="Linkedin"
+                            class="icon__menu">
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-3 nav__footer">
+                <h3 class="nav__title">Navegue</h3>
+                <a class="link" href="{{url()}}">Home</a>
+                <a class="link" href="{{ url('/Arthrom')}}">Arthrom</a>
+                <a class="link" href="{{ url('/produtos')}}">Produtos</a>
+                <a class="link" href="{{ url('/compliance')}}">Compliance</a>
+                <a class="link" href="{{ url('/blog')}}">Blog</a>
+                <a class="link" href="https://londrina.arthrom.com/" target="_blank">Portal</a>
+                <a class="link" href="{{ url('/contato')}}">Contato</a>
+            </div>
+
+            <div class="col-md-2 products__footer">
+                <h3 class="nav__title">Produtos</h3>
+
+                {% if categorias %}
+                {% for categoria in categorias %}
+                {% if categoria.tipo_categoria == 'produto' %}
+                <a class="link" href="{{ url('uploads/categoria/arquivo/'~categoria.arquivo)}}"
+                    target="_blank">{{categoria.titulo}}</a>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+                <a class="link" href="{{ url('/produtos') }}">Veja todos</a>
+            </div>
+
+            <div class="col-md-3 contact">
+
+                <h3 class="nav__title">Contato</h3>
+                <a class="link" href="tel:4333273636">(43) 3327-3636</a>
+                <a class="link" href="tel:4333273636">(45) 3099-7889</a>
+                <a class="link" href="mailto:contato@arthrom.com.br">marketing@arthrom.com</a>
+
+                <h3 class="nav__title address">Onde estamos</h3>
+                <a class="link" href="https://goo.gl/maps/NRSPxQJaMojBdcMo8" target="_blank">Londrina - PR</a>
+                <a class="link" href="https://goo.gl/maps/VmFRrSkfseDo4She8">Cascavel - PR</a>
+                <a class="link" href="https://goo.gl/maps/NRSPxQJaMojBdcMo8">Maringá - PR</a>
+            </div>
+
+            <div class="col-md-1">
+                <a href="#header">
+                    <img src="{{ url('templates/site/assets/img/icon-arrow.svg')}}" alt="Voltar para cima"
+                        class="icon__arrow">
+                </a>
+            </div>
+        </div>
+
+        <div class="row copyrights align-items-center">
+
+            <div class="col-md-6 customer">
+                <p class="copyrights__customer">2024 © Todos os direitos reservados - Arthrom Soluções em Ortopedia
+                </p>
+            </div>
+
+            <div class="col-md-6 ldna">
+                <a title="Londrina S/A - Marketing Digital e Criação de Sites" href="https://londrinasa.com.br/" rel="nofollow" class="float-right">
+                    <img src="{{ url('templates/site/assets/img/logo-ldna.svg') }}" alt="Logo LDNA/SA">
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>

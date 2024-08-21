@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+
+
+<body>
+    <section class="breadcrumb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1 class="title">
+                        Blog
+                    </h1>
+                </div>
+                <div class="menu col-md-6 d-flex align-items-center">
+                    <a href="{{ url() }}" class="previous">Home</a>
+                    <img src="{{ url('templates/site/assets/img/arrow-right.svg')}}" class="arrow">
+                    <a href="blog.html">
+                        <p class="current">Blog</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page__blog">
+        <div class="container">
+            <div class="row">
+                {% if categorias %}
+                <div class="col-md-4 menu">
+                    <h2 class="category__title">Categorias</h2>
+                    <a class="category" href="{{url('blog/')}}">
+                        Todas as categorias
+                    </a>
+                    {% for categoria in categorias %}
+                    {% if categoria.tipo_categoria == 'noticia' %}
+                    <a class="category" href="{{url('categoria/'~categoria.slug)}}">
+                        {{categoria.titulo}}
+                    </a>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="alert alert-warning">
+                    Nenhuma categoria cadastrada!
+                </div>
+                {% endif %}
+                {% if posts %}
+                <div class="col-md-8">
+                    {% for post in posts.posts %}
+                    <a href="{{url('post/'~post.categoria.slug~'/'~post.slug)}}" tooltip="tooltip"
+                        title="{{post.titulo}}">
+                        <div class="card__blog d-flex">
+                            <div class="img"
+                                style="width: 265px; overflow: hidden; height: 295px; display: flex; justify-content: center; align-items: center;">
+                                <picture style="height: 100%;">
+                                    <source
+                                        srcset="/plataforma/files/estudos/Liner Persona/Persona Medial Congruent System Overview_97-5026-208-00.1-REV05161-1.png"
+                                        media="(min-width: 768px)">
+                                    <img src="{{url('uploads/imagens/thumbs/'~post.capa)}}" alt="{{post.titulo}}"
+                                        style="height: 100%;">
+                                </picture>
+                            </div>
+                            <div class="card__content">
+                                <span class="tag__date">{{ contarTempo(post.cadastrado_em) }}</span>
+                                <h3 class="title">{{post.titulo}}
+                                </h3>
+                                <div id="text">
+                                    <p>{{resumirTexto(post.texto, 150)}}</p>
+                                </div>
+                                <img src="{{ url('templates/site/assets/img/icon-dots-blue.svg')}}" alt="Leia Mais"
+                                    class="icon__dots">
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+
+</body>
+
+<!-- Mirrored from arthrom.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 04 Apr 2024 00:14:40 GMT -->
+
+</html>
+{% endblock %}

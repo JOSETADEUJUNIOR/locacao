@@ -1,0 +1,59 @@
+﻿@model Data.Models.Representante
+@{
+    ViewBag.Title = "Representante";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="portlet light ">
+    <div class="portlet-title">
+        <div class="caption font-green">
+            <i class="fa fa-list font-green"></i>
+            <span class="caption-subject bold uppercase">Gerenciar @ViewBag.Title</span>
+        </div>
+        <div class="tools"> </div>
+    </div>
+    <div class="portlet-body">
+        <div class="page-content-col">
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.Partial("~/Views/Shared/_AlertasGrid.cshtml")
+                    <div class="portlet  ">
+                        <div class="portlet-body form">
+                            @using (Html.BeginForm("Manager", "Representante", FormMethod.Post, new { @id = "registerForm" }))
+                            {
+                                @Html.HiddenFor(model => model.Representante_ID)
+                                @Html.HiddenFor(model => model.Ativo)
+                                @Html.HiddenFor(model => model.Excluido)
+                                @Html.ValidationSummary(true)
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-body clearfix">
+
+                                    <div class="row">
+
+                                        @Html.Partial("~/Views/Fields/_txtCheck.cshtml", new Plataforma.Models.CheckField("Online (X) - Física ( )", "Habilitado", (Model.Habilitado == true ? true : false), "", 3))
+                                        @Html.Partial("~/Views/Fields/_selectField.cshtml", new Plataforma.Models.SelectField("Estado (Loja Física)", "Estado_ID", Convert.ToString(Model.Estado_ID), "Estado_ID", "required", 4))
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Cidade (Loja Física)", "Nome", Model.Nome, "", 5))
+                                    </div>
+                                    <div class="row">
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Endereço (Loja Física)", "Endereco", Model.Endereco, "", 3))
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Empresa", "Empresa", Model.Empresa, "required", 3))
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Telefone (Loja Física)", "Telefone", Model.Telefone, "", 3))
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Site (Com http://...)", "Site", Model.Site, "", 3))
+                                        @Html.Partial("~/Views/Fields/_txtImageField.cshtml", new Plataforma.Models.UploadField("Imagem (Para Loja Online)", "Imagem", Model.Imagem, "", 12, 2))
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn blue">Salvar</button>
+                                    <a href="@Url.RouteUrl("pessoas.Representantes")" class="btn default">Cancelar</a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

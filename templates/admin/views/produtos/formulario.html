@@ -1,0 +1,236 @@
+{% extends "dashboard.html" %}
+
+{% block conteudo %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{{url('admin/dashboard')}}">
+                Dashboard
+            </a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="{{url('admin/produtos/listar')}}">
+                Produto
+            </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            {% if produto.id %}Atualizar{%else%}Cadastrar{%endif%}
+        </li>
+    </ol>
+</nav>
+
+{{ flash() }}
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
+        {% if produto.id %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mb-3">
+                            <div>
+                                {% if produto.estado_atual == '1' %}
+                                <div class="alert alert-success" role="alert">
+                                 Produto Disponível para locação
+                                </div>
+                                {% elseif produto.estado_atual == '2' %}
+                                <div class="alert alert-warning text-dark" role="alert">
+                                 Produto Locado. Data de devolução prevista para xxxx
+                                </div>
+                                {% elseif produto.estado_atual == '3' %}
+                                <div class="alert alert-danger" role="alert">
+                                 Equipamento em manutenção.
+                                </div>
+                                {% else %}
+                                <span class="badge bg-secondary">Desconhecido</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+        <form class=""
+            action="{% if produto.id %}{{url('admin/produtos/editar/'~produto.id)}}{%else%}{{url('admin/produtos/cadastrar')}}{%endif%}"
+            method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mb-3">
+                        <label for="patrimonio" class="form-label">Patrimônio</label>
+                        <input type="text" name="patrimonio" id="patrimonio" value="{{produto.patrimonio}}"
+                            class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                
+                <div class="col-md-8">
+                    <div class="mb-3">
+                        <label for="titulo" class="form-label">Nome da ferramenta</label>
+                        <input type="text" name="titulo" id="titulo" value="{{produto.titulo}}" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="categoria_id" class="form-label">Categoria</label>
+                        <select class="form-select" name="categoria_id" id="categoria_id">
+                            {% for categoria in categorias %}
+                            <option value="{{categoria.id}}" {% if produto.categoria_id==categoria.id
+                                %}selected{%endif%}>
+                                {{categoria.titulo}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="sub_titulo" class="form-label">SubTitulo</label>
+                        <input type="text" name="sub_titulo" id="sub_titulo" value="{{produto.sub_titulo}}"
+                            class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="mb-3">
+                        <label for="capa" class="form-label">Imagem</label>
+
+                        <input class="form-control" type="file" id="capa" name="capa" accept=".png, .jpg, .jpeg">
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <label for="capa" class="form-label">Visualizar</label>
+                    <div class="text-center">
+                        {% if produto.capa %}
+
+                        <a data-fancybox="gallery" data-caption="{{produto.capa}}" class="overflow zoom"
+                            href="{{url('uploads/produtos/'~produto.capa)}}">
+                            <i class="fa-solid fa-file-image fa-2x" style="color: #d71e09;"></i>
+                        </a>
+
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Novos Campos -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="data_aquisicao" class="form-label">Data de Aquisição</label>
+                        <input type="date" name="data_aquisicao" id="data_aquisicao" value="{{produto.data_aquisicao}}"
+                            class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="numero_serie" class="form-label">Número de Série</label>
+                        <input type="text" name="numero_serie" id="numero_serie" value="{{produto.numero_serie}}"
+                            class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="localizacao" class="form-label">Localização</label>
+                        <input type="text" name="localizacao" id="localizacao" value="{{produto.localizacao}}"
+                            class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="fabricante" class="form-label">Fabricante</label>
+                        <input type="text" name="fabricante" id="fabricante" value="{{produto.fabricante}}"
+                            class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="modelo" class="form-label">Modelo</label>
+                        <input type="text" name="modelo" id="modelo" value="{{produto.modelo}}" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+               
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="valor_aquisicao" class="form-label">Valor de Aquisição</label>
+                        <input type="text" name="valor_aquisicao" id="valor_aquisicao"
+                            value="{{produto.valor_aquisicao}}" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="data_ultima_manutencao" class="form-label">Data da Última Manutenção</label>
+                        <input type="date" name="data_ultima_manutencao" id="data_ultima_manutencao"
+                            value="{{produto.data_ultima_manutencao}}" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="proxima_manutencao" class="form-label">Próxima Manutenção Prevista</label>
+                        <input type="date" name="proxima_manutencao" id="proxima_manutencao"
+                            value="{{produto.proxima_manutencao}}" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <!-- Fim dos Novos Campos -->
+
+            <div class="mb-3">
+                <label for="texto" class="form-label">Descrição</label>
+                <textarea name="texto" class="form-control ckeditor" rows="3">{{produto.texto}}</textarea>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mb-3">
+                        <label for="fotos" class="form-label">Fotos da Galeria</label>
+                        <input class="form-control" type="file" id="fotos" name="fotos[]"
+                            accept=".png, .jpg, .jpeg, .pdf, .webp" multiple>
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    {% if fotos %}
+                    {% for imagem in fotos %}
+
+                    <div class="gallery">
+                        <div style="background-color: red;">
+                            <input type="checkbox" name="remover_fotos[]" value="{{ imagem.id }}">deletar a foto
+                            <!-- Checkbox para selecionar a foto para remoção -->
+
+                        </div>
+                        <a data-fancybox="gallery" data-caption="{{imagem.foto}}" class="overflow zoom "
+                            href="{{url('uploads/produtos/'~imagem.foto)}}">
+                            <img src="{{url('uploads/produtos/thumbs/'~imagem.foto)}}" alt="galeria">
+                        </a>
+                    </div>
+
+                    {%endfor%}
+                    {% else %}
+                    <img src="{{url('templates/admin/assets/img/semcapa.png')}}" class="capa" />
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Status</label>
+                        <select class="form-select" name="status">
+                            <option value="1" {% if produto.status=='1' %}selected{%endif%}>Ativo</option>
+                            <option value="0" {% if produto.status=='0' %}selected{%endif%}>Inativo</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-grid">
+                <input type="submit" class="btn btn-dark"
+                    value="{% if produto.id %}Atualizar{%else%}Cadastrar{%endif%}">
+            </div>
+
+        </form>
+    </div>
+</div>
+</div>
+{% endblock %}

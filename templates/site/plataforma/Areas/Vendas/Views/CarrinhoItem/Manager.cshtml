@@ -1,0 +1,64 @@
+﻿@model Data.Models.CarrinhoItem
+@{
+    ViewBag.Title = "CarrinhoItem";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="portlet light ">
+    <div class="portlet-title">
+        <div class="caption font-green">
+            <i class="fa fa-list font-green"></i>
+            <span class="caption-subject bold uppercase">Gerenciar @ViewBag.Title</span>
+        </div>
+        <div class="tools"> </div>
+    </div>
+    <div class="portlet-body">
+        <div class="page-content-col">
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.Partial("~/Views/Shared/_AlertasGrid.cshtml")
+                    <div class="portlet  ">
+                        <div class="portlet-body form">
+                            @using (Html.BeginForm("Manager", "CarrinhoItem", FormMethod.Post, new { @id = "registerForm" }))
+                            {
+                                @Html.HiddenFor(model => model.CarrinhoItem_ID)
+                                @Html.ValidationSummary(true)
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-body clearfix">
+
+                                    <div class="row">
+                                        @*@Html.Partial("~/Views/Fields/_selectField.cshtml", new Plataforma.Models.SelectField("Categoria", "Categoria_ID", "", "Categoria_ID", "required", 12))
+                                        @if (Tiles.Idioma == "true")
+                                        {
+                                            /*Valida se o Idioma esta ativo no painel admin*/
+                                            @Html.Partial("~/Views/Fields/_selectField2.cshtml", new Plataforma.Models.SelectField("Idioma", "Idioma_ID", "", "Idioma_ID", "required", 12))
+                                        }*@
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("SKU", "SKU", Model.SKU, "required", 12))
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Preço", "Preco", (Model.Preco != null ? Model.Preco.Value.ToString() : ""), "required", 12))
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Preço Real", "PrecoReal", (Model.PrecoReal != null ? Model.PrecoReal.Value.ToString() : ""), "required", 12))     
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Quantidade", "Quantidade", (Model.Quantidade != null ? Model.Quantidade.Value.ToString() : ""), "required", 12))      
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Quantidade de Carrinho", "QuantidadeCarrinho", (Model.QuantidadeCarrinho != null ? Model.QuantidadeCarrinho.Value.ToString() : ""), "required", 12))     
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Preço total do Carrinho", "PrecoTotalCarrinho", (Model.PrecoTotalCarrinho != null ? Model.PrecoTotalCarrinho.Value.ToString() : ""), "required", 12)) 
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Item Id", "ItemId", (Model.ItemId != null ? Model.ItemId.Value.ToString() : ""), "required", 12))
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Imagem", "Imagem", Model.Imagem, "required", 12))
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Nome", "Nome", Model.Nome, "required", 12))
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("URL", "Url", Model.Url, "required", 12))
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Valor de Custo", "ValorCusto", (Model.ValorCusto != null ? Model.ValorCusto.Value.ToString() : ""), "required", 12))
+
+
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn blue">Salvar</button>
+                                    <a href="@Url.RouteUrl("vendas.carrinhoItems")" class="btn default">Cancelar</a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

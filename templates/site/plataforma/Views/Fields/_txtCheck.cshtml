@@ -1,0 +1,9 @@
+﻿@model Plataforma.Models.CheckField
+
+<div class="form-group col-md-@Model.Col col-xs-12 ">
+    <label>
+        @Model.Label
+    </label>
+    @Html.CheckBox(Model.Name, Model.Value, new { @class="form-control"  })
+    @*<input id="@Model.Name" name="@Model.Name" type="checkbox" value="@(Model.Value == true ? "true": "false")" class="form-control" @(Model.Value == true ? "checked": "") />*@
+</div>

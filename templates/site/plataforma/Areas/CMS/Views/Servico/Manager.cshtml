@@ -1,0 +1,60 @@
+﻿@model Data.Models.Servico
+@{
+    ViewBag.Title = "Serviço";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="portlet light ">
+    <div class="portlet-title">
+        <div class="caption font-green">
+            <i class="fa fa-list font-green"></i>
+            <span class="caption-subject bold uppercase">Gerenciar @ViewBag.Title</span>
+        </div>
+        <div class="tools"> </div>
+    </div>
+    <div class="portlet-body">
+        <div class="page-content-col">
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.Partial("~/Views/Shared/_AlertasGrid.cshtml")
+                    <div class="portlet  ">
+                        <div class="portlet-body form">
+                            @using (Html.BeginForm("Manager", "Servico", FormMethod.Post, new { @id = "registerForm" }))
+                            {
+                                @Html.HiddenFor(model => model.Servico_ID)
+                                @Html.HiddenFor(model => model.Url)
+                                @Html.HiddenFor(model => model.Habilitado)
+                                @Html.HiddenFor(model => model.Excluido)
+                                @Html.ValidationSummary(true)
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-body clearfix">
+
+                                    <div class="row">
+                                        @if (Tiles.Idioma == "true")
+                                        {
+                                            /*Valida se o Idioma esta ativo no painel admin*/
+                                            @Html.Partial("~/Views/Fields/_selectField.cshtml", new Plataforma.Models.SelectField("Idioma", "Idioma_ID", Model.Idioma_ID.ToString(), "Idioma_ID", "required", 4))
+                                        }
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Nome", "Nome", Model.Nome, "required", 10))
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Ordem", "Extra1", Model.Extra1, "required", 2))
+                                        @Html.Partial("~/Views/Fields/_txtImageField.cshtml", new Plataforma.Models.UploadField("Icone 1", "Imagem", Model.Imagem, "required", 4, 1))
+                                        @Html.Partial("~/Views/Fields/_txtImageField.cshtml", new Plataforma.Models.UploadField("Icone 2", "Extra5", Model.Extra5, "required", 4, 2))
+                                        @Html.Partial("~/Views/Fields/_txtImageField.cshtml", new Plataforma.Models.UploadField("Imagem de Capa", "Extra4", Model.Extra4, "required", 4, 3))
+                                        @Html.Partial("~/Views/Fields/_txtArea.cshtml", new Plataforma.Models.TextField("Descrição", "Descricao", Model.Descricao, "required", 12))
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn blue">Salvar</button>
+                                    <a href="@Url.RouteUrl("cms.servicos")" class="btn default">Cancelar</a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

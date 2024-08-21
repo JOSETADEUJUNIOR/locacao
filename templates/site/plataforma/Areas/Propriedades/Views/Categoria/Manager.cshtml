@@ -1,0 +1,57 @@
+﻿@model Data.Models.Categoria
+@{
+    ViewBag.Title = "Categoria";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="portlet light ">
+    <div class="portlet-title">
+        <div class="caption font-green">
+            <i class="fa fa-list font-green"></i>
+            <span class="caption-subject bold uppercase">Gerenciar @ViewBag.Title</span>
+        </div>
+        <div class="tools"> </div>
+    </div>
+    <div class="portlet-body">
+        <div class="page-content-col">
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.Partial("~/Views/Shared/_AlertasGrid.cshtml")
+                    <div class="portlet  ">
+                        <div class="portlet-body form">
+                            @using (Html.BeginForm("Manager", "Categoria", FormMethod.Post, new { @id = "registerForm" }))
+                            {
+                                @Html.HiddenFor(model => model.Categoria_ID)
+                                @Html.HiddenFor(model => model.Url)
+                                @Html.HiddenFor(model => model.Excluido)
+                                @Html.ValidationSummary(true)
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-body clearfix">
+
+                                    <div class="row">
+                                        @if (Tiles.Idioma == "true")
+                                        {
+                                            /*Valida se o Idioma esta ativo no painel admin*/
+                                            @Html.Partial("~/Views/Fields/_selectField2.cshtml", new Plataforma.Models.SelectField("Idioma", "Idioma_ID", Model.Idioma_ID.ToString(), "Idioma_ID", "required", 6))
+                                        }
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Nome", "Nome", Model.Nome, "required", 8))
+                                        @Html.Partial("~/Views/Fields/_selectField.cshtml", new Plataforma.Models.SelectField("Tipo da Categoria", "TipoCategoria_ID", Model.TipoCategoria_ID.ToString(), "TipoCategoria_ID", "required", 4))
+                                        @Html.Partial("~/Views/Fields/_txtImageField.cshtml", new Plataforma.Models.UploadField("Imagem da Categoria", "Imagem", Model.Imagem, "", 12, 1))
+                                        @Html.Partial("~/Views/Fields/_txtFileField.cshtml", new Plataforma.Models.UploadField("Arquivo", "Extra1", Model.Extra1, "", 12, 2))
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn blue">Salvar</button>
+                                    <a href="@Url.RouteUrl("propriedades.categorias")" class="btn default">Cancelar</a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

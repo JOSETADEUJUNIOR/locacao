@@ -1,0 +1,196 @@
+{% extends "dashboard.html" %}
+
+{% block conteudo %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{{url('admin/dashboard')}}">
+                Home
+            </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            Equipamentos
+        </li>
+    </ol>
+</nav>
+{{flash()}}
+
+<div class="p-3 border-0 card shadow-sm">
+
+    <!-- Abas -->
+    <ul class="nav nav-tabs" id="equipamentoTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="dadosEquipamento-tab" data-bs-toggle="tab" href="#dadosEquipamento" role="tab"
+                aria-controls="dadosEquipamento" aria-selected="true">Dados do Equipamento</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="fotosImagens-tab" data-bs-toggle="tab" href="#fotosImagens" role="tab"
+                aria-controls="fotosImagens" aria-selected="false">Fotos e Imagens</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="manutencoes-tab" data-bs-toggle="tab" href="#manutencoes" role="tab"
+                aria-controls="manutencoes" aria-selected="false">Manutenções</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="logsLocacoes-tab" data-bs-toggle="tab" href="#logsLocacoes" role="tab"
+                aria-controls="logsLocacoes" aria-selected="false">Logs de Locações</a>
+        </li>
+    </ul>
+
+    <!-- Conteúdo das Abas -->
+    <form class="formularioAjax"
+        action="{% if equipamento.id %}{{url('admin/equipamentos/editar/'~equipamento.id)}}{%else%}{{url('admin/equipamentos/cadastrar')}}{%endif%}"
+        method="post">
+        <div class="tab-content" id="equipamentoTabsContent">
+            <!-- Aba Dados do Equipamento -->
+            <div class="tab-pane fade show active" id="dadosEquipamento" role="tabpanel" aria-labelledby="dadosEquipamento-tab">
+                <div class="row">
+                    <div class="mt-3 mb-1 col-sm-5">
+                        <label for="nome" class="form-label">Nome da Ferramenta</label>
+                        <input type="text" name="nome" id="nome" value="{{equipamento.nome}}" class="form-control obg">
+                    </div>
+                    <div class="mt-3 mb-1 col-sm-7">
+                        <label for="descricao" class="form-label">Descrição</label>
+                        <input type="text" name="descricao" id="descricao" value="{{equipamento.descricao}}" class="form-control">
+                    </div>
+                    <div class="mt-3 mb-1 col-sm-3">
+                        <label for="dataAquisicao" class="form-label">Data de Aquisição</label>
+                        <input type="date" name="dataAquisicao" id="dataAquisicao" value="{{equipamento.dataAquisicao}}" class="form-control">
+                    </div>
+                    <div class="mt-3 mb-1 col-sm-3">
+                        <label for="numeroSerie" class="form-label">Número de Série</label>
+                        <input type="text" name="numeroSerie" id="numeroSerie" value="{{equipamento.numeroSerie}}" class="form-control">
+                    </div>
+                    <div class="mt-3 mb-1 col-sm-3">
+                        <label for="estadoAtual" class="form-label">Estado Atual</label>
+                        <select class="form-select" name="estadoAtual" id="estadoAtual">
+                            <option value="Disponível" {% if equipamento.estadoAtual == 'Disponível' %}selected{%endif%}>Disponível</option>
+                            <option value="Em locação" {% if equipamento.estadoAtual == 'Em locação' %}selected{%endif%}>Em locação</option>
+                            <option value="Em manutenção" {% if equipamento.estadoAtual == 'Em manutenção' %}selected{%endif%}>Em manutenção</option>
+                        </select>
+                    </div>
+                    <div class="mt-3 mb-1 col-sm-3">
+                        <label for="localizacao" class="form-label">Localização</label>
+                        <input type="text" name="localizacao" id="localizacao" value="{{equipamento.localizacao}}" class="form-control">
+                    </div>
+                    <div class="mt-3 mb-1 col-sm-4">
+                        <label for="fabricante" class="form-label">Fabricante</label>
+                        <input type="text" name="fabricante" id="fabricante" value="{{equipamento.fabricante}}" class="form-control">
+                    </div>
+                    <div class="mt-3 mb-1 col-sm-4">
+                        <label for="modelo" class="form-label">Modelo</label>
+                        <input type="text" name="modelo" id="modelo" value="{{equipamento.modelo}}" class="form-control">
+                    </div>
+                    <div class="mt-3 mb-1 col-sm-4">
+                        <label for="valorAquisicao" class="form-label">Valor de Aquisição</label>
+                        <input type="text" name="valorAquisicao" id="valorAquisicao" value="{{equipamento.valorAquisicao}}" class="form-control">
+                    </div>
+                    <div class="mt-3 mb-1 col-sm-4">
+                        <label for="dataUltimaManutencao" class="form-label">Data da Última Manutenção</label>
+                        <input type="date" name="dataUltimaManutencao" id="dataUltimaManutencao" value="{{equipamento.dataUltimaManutencao}}" class="form-control">
+                    </div>
+                    <div class="mt-3 mb-1 col-sm-4">
+                        <label for="proximaManutencao" class="form-label">Próxima Manutenção Prevista</label>
+                        <input type="date" name="proximaManutencao" id="proximaManutencao" value="{{equipamento.proximaManutencao}}" class="form-control">
+                    </div>
+                    <div class="mt-3 mb-1 col-sm-12">
+                        <label for="observacoes" class="form-label">Observações</label>
+                        <textarea name="observacoes" id="observacoes" class="form-control" rows="3">{{equipamento.observacoes}}</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aba Fotos e Imagens -->
+            <div class="tab-pane fade" id="fotosImagens" role="tabpanel" aria-labelledby="fotosImagens-tab">
+                <div class="row">
+                    <div class="mt-3 mb-1 col-sm-12">
+                        <label for="fotoPrincipal" class="form-label">Foto Principal da Ferramenta</label>
+                        <input type="file" name="fotoPrincipal" id="fotoPrincipal" class="form-control">
+                    </div>
+                    <div class="mt-3 mb-1 col-sm-12">
+                        <label for="fotoAdicional1" class="form-label">Foto Adicional 1</label>
+                        <input type="file" name="fotoAdicional1" id="fotoAdicional1" class="form-control">
+                    </div>
+                    <div class="mt-3 mb-1 col-sm-12">
+                        <label for="fotoAdicional2" class="form-label">Foto Adicional 2</label>
+                        <input type="file" name="fotoAdicional2" id="fotoAdicional2" class="form-control">
+                    </div>
+                    <div class="mt-3 mb-1 col-sm-12">
+                        <label for="fotoAdicional3" class="form-label">Foto Adicional 3</label>
+                        <input type="file" name="fotoAdicional3" id="fotoAdicional3" class="form-control">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aba Manutenções -->
+            <div class="tab-pane fade" id="manutencoes" role="tabpanel" aria-labelledby="manutencoes-tab">
+                <div class="row">
+                    <div class="mt-3 mb-1 col-sm-3">
+                        <label for="dataManutencao" class="form-label">Data da Manutenção</label>
+                        <input type="date" name="dataManutencao" id="dataManutencao" class="form-control">
+                    </div>
+                    <div class="mt-3 mb-1 col-sm-9">
+                        <label for="descricaoProblema" class="form-label">Descrição do Problema</label>
+                        <input type="text" name="descricaoProblema" id="descricaoProblema" class="form-control">
+                    </div>
+                    <div class="mt-3 mb-1 col-sm-9">
+                        <label for="solucaoAplicada" class="form-label">Solução Aplicada</label>
+                        <input type="text" name="solucaoAplicada" id="solucaoAplicada" class="form-control">
+                    </div>
+                    <div class="mt-3 mb-1 col-sm-3">
+                        <label for="responsavelManutencao" class="form-label">Responsável pela Manutenção</label>
+                        <input type="text" name="responsavelManutencao" id="responsavelManutencao" class="form-control">
+                    </div>
+                    <div class="mt-3 mb-1 col-sm-3">
+                        <label for="custoManutencao" class="form-label">Custo da Manutenção</label>
+                        <input type="text" name="custoManutencao" id="custoManutencao" class="form-control">
+                    </div>
+                    <div class="mt-3 mb-1 col-sm-3">
+                        <label for="statusManutencao" class="form-label">Status da Manutenção</label>
+                        <select class="form-select" name="statusManutencao" id="statusManutencao">
+                            <option value="Pendente" {% if equipamento.statusManutencao == 'Pendente' %}selected{%endif%}>Pendente</option>
+                            <option value="Concluída" {% if equipamento.statusManutencao == 'Concluída' %}selected{%endif%}>Concluída</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="d-grid mt-3">
+                    <input type="button" class="btn btn-dark" value="Adicionar Nova Manutenção">
+                </div>
+            </div>
+
+            <!-- Aba Logs de Locações -->
+            <div class="tab-pane fade" id="logsLocacoes" role="tabpanel" aria-labelledby="logsLocacoes-tab">
+                <div class="row">
+                    <div class="mt-3 mb-1 col-sm-3">
+                        <label for="dataRetirada" class="form-label">Data de Retirada</label>
+                        <input type="date" name="dataRetirada" id="dataRetirada" class="form-control">
+                    </div>
+                    <div class="mt-3 mb-1 col-sm-9">
+                        <label for="responsavelRetirada" class="form-label">Responsável pela Retirada</label>
+                        <input type="text" name="responsavelRetirada" id="responsavelRetirada" class="form-control">
+                    </div>
+                    <div class="mt-3 mb-1 col-sm-3">
+                        <label for="dataPrevistaDevolucao" class="form-label">Data Prevista de Devolução</label>
+                        <input type="date" name="dataPrevistaDevolucao" id="dataPrevistaDevolucao" class="form-control">
+                    </div>
+                    <div class="mt-3 mb-1 col-sm-3">
+                        <label for="dataRealDevolucao" class="form-label">Data Real de Devolução</label>
+                        <input type="date" name="dataRealDevolucao" id="dataRealDevolucao" class="form-control">
+                    </div>
+                    <div class="mt-3 mb-1 col-sm-3">
+                        <label for="estadoDevolucao" class="form-label">Estado na Devolução</label>
+                        <input type="text" name="estadoDevolucao" id="estadoDevolucao" class="form-control">
+                    </div>
+                    <div class="mt-3 mb-1 col-sm-12">
+                        <label for="observacoesLog" class="form-label">Observações</label>
+                        <textarea name="observacoesLog" id="observacoesLog" class="form-control" rows="3">{{equipamento.observacoesLog}}</textarea>
+                    </div>
+                </div>
+                <div class="d-grid mt-3">
+                    <input type="button" class="btn btn-dark" value="Adicionar Novo Log">
+                </div>
+            </div>
+        </div>
+</div>
+</form>
+{% endblock %}

@@ -1,0 +1,234 @@
+{% extends "dashboard.html" %}
+
+{% block conteudo %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{{url('admin/dashboard')}}">
+                Dashboard
+            </a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="{{url('admin/produtos/listar')}}">
+                Produto
+            </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+           Duplicar produto
+        </li>
+    </ol>
+</nav>
+
+{{ flash() }}
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
+        <form
+            action="{{url('admin/produtos/cadastrar')}}"
+            method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="mb-3">
+                        <label for="titulo" class="form-label">Produto</label>
+                        <input type="text" name="titulo" id="titulo" value="{{produto.titulo}}" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="categoria_id" class="form-label">Categoria</label>
+                        <select class="form-select" name="categoria_id" id="categoria_id">
+                            {% for categoria in categorias %}
+                            <option value="{{categoria.id}}" {% if produto.categoria_id==categoria.id %}selected{%endif%}>
+                                {{categoria.titulo}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="mb-3">
+                        <label for="forma_convenio" class="form-label">Formas de pedir ao convênio</label>
+                        <input type="text" name="forma_convenio" id="forma_convenio" value="{{produto.forma_convenio}}" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="mb-3">
+                        <label for="ordenacao" class="form-label">Ordem</label>
+                        <input type="text" name="ordenacao" id="ordenacao" value="{{produto.ordenacao}}" class="form-control">
+                    </div>
+                </div>
+            </div>
+            
+           
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="sub_titulo" class="form-label">SubTitulo</label>
+                        <input type="text" name="sub_titulo" id="sub_titulo" value="{{produto.sub_titulo}}" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="mb-3">
+                        <label for="capa" class="form-label">Imagem</label>
+                       
+                        <input class="form-control" type="file" id="capa" name="capa" accept=".png, .jpg, .jpeg">
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <label for="capa" class="form-label">Visualizar</label>
+                    <div class="text-center">
+                        {% if produto.capa %}
+
+                        <a data-fancybox="gallery" data-caption="{{produto.capa}}" class="overflow zoom"
+                            href="{{url('uploads/produtos/'~produto.capa)}}">
+                            <i class="fa-solid fa-file-image fa-2x" style="color: #d71e09;"></i>
+                        </a>
+
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="indicacoes" class="form-label">Indicações</label>
+                <textarea name="indicacoes" class="form-control ckeditor" rows="3">{{produto.indicacoes}}</textarea>
+            </div>
+            <div class="mb-3">
+                <label for="texto" class="form-label">Descrição</label>
+                <textarea name="texto" class="form-control ckeditor" rows="3">{{produto.texto}}</textarea>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="texto_botao_1" class="form-label">Texto botão 1</label>
+                        <input type="text" name="texto_botao_1" id="texto_botao_1" value="{{produto.texto_botao_1}}" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="mb-3">
+                        <label for="capa_botao_1" class="form-label">Arquivo</label>
+                        <input class="form-control" type="file" id="capa_botao_1" name="capa_botao_1" accept=".png, .jpg, .jpeg">
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <label for="capa" class="form-label">Visualizar</label>
+                    <div class="text-center">
+                        {% if produto.capa_botao_1 %}
+
+                        <a data-fancybox="gallery" data-caption="{{produto.capa_botao_1}}" class="overflow zoom"
+                            href="{{url('uploads/capa_botao_1/'~produto.capa_botao_1)}}">
+                            <i class="fa-solid fa-file-image fa-2x" style="color: #d71e09;"></i>
+                        </a>
+
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="texto_botao_2" class="form-label">Texto botão 2</label>
+                        <input type="text" name="texto_botao_2" id="texto_botao_2" value="{{produto.texto_botao_2}}" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="mb-3">
+                        <label for="capa_botao_2" class="form-label">Arquivo</label>
+                        <input class="form-control" type="file" id="capa_botao_2" name="capa_botao_2" accept=".png, .jpg, .jpeg">
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <label for="capa" class="form-label">Visualizar</label>
+                    <div class="text-center">
+                        {% if produto.capa_botao_2 %}
+
+                        <a data-fancybox="gallery" data-caption="{{produto.capa_botao_2}}" class="overflow zoom"
+                            href="{{url('uploads/capa_botao_2/'~produto.capa_botao_2)}}">
+                            <i class="fa-solid fa-file-image fa-2x" style="color: #d71e09;"></i>
+                        </a>
+
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="texto_botao_3" class="form-label">Texto botão 3</label>
+                        <input type="text" name="texto_botao_3" id="texto_botao_3" value="{{produto.texto_botao_3}}" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="mb-3">
+                        <label for="capa_botao_3" class="form-label">Arquivo</label>
+                        <input class="form-control" type="file" id="capa_botao_3" name="capa_botao_3" accept=".png, .jpg, .jpeg">
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <label for="capa" class="form-label">Visualizar</label>
+                    <div class="text-center">
+                        {% if produto.capa_botao_3 %}
+
+                        <a data-fancybox="gallery" data-caption="{{produto.capa_botao_3}}" class="overflow zoom"
+                            href="{{url('uploads/capa_botao_3/'~produto.capa_botao_3)}}">
+                            <i class="fa-solid fa-file-image fa-2x" style="color: #d71e09;"></i>
+                        </a>
+
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mb-3">
+                        <label for="fotos" class="form-label">Fotos da Galeria</label>
+                        <input class="form-control" type="file" id="fotos" name="fotos[]" accept=".png, .jpg, .jpeg, .pdf"
+                            multiple>
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    {% if fotos %}
+                    {% for imagem in fotos %}
+                
+                    <div class="gallery">
+                        <div style="background-color: red;">
+                            <input type="checkbox" name="remover_fotos[]" value="{{ imagem.id }}">deletar a foto <!-- Checkbox para selecionar a foto para remoção -->
+
+                        </div>
+                        <a data-fancybox="gallery" data-caption="{{imagem.foto}}" class="overflow zoom " href="{{url('uploads/produtos/'~imagem.foto)}}">
+                          <img src="{{url('uploads/produtos/thumbs/'~imagem.foto)}}" alt="galeria">
+                        </a>
+                    </div>
+
+                    {%endfor%}
+                    {% else %}
+                    <img src="{{url('templates/admin/assets/img/semcapa.png')}}" class="capa" />
+                    {% endif %}  
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Status</label>
+                        <select class="form-select" name="status">
+                            <option value="1" {% if produto.status=='1' %}selected{%endif%}>Ativo</option>
+                            <option value="0" {% if produto.status=='0' %}selected{%endif%}>Inativo</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-grid">
+                <input type="submit" class="btn btn-dark" value="Cadastrar">
+            </div>
+
+        </form>
+    </div>
+</div>
+</div>
+{% endblock %}

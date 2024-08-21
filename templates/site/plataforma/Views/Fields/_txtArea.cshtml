@@ -1,0 +1,14 @@
+﻿@model Plataforma.Models.TextField
+
+<div class="form-group col-md-@Model.Col col-xs-12 ">
+    <label>@Model.Label
+    @if (!String.IsNullOrEmpty(Model.Required))
+    {
+        <span class="required" aria-required="true"> * </span>
+    }
+    </label>
+    <textarea id="@Model.Name" name="@Model.Name" class="form-control ckeditor" data-error-container="#editor2_error" rows="3" placeholder="Informe um texto descritivo">
+        @Model.Value
+    </textarea>
+    <div id="editor2_error"> </div>
+</div>

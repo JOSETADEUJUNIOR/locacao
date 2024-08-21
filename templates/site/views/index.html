@@ -1,0 +1,207 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+
+
+<body>
+    {% if banners %}
+    <section class="page__banner">
+        <div class="owl-carousel owl-theme banner__carousel">
+            {% for banner in banners %}
+            <div class="item">
+                <a href="#">
+                    <picture>
+                        <source srcset="{{ url('uploads/banner/'~banner.imagem)}}" media="(min-width: 768px)">
+                        <img src="{{ url('uploads/banner/thumbs/'~banner.imagem)}}" alt="{{banner.titulo}}">
+                    </picture>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        
+        
+    </section>
+    {% endif %}
+
+    <section class="page__products">
+        <div class="container">
+            <div class="row is--desktop mt-4 pt-5 pb-3">
+                <div class="col-md-3 d-flex flex-column justify-content-center">
+                    <img src="{{ url('templates/site/assets/img/line.webp')}}" class="title__line">
+                    <h2 class="products__title">
+                        Nossas <span class="mark__blue">categorias</span><br>
+                        de produtos
+                    </h2>
+                </div>
+                {% if categorias %}
+                {% for categoria in categorias %}
+                {% if categoria.tipo_categoria == 'produto' %}
+                <div class="col-md-3">
+                    <a href="{{ url('uploads/categoria/arquivo/'~categoria.arquivo)}}" class="product__category" target="_blank">
+                        <img src="{{ url('uploads/categoria/'~categoria.imagem)}}" class="photo__product" alt="Produto">
+
+                        <div class="product__overlay">
+                            <h3 class="product__name">{{categoria.titulo}}</h3>
+                            <img src="{{ url('templates/site/assets/img/icon-dots.svg')}}" class="icon__dots" alt="Veja Mais">
+                        </div>
+                    </a>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+                
+            </div>
+
+            <div class="row is--mobile py-5">
+
+                <div class="col-md-12 p-4">
+                    <img src="{{ url('templates/site/assets/img/line.webp')}}" class="title__line">
+                    <h2 class="products__title">
+                        Nossas<br>
+                        <span class="mark__blue">categorias</span><br>
+                        de produtos
+                    </h2>
+                </div>
+                <div class="owl-carousel owl-theme products__mobile">
+
+                    {% if categorias %}
+                    {% for categoria in categorias %}
+                    <div class="item">
+                        <a href="{{ url('uploads/categoria/arquivo/'~categoria.arquivo)}}" class="product__category">
+                            <img src="{{ url('uploads/categoria/'~categoria.imagem)}}" class="photo__product" alt="Produto">
+                            <h3 class="product__name text-center">Infantil</h3>
+                        </a>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </section>
+
+    <section class="page__numbers my-5">
+        <div class="container">
+            <div class="row numbers">
+
+                <div class="col-md-4">
+                    <p class="number">+180 Produtos</p>
+                    <p class="info">Disponíveis</p>
+                </div>
+
+                <div class="col-md-4">
+                    <p class="number">+25 Cidades</p>
+                    <p class="info">Atendidos</p>
+                </div>
+
+                <div class="col-md-4">
+                    <p class="number">+22 anos de</p>
+                    <p class="info">Experiência</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="page__about my-5">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-6 d-flex align-items-center">
+                    <img src="{{ url('templates/site/assets/img/quemsomos.png')}}" class="img-fluid photo__about" alt="Sobre a Arthrom">
+                </div>
+
+                <div class="col-md-6">
+                    <div class="about__content">
+                        <img src="{{ url('templates/site/assets/img/line.webp')}}" class="title__line">
+                        <h2 class="about__title">Somos uma empresa nacional de <span class="mark__blue">dispositivos
+                                médicos</span></h2>
+
+                        <a href="{{ url('/Arthrom')}}" class="btn__blue btn__about">Saiba mais</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="page__news mt-5">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-3 d-flex flex-column justify-content-end">
+                    <img src="{{ url('templates/site/assets/img/line-white.webp')}}" class="line">
+                    <h2 class="news__title">Fique por dentro das últimas novidades</h2>
+                    <a href="{{ url('/blog') }}" class="btn__white btn__news desk">Veja mais</a>
+                </div>
+
+                <div class="col-md-9 is--desktop">
+                    {% if posts %}
+                    <div class="row">
+                        {% for post in posts.posts %}
+                        <div class="col-md-4">
+                            <a
+                                href="{{url('post/'~post.categoria.slug~'/'~post.slug)}}" tooltip="tooltip"
+                                title="{{post.titulo}}">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="cover"
+                                            style="overflow: hidden; display: flex; justify-content: center; align-items: center;">
+                                            <img src="{{url('uploads/imagens/'~post.capa)}}" alt="{{post.titulo}}" class="card-img-top" style="height:auto;">
+                                        </div>
+
+                                        <span class="tag__date">{{ contarTempo(post.cadastrado_em) }}</span>
+                                        <h3 class="title">{{resumirTexto(post.titulo,60)}}</h3>
+                                    </div>
+                                    <img src="{{ url('templates/site/assets/img/icon-dots-blue.svg')}}" alt="Leia Mais"
+                                        class="icon__dots card-img-bottom">
+                                </div>
+                            </a>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                        
+                        
+                    </div>
+                </div>
+
+                <div class="col-md-9 is--mobile">
+                    <div class="row">
+                        <div class="col px-0 d-flex flex-column align-items-center">
+                            <div class="owl-carousel owl-theme news__mobile">
+                                {% if posts %}
+                                {% for post in posts.posts %}
+                                <div class="item">
+                                    <a href="{{ url('post/' ~ post.categoria.slug ~ '/' ~ post.slug) }}">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="cover" style="overflow: hidden; display: flex; justify-content: center; align-items: center; height: 230px;">
+                                                    <img src="{{ url('uploads/imagens/thumbs/' ~ post.capa) }}" alt="{{ post.titulo }}" class="card-img-top" style="height:auto;">
+                                                </div>
+                                                <span class="tag__date">{{ contarTempo(post.cadastrado_em) }}</span>
+                                                <h3 class="title">{{ resumirTexto(post.titulo, 60) }}</h3>
+                                            </div>
+                                            <img src="{{ url('templates/site/assets/img/icon-dots-blue.svg') }}" alt="Leia Mais" class="icon__dots">
+                                        </div>
+                                    </a>
+                                </div>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                            <a href="{{ url('/blog') }}" class="btn__white btn__news mobile mx-3">Veja mais</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</body>
+
+<!-- Mirrored from arthrom.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 04 Apr 2024 00:14:40 GMT -->
+
+</html>
+{% endblock %}

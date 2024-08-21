@@ -1,0 +1,287 @@
+// out: false
+
+@import "../base/_pallete.less";
+
+.page__blog {
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+    .menu {
+        margin-bottom: 30px;
+        text-align: center;
+
+        .category__title {
+            font: 300 20px @raleway;
+            color: @marineBlue;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 21px;
+        }
+
+        .category {
+            font: 400 16px @raleway;
+            color: @marineBlue;
+            margin-bottom: 18px;
+
+            &.active {
+                font-weight: 800;
+                text-decoration: underline;
+            }
+        }
+
+        a {
+            padding-top: 5px;
+            padding-bottom: 5px;
+            font: 400 16px @raleway;
+            color: rgb(0, 20, 56);
+            margin-bottom: 5px;
+            border-radius: 4px;
+
+            &.active {
+                font-weight: 700;
+                text-decoration: underline;
+                text-underline-offset: 4px;
+            }
+
+            .--transition();
+
+            &:hover {
+                background-color: rgba(81, 206, 225, .25);
+                padding-left: 10px;
+            }
+        }
+
+        @media screen and (min-width: 768px) {
+            margin-bottom: 0;
+            text-align: left;
+        }
+    }
+
+    .card__blog {
+        padding: 5px;
+        box-shadow: 0 0 36px rgba(0, 0, 0, 0.06);
+        border-radius: 5px;
+        background-color: white;
+        margin-bottom: 30px;
+        flex-direction: column;
+
+        picture {
+            width: 100%;
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .card__content {
+            padding: 30px 10px;
+            max-width: 455px;
+
+            .tag__date {
+                padding: 5px 20px;
+                background-color: @skyBlue;
+                border-radius: 5px;
+                font: 700 16px @raleway;
+                color: white;
+                text-align: center;
+            }
+
+            .title {
+                font: 800 22px @raleway;
+                color: @marineBlue;
+                line-height: 30px;
+                margin-bottom: 9px;
+                margin-top: 20px;
+            }
+
+            .text {
+                font: 400 14px @raleway;
+                color: rgb(57, 60, 64);
+                line-height: 25px;
+                margin-bottom: 16px;
+            }
+
+            .icon__dots {
+                width: fit-content;
+            }
+
+            @media screen and (min-width: 768px) {
+                padding: 20px 35px;
+            }
+        }
+
+
+
+        &:hover {
+            box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        @media screen and (min-width: 768px) {
+            flex-direction: row;
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        padding-top: 100px;
+        padding-bottom: 100px;
+    }
+}
+
+.new__detail {
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+    .new__content {
+
+        .new__title {
+            font: 700 28px @raleway;
+            color: @marineBlue;
+            margin-bottom: 30px;
+        }
+
+        .new__photo {
+            margin-bottom: 14px;
+
+            @media screen and (min-width: 768px) {
+                margin-bottom: 24px;
+            }
+        }
+
+        .photo__footer {
+            flex-direction: column;
+
+            .date {
+                font: 400 16px @raleway;
+                color: rgb(0, 102, 169);
+                letter-spacing: 1.6px;
+                margin-bottom: 8px;
+
+                @media screen and (min-width: 768px) {
+                    font-size: 20px;
+                    letter-spacing: 2px;
+                    margin-bottom: 0;
+                }
+            }
+
+            .social__links {
+                width: 180px;
+                margin-bottom: 31px;
+
+                .share {
+                    font: 400 14px @raleway;
+                    color: rgb(88, 88, 88);
+                    letter-spacing: 1.8px;
+
+                    @media screen and (min-width: 768px) {
+                        font-size: 18px;
+                    }
+                }
+
+                img {
+                    height: 16px;
+                }
+
+                @media screen and (min-width: 768px) {
+                    width: 223px;
+                }
+            }
+
+            @media screen and (min-width: 768px) {
+                flex-direction: row;
+            }
+        }
+
+        .new__text {
+            font: 400 14px @raleway;
+            color: rgb(77, 77, 77);
+            line-height: 25px;
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        padding-top: 85px;
+        padding-bottom: 100px;
+    }
+}
+
+.related__news {
+
+    background-color: rgb(249, 249, 249);
+    padding-top: 48px;
+    padding-bottom: 48px;
+
+    .related__title {
+        font: 800 36px @raleway;
+        color: @marineBlue;
+        margin-bottom: 25px;
+        text-align: center;
+
+        @media screen and (min-width: 768px) {
+            font-size: 46px;
+            text-align: left;
+        }
+    }
+
+    .is--desktop {
+        display: none;
+
+        @media screen and (min-width: 768px) {
+            display: flex;
+
+            .card {
+                min-height: 451px;
+
+                .card-body {
+                    padding: 5px;
+                    position: relative;
+                    z-index: 5;
+
+                    .tag__date {
+                        position: absolute;
+                        top: 189px;
+                        left: 25px;
+                        z-index: 10;
+                        width: 119px;
+                        padding-top: 5px;
+                        padding-bottom: 5px;
+
+                        background-color: @skyBlue;
+                        border-radius: 5px;
+                        font: 700 16px @raleway;
+                        color: white;
+                        text-align: center;
+                    }
+
+                    .title {
+                        padding: 39px 32px 0 25px;
+                        font: 800 22px @raleway;
+                        color: @marineBlue;
+                        line-height: 30px;
+                    }                
+                }
+
+                .icon__dots {
+                    width: fit-content;
+                    margin-bottom: 25px;
+                    margin-left: 25px;
+                }
+
+                &:hover {
+                    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.3);
+                }
+            }
+        }
+    }
+
+    .is--mobile {
+
+        @media screen and (min-width: 768px) {
+            display: none;
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        padding-top: 79px;
+        padding-bottom: 100px;
+    }
+}

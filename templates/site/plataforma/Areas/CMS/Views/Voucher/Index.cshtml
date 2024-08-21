@@ -1,0 +1,163 @@
+﻿@model IEnumerable<Data.Models.Voucher>
+@{
+    ViewBag.Title = "Vouchers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    @Html.Partial("~/Views/Shared/_AlertasGrid.cshtml")
+</div>
+
+
+<div class="portlet light ">
+    <div class="portlet-title">
+        <div class="caption font-green">
+            <span class="caption-subject bold uppercase"><a href="@Url.RouteUrl("cms.voucher")" class="btn btn-info"><i class="fa fa-plus"></i>&nbsp; Novo Registro</a></span>
+        </div>
+        <div class="tools"> </div>
+    </div>
+    <div class="portlet-body">
+        <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="sample_2">
+            <thead>
+                <tr>
+                    <th class="all" width="10%">Ações</th>
+                    <th class="all">Produto</th>
+                    <th class="all">Data</th>
+                    <th class="all">Valores</th>
+                    <th class="all">Desconto</th>
+                    <th class="all">Crédito</th>
+                    <th class="all">Quantidades</th>
+                    <th class="all">Evento</th>
+                    @*<th class="all">Dental</th>*@
+                    <th class="all">Status</th>
+                    <th class="all">Home</th>
+                    @*<th class="all">Lançamento</th>*@
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <th>
+                        <a title="Ver Registro" class="btn btn-default btn-sm blue" data-toggle="tooltip" data-title="Ver Pedido" href="@Url.RouteUrl("cms.Voucher", new { id = item.Voucher_ID })">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <a title="Ver Registro" class="btn btn-default btn-sm red" data-toggle="tooltip" data-title="Ver Pedido" href="@Url.RouteUrl("cms.Voucher.excluir", new { id = item.Voucher_ID })">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </th>
+                    <td>
+                        @item.Produto.Nome
+                    </td>
+                    <td>
+                        Emissão: @item.Data_Criado.ToString("dd/MM/yyyy")
+                        <br />
+                        Vencimento: @item.Data_Vencimento.ToString("dd/MM/yyyy")
+                    </td>
+                    <td>
+                        <small>
+                            De @item.Valor.ToString("c")<br />
+                            Por @item.ValorPromocao.ToString("c")
+                        </small>
+                    </td>
+
+                    <td>
+                        @item.Desconto.ToString("c")
+                    </td>
+                    <td>
+                        @item.Credito.ToString("c")
+                    </td>
+                    <td>
+                        Em Estoque: @item.Quantidade<br />
+                        <small>
+                            Utilizado: @item.QuantidadeUtilizado<br />
+                            Máx usuário: @item.QuantidadePorUsuario
+                        </small>
+                    </td>
+
+                    @if (item.Evento_ID != null)
+                    {
+                        <td>
+                            @item.Evento.Nome
+                        </td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                    @*@if (item.Cliente_ID != null)
+        {
+            <td>
+                @item.Cliente.Nome
+            </td>
+        }
+        else
+        {
+            <td></td>
+        }*@
+                    @if (item.Habilitado != true)
+                    {
+                        <td>
+                            <div class="text-danger">
+                                <i class="fa fa-times fa-lg"></i>
+                            </div>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <div class="text-success">
+                                <i class="fa fa-check fa-lg"></i>
+                            </div>
+                        </td>
+                    }
+                    @if (item.Home != true)
+                    {
+                        <td>
+                            <div class="text-danger">
+                                <i class="fa fa-times fa-lg"></i>
+                            </div>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <div class="text-success">
+                                <i class="fa fa-check fa-lg"></i>
+                            </div>
+                        </td>
+                    }
+                    @*@if (item.Lancamento != true)
+                    {
+                        <td>
+                            <div class="text-danger">
+                                <i class="fa fa-times fa-lg"></i>
+                            </div>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <div class="text-success">
+                                <i class="fa fa-check fa-lg"></i>
+                            </div>
+                        </td>
+                    }*@
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts{
+    <script src="/app_themes/plataforma/global/scripts/datatable.js" type="text/javascript"></script>
+    <script src="/app_themes/plataforma/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
+    <script src="/app_themes/plataforma/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
+    <script src="/app_themes/plataforma/pages/scripts/table-datatables-responsive.js" type="text/javascript"></script>
+}
+
+@section styles{
+    <link href="/app_themes/plataforma/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
+    <link href="/app_themes/plataforma/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
+}

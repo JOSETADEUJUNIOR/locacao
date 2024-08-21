@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+
+
+<body>
+    <section class="breadcrumb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1 class="title">
+                        Arthrom
+                    </h1>
+                </div>
+                <div class="menu col-md-6 d-flex align-items-center">
+                    <a href="{{ url() }}" class="previous">Home</a>
+                    <img src="{{ url('templates/site/assets/img/arrow-right.svg')}}" class="arrow">
+                    <p class="current">Arthrom</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="page__about">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 d-flex align-items-center">
+                    <img src="{{ url('templates/site/assets/img/quemsomos.png')}}" class="img-fluid photo__about" alt="Sobre a Arthrom">
+                </div>
+
+                <div class="col-md-6">
+                    <div class="about__content">
+                        <img src="{{ url('templates/site/assets/img/line.webp')}}" class="title__line">
+                        <h2 class="about__title">Somos uma empresa nacional de <span class="mark__blue">dispositivos médicos</span></h2>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section class="page__numbers my-5">
+        <div class="container">
+            <div class="row numbers">
+
+                <div class="col-md-4">
+                    <p class="number">+180 produtos</p>
+                    <p class="info">Disponíveis</p>
+                </div>
+
+                <div class="col-md-4">
+                    <p class="number">+25 Cidades</p>
+                    <p class="info">Atendidos</p>
+                </div>
+
+                <div class="col-md-4">
+                    <p class="number">+22 anos de</p>
+                    <p class="info">Experiência</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="page__values">
+        <div class="container">
+            <div class="row justify-content-between ">
+                <div class="col-md-12 principio-equipe-valores">
+                    <div class="value__card">
+                        <img src="{{ url('templates/site/assets/img/value-1.svg')}}" alt="ícone" aria-hidden="true">
+                        <h3>Princípios</h3>
+                        <p>Sempre colocar os pacientes em primeiro lugar, ajudando a melhorar as suas vidas. Elevar a qualidade da medicina na nossa região de atuação, através de produtos inovadores e excelência no serviço para nossos parceiros, os médicos ortopedistas. Buscar estar sempre dentro dos padrões técnicos exigidos pelas autoridades competentes.</p>
+                    </div>
+                </div>
+                <div class="col-md-12 principio-equipe-valores">
+                    <div class="value__card">
+                        <img src="{{ url('templates/site/assets/img/value-2.svg')}}" alt="ícone" aria-hidden="true">
+                        <h3>Equipe</h3>
+                        <p> A Arthrom é composta por uma equipe multidisciplinar, formada por profissionais competentes e de experiência no mercado. Logística eficiente, com capacidade de resposta rápida para casos de cirurgia de emergência ou eletiva. Instrumentadores selecionados, treinados para dar todo o suporte necessário para o médico, quando em procedimento cirúrgico.</p>
+                    </div>
+                </div>
+                <div class="col-md-12 principio-equipe-valores">
+                    <div class="value__card">
+                        <img src="{{ url('templates/site/assets/img/value-3.svg')}}" alt="ícone" aria-hidden="true">
+                        <h3>Valores</h3>
+                        <p><strong>Excelência com nossos clientes</strong> ultrapassar as expectativas de nossos clientes; Promover educação e crescimento pessoal de todos; Buscar a maneira mais eficiente possível de trabalhar, poupando tempo e recursos.</p><br />
+                        <p><strong>Nossa empresa, uma família</strong> levamos a sério os sonhos e desejos de cada um de nossos colaboradores. Investimos em sua qualificação, reconhecemos seu valor e acreditamos em seu potencial.</p><br />
+                        <p><strong>Lealdade</strong> somos leais as marcas que representamos, respeitamos nossas parcerias e temos orgulho nos excelentes produtos que comercializamos.</p><br />
+                        <p><strong>Comprometimento com a ética</strong> a Arthrom Soluções em Ortopedia. busca assegurar aos seus fornecedores, clientes, colaboradores e funcionários a prática de negócios éticos e prudentes, com o mais alto padrão de clareza e transparência, atendendo toda a legislação aplicável às suas atividades, razão pela qual institui o presente Plano de Prevenção de Riscos de Corrupção e Compliance.</p><br />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+
+<!-- Mirrored from arthrom.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 04 Apr 2024 00:14:40 GMT -->
+
+</html>
+{% endblock %}

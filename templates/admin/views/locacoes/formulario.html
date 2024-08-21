@@ -1,0 +1,166 @@
+{% extends "dashboard.html" %}
+
+{% block conteudo %}
+
+
+<style>
+    .js-example-basic-multiple {
+        width: 100% !important;
+    }
+</style>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{{url('admin/dashboard')}}">
+                Dashboard
+            </a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="{{url('admin/locacoes/listar')}}">
+                Locações
+            </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            {% if locacao.id %}Atualizar{%else%}Cadastrar{%endif%} Locação
+        </li>
+    </ol>
+</nav>
+
+{{ flash() }}
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
+        <form
+            action="{% if locacao.id %}{{url('admin/locacoes/editar/'~locacao.id)}}{%else%}{{url('admin/locacoes/cadastrar')}}{%endif%}"
+            method="post">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="setor_id" class="form-label">Setor</label>
+                        <select class="form-select" name="setor_id" id="setor_id">
+                            <option value="">Selecione um setor</option>
+                            {% for setor in setores %}
+                            <option value="{{setor.id}}" {% if locacao.setor_id==setor.id %}selected{%endif%}>
+                                {{setor.nome}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="igreja_id" class="form-label">Igreja</label>
+                        <select class="form-select" name="igreja_id" id="igreja_id">
+                            <option value="">Selecione uma igreja</option>
+                            {% if locacao.igreja_id %}
+                            {% for igreja in igrejas %}
+                            <option value="{{igreja.id}}" {% if locacao.igreja_id==igreja.id %}selected{%endif%}>
+                                {{igreja.nome}}</option>
+                            {%endfor%}
+                            {% endif %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="usuario_id" class="form-label">Retirado por?</label>
+                        <select class="form-select" name="usuario_id" id="usuario_id">
+                            {% for usuario in usuarios %}
+                            <option value="{{usuario.id}}" {% if locacao.retirado_por==usuario.id %}selected{%endif%}>
+                                {{usuario.nome}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mb-3">
+                        <label for="duracao_locacao" class="form-label">Duração da Locação</label>
+                        <select class="form-select" name="duracao_locacao" id="duracao_locacao">
+                            <option value="1" {% if dias_de_locacao == 1 %}selected{% endif %}>1 dia</option>
+                            <option value="2" {% if dias_de_locacao == 2 %}selected{% endif %}>2 dias</option>
+                            <option value="3" {% if dias_de_locacao == 3 %}selected{% endif %}>3 dias</option>
+                            <option value="4" {% if dias_de_locacao == 4 %}selected{% endif %}>4 dias</option>
+                            <option value="5" {% if dias_de_locacao == 5 %}selected{% endif %}>5 dias</option>
+                            <option value="7" {% if dias_de_locacao == 7 %}selected{% endif %}>1 semana</option>
+                            <option value="14" {% if dias_de_locacao == 14 %}selected{% endif %}>2 semanas</option>
+                            <option value="30" {% if dias_de_locacao == 30 %}selected{% endif %}>1 mês</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mb-3">
+                        <label for="equipamentos" class="form-label">Equipamentos</label>
+                        <select class="js-example-basic-multiple form-select" name="equipamentos[]" id="equipamentos"
+                            multiple="multiple">
+                            {% for equipamento in equipamentos %}
+                            <option value="{{equipamento.id}}" {% if locacao_equipamentos is defined and equipamento.id
+                                in locacao_equipamentos %}selected{%endif%}>
+                                {{equipamento.titulo}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="observacoes" class="form-label">Observações</label>
+                <textarea name="observacoes" class="form-control" rows="3">{{locacao.observacoes}}</textarea>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Status</label>
+                        <select class="form-select" name="status" id="status">
+                            <option value="ativa" {% if locacao.status=='ativa' %}selected{%endif%}>Ativa</option>
+                            <option value="finalizada" {% if locacao.status=='finalizada' %}selected{%endif%}>Finalizada
+                            </option>
+                            <option value="pendente" {% if locacao.status=='pendente' %}selected{%endif%}>Pendente
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="d-grid">
+                <input type="submit" class="btn btn-dark"
+                    value="{% if locacao.id %}Atualizar{%else%}Cadastrar{%endif%}">
+            </div>
+        </form>
+        <!-- Carregue o jQuery primeiro -->
+
+        <!-- Inclua o JS do Owl Carousel após o jQuery -->
+
+        <!-- Agora você pode inicializar o Owl Carousel -->
+
+    </div>
+    <script>
+        document.getElementById('setor_id').addEventListener('change', function () {
+            var setorId = this.value;
+
+            if (setorId) {
+                fetch('{{ url("admin/locacoes/congregacoes") }}/' + setorId)
+                    .then(response => response.json())
+                    .then(data => {
+                        var igrejaSelect = document.getElementById('igreja_id');
+                        igrejaSelect.innerHTML = '<option value="">Selecione uma igreja</option>';
+
+                        data.forEach(function (igreja) {
+                            var option = document.createElement('option');
+                            option.value = igreja.id; // Acessando a propriedade 'id' corretamente
+                            option.text = igreja.nome; // Acessando a propriedade 'nome' corretamente
+                            igrejaSelect.add(option);
+                        });
+                    })
+                    .catch(error => console.error('Erro:', error)); // Adicione um catch para erros
+            } else {
+                document.getElementById('igreja_id').innerHTML = '<option value="">Selecione uma igreja</option>';
+            }
+        });
+
+    </script>
+</div>
+{% endblock %}

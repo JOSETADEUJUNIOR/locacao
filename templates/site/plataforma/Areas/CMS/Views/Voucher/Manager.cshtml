@@ -1,0 +1,133 @@
+﻿@model Data.Models.Voucher
+@{
+    ViewBag.Title = "Voucher";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="portlet light ">
+    <div class="portlet-title">
+        <div class="caption font-green">
+            <i class="fa fa-list font-green"></i>
+            <span class="caption-subject bold uppercase">Gerenciar @ViewBag.Title</span>
+        </div>
+        <div class="tools"> </div>
+    </div>
+    <div class="portlet-body">
+        <div class="page-content-col">
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.Partial("~/Views/Shared/_AlertasGrid.cshtml")
+                    <div class="portlet  ">
+                        <div class="portlet-body form">
+                            @using (Html.BeginForm("Manager", "Voucher", FormMethod.Post, new { @id = "registerForm" }))
+                            {
+                                @Html.HiddenFor(model => model.Voucher_ID)
+                                @Html.HiddenFor(model => model.Excluido)
+                                @Html.HiddenFor(model => model.Data_Criado)
+                                @Html.HiddenFor(model => model.QuantidadeUtilizado)
+                                @Html.ValidationSummary(true)
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-body clearfix">
+
+                                    <div class="row">
+                                        @Html.Partial("~/Views/Fields/_selectField.cshtml", new Plataforma.Models.SelectField("Produto", "Produto_ID", Model.Produto_ID.ToString(), "Produto_ID", "required", 6))
+                                        @Html.Partial("~/Views/Fields/_selectField2.cshtml", new Plataforma.Models.SelectField("Evento", "Evento_ID", Model.Evento_ID.ToString(), "Evento_ID", "", 6))
+                                        @*@Html.Partial("~/Views/Fields/_selectField3.cshtml", new Plataforma.Models.SelectField("Dental", "Cliente_ID", Model.Cliente_ID.ToString(), "Cliente_ID", "", 3))*@
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Data de Vencimento", "Data_Vencimento", (Model.Cliente_ID != null ? Model.Data_Vencimento.ToString() : DateTime.Now.Date.ToString()), "required", 3))
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Código ou URL de Identificação do Voucher", "Codigo", Model.Codigo, "required", 3))
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Preço Sugerido", "Valor", Model.Valor.ToString("n"), "required", 3))
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Preço com Desconto", "ValorPromocao", Model.ValorPromocao.ToString("n"), "required", 3))
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Desconto", "Desconto", Model.Desconto.ToString("n"), "required", 3))
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Crédito", "Credito", Model.Credito.ToString("n"), "required", 3))
+
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Quantidade Disponível", "Quantidade", Model.Quantidade.ToString("0"), "required", 3))
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Qtd por Usuário", "QuantidadePorUsuario", Model.QuantidadePorUsuario.ToString("0"), "required", 3))
+                                        @*@Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Qtd Utilizado", "QuantidadeUtilizado", Model.QuantidadeUtilizado.ToString("0"), "required", 3))*@
+                                        @Html.Partial("~/Views/Fields/_txtCheck.cshtml", new Plataforma.Models.CheckField("Habilitado", "Habilitado", (Model.Habilitado == true ? true : false), "required", 3))
+                                        @Html.Partial("~/Views/Fields/_txtCheck.cshtml", new Plataforma.Models.CheckField("Destaque na Home", "Home", (Model.Home == true ? true : false), "required", 3))
+                                        @*@Html.Partial("~/Views/Fields/_txtCheck.cshtml", new Plataforma.Models.CheckField("Lançamento", "Lancamento", (Model.Lancamento == true ? true : false), "required", 3))*@
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn blue">Salvar</button>
+                                    <a href="@Url.RouteUrl("cms.Vouchers")" class="btn default">Cancelar</a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+
+            $("#Desconto").attr("readonly", true);
+
+            $("#Valor").on("change", function () {
+                calcDesconto();
+            });
+
+            $("#ValorPromocao").on("change", function () {
+                calcDesconto();
+            });
+
+            function calcDesconto() {
+
+                var valor = parsePotentiallyGroupedFloat($("#Valor").val());
+                var valorpromocional = parsePotentiallyGroupedFloat($("#ValorPromocao").val());
+
+                if (isNaN(valor)) {
+                    valor = 0;
+                }
+
+                if (isNaN(valorpromocional)) {
+                    valorpromocional = 0;
+                }
+
+                var total = valor - valorpromocional;
+
+                if (total > 0) {
+                    $("#Desconto").val(formatReal(total));
+                } else {
+                    alert("O valor inválido, preencha novamente os valores!");
+                    $("#Valor").val("");
+                    $("#ValorPromocao").val("");
+                }
+            }
+
+            function parsePotentiallyGroupedFloat(stringValue) {
+                stringValue = stringValue.trim();
+                var result = stringValue.replace(/[^0-9]/g, '');
+
+                return parseFloat(result);
+            }
+
+            function formatReal(int) {
+
+                var tmp = int + '';
+
+                if (int > 99) {
+                    tmp = tmp.replace(/([0-9]{2})$/g, ",$1");
+
+                    if (tmp.length > 6)
+                        tmp = tmp.replace(/([0-9]{3}),([0-9]{2}$)/g, "$1,$2");
+                }
+
+                return tmp;
+            }
+
+            $("#Valor").mask('#.##0,00', { reverse: true });
+            $("#ValorPromocao").mask('#.##0,00', { reverse: true });
+            $("#Desconto").mask('#.##0,00', { reverse: true });
+            $("#Credito").mask('#.##0,00', { reverse: true });
+        });
+    </script>
+
+}

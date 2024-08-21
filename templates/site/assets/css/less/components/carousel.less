@@ -1,0 +1,172 @@
+// out: false
+
+@import "../base/_pallete.less";
+
+.owl-carousel.owl-theme.banner__carousel {
+    display: none;
+
+    @media screen and (min-width: 768px) {
+        display: block;
+
+        img {
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .owl-dots {
+
+            position: absolute;
+            z-index: 10;
+            margin-top: -40px;
+            left: calc(50% - 25px);
+            
+            .owl-dot {
+                span {
+                    background-color: white;
+                }
+
+                &.active {
+                    span {
+                        background-color: @softBlue;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.owl-carousel.owl-theme.banner__mobile {
+
+    img {
+        width: 100%;
+        position: relative;
+        z-index: 1;
+    }
+
+    .owl-dots {
+
+        position: absolute;
+        z-index: 10;
+        margin-top: -40px;
+        left: calc(50% - 25px);
+        
+        .owl-dot {
+            span {
+                background-color: white;
+            }
+
+            &.active {
+                span {
+                    background-color: @softBlue;
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        display: none;
+    }
+}
+
+.owl-carousel.owl-theme.products__mobile {
+
+    .owl-item {
+        
+        .product__name {
+            font: 800 22px @raleway;
+            color: @marineBlue;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+    }
+
+    .owl-dots {
+              
+        .owl-dot {
+            span {
+                background-color: rgb(238, 238, 238);
+            }
+
+            &.active {
+                span {
+                    background-color: @softBlue;
+                }
+            }
+        }
+    }    
+}
+
+.owl-carousel.owl-theme.news__mobile {
+    .card {
+        min-height: 451px;
+        margin-bottom: 30px;
+
+        .card-body {
+            padding: 5px;
+            position: relative;
+            z-index: 5;
+
+            .tag__date {
+                position: absolute;
+                top: 222px;
+                left: 25px;
+                z-index: 10;
+                width: 119px;
+                padding-top: 5px;
+                padding-bottom: 5px;
+
+                background-color: @skyBlue;
+                border-radius: 5px;
+                font: 700 16px @raleway;
+                color: white;
+                text-align: center;
+            }
+
+            .title {
+                padding: 39px 32px 0 25px;
+                font: 800 22px @raleway;
+                color: @marineBlue;
+                line-height: 30px;
+            }                
+        }
+
+        .icon__dots {
+            width: fit-content;
+            margin-bottom: 25px;
+            margin-left: 25px;
+        }
+    }
+
+    .owl-dots {
+              
+        .owl-dot {
+            span {
+                background-color: rgb(238, 238, 238);
+            }
+
+            &.active {
+                span {
+                    background-color: @softBlue;
+                }
+            }
+        }
+    }    
+}
+
+.owl-carousel.owl-theme.product__carousel {
+    .owl-dots {
+        margin-top: 25px;
+        .owl-dot {
+            span {
+                background-color: rgb(238, 238, 238);
+            }
+
+            &.active {
+                span {
+                    background-color: @softBlue;
+                }
+            }
+        }
+    }    
+}

@@ -1,0 +1,35 @@
+{
+    "name": "arthorius/tecnologias",
+    "description": "Empresa de desenvolvimento de sistemas",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "sistema\\": "sistema/"
+        },
+        "files": [
+            "sistema/configuracao.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Jose Tadeu Rosa Junior",
+            "homepage": "https://www.arthoriustecnologias.com.br",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "josetadeu33217610@gmail.com"
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=8.0",
+        "pecee/simple-router": "dev-master",
+        "twig/twig": "^3.0",
+        "digitalnature/php-ref": "dev-master",
+        "verot/class.upload.php": "dev-master",
+        "phpmailer/phpmailer": "dev-master",
+        "tecnickcom/tcpdf": "dev-main",
+        "mpdf/mpdf": "dev-development",
+        "phpoffice/phpspreadsheet": "^2.1.0"
+    }
+}

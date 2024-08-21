@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+<body>
+    <section class="breadcrumb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1 class="title">
+                        Contato
+                    </h1>
+                </div>
+                <div class="menu col-md-6 d-flex align-items-center">
+                    <a href="{{ url() }}" class="previous">Home</a>
+                    <img src="{{ url('templates/site/assets/img/arrow-right.svg')}}" class="arrow">
+                    <p class="current">Contato</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    {{flash()}}
+    
+    <section class="page__contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 contact__header">
+                    <h2>
+                        Preencha o formulário e entraremos em contato
+                    </h2>
+                </div>
+                <div class="col-md-12 contact__form">
+                    <form action="{{url('contato')}}" class="form__standard" autocomplete="on" method="post" id="form-contato" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input name="nome" id="" type="text" placeholder="Nome *" required>
+                                <div class="row util--mt">
+                                    <div class="col-md-6">
+                                        <input name="email" id="" type="email" placeholder="E-mail *" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input name="telefone" id="" type="tel" placeholder="Telefone *" required class="phone-mask">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <textarea name="mensagem" id="" cols="30" rows="6" placeholder="Mensagem *" required></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form__footer">
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}">
+                                <div class="g-recaptcha" data-sitekey="6LfwRgEqAAAAAMAX0hVNDxf4eDhoaiuHvZWnFgyU"></div>
+                                <button type="submit">Enviar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="page__map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14655.944764503427!2d-51.1832213!3d-23.3162598!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x86a034f978648d63!2sArthrom%20-%20Solu%C3%A7%C3%B5es%20em%20Ortopedia!5e0!3m2!1spt-BR!2sbr!4v1665662594111!5m2!1spt-BR!2sbr" width="100%" height="550" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </section>
+
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</body>
+
+</html>
+{% endblock %}

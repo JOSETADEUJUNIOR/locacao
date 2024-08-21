@@ -1,0 +1,301 @@
+// out: false
+
+@import "../base/_pallete.less";
+
+.page__products {
+
+    .is--desktop {
+        display: none;
+
+        @media screen and (min-width: 768px) {
+            display: flex;
+
+            .title__line {
+                width: fit-content;
+                margin-bottom: 20px;
+            }
+
+            .products__title {
+                font: 800 36px @raleway;
+                color: @marineBlue;
+
+                .mark__blue {
+                    color: @softBlue;
+                }
+            }
+
+            .product__category {
+                margin-bottom: 30px;
+
+                .photo__product {
+                    width: 270px;
+                    height: 270px;
+                    border-radius: 5px;
+                }
+
+                .product__overlay {
+                    display: none;
+                }
+
+                &:hover {
+
+                    .product__overlay {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: flex-end;
+                        width: 254px;
+                        height: 254px;
+                        position: absolute;
+                        background-color: rgba(0, 102, 169, 0.6);
+                        border-radius: 5px;
+                        z-index: 3000;
+                        top: 8px;
+                        left: 23px;
+
+                        .product__name {
+                            font: 800 22px @raleway;
+                            color: white;
+                            margin-bottom: 87px;
+                        }
+
+                        .icon__dots {
+                            width: fit-content;
+                            margin-bottom: 20px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .is--mobile {
+        
+        .title__line {
+            width: fit-content;
+            margin-bottom: 20px;
+        }
+
+        .products__title {
+            font: 800 36px @raleway;
+            color: @marineBlue;
+
+            .mark__blue {
+                color: @softBlue;
+            }
+        }
+
+        @media screen and (min-width: 768px) {
+            display: none;
+        }
+    }
+
+    .btn__products {
+        width: 202px;
+    }
+}
+
+.page__numbers {
+    background-image: url('/assets/img/bg-numbers-mobile.webp');
+    background-repeat: no-repeat;
+    background-position: top -11px left 0;
+    background-size: cover;
+    color: white;
+
+    .numbers {
+        
+        padding-top: 74px;
+        padding-bottom: 71px;
+        
+        .number {
+            font: 700 46px @raleway;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .info {
+            font: 300 20px @raleway;
+            letter-spacing: 12.96px;
+            text-transform: uppercase;
+            margin-bottom: 41px;
+            text-align: center;
+
+            @media screen and (min-width: 768px) {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        background-image: url('/assets/img/bg-numbers.webp');
+        background-repeat: no-repeat;
+        background-position: top 0 left -5px;  
+    }
+}
+
+.page__about {
+
+    .photo__about {
+        margin-left: -37px;
+        min-width: 357px;
+
+        @media screen and (min-width: 768px) {
+            margin-left: 0;
+        }
+    }
+
+    .about__content {
+        margin-top: 39px;
+        margin-bottom: 20px;
+        max-width: 426px;
+
+        .title__line {
+            width: fit-content;
+            margin-bottom: 20px;
+            margin-top: 52px;
+        }
+
+        .about__title {
+            font: 800 42px @raleway;
+            color: @marineBlue;
+            margin-bottom: 18px;
+
+            .mark__blue {
+                color: @softBlue;
+            }
+        }
+
+        .about__text {
+            font: 400 15px @raleway;
+            color: rgb(57, 60, 64);
+            line-height: 25px;
+            margin-bottom: 40px;
+        }
+
+        .btn__about {
+            width: 204px;
+        }
+
+        @media screen and (min-width: 768px) {
+            margin-left: 70px;
+            margin-top: 52px;
+            margin-bottom: 100px;
+        }
+    }
+}
+
+.page__news {
+    background-image: url('/assets/img/bg-news-mobile.webp');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    .line {
+        width: fit-content;
+        margin-bottom: 20px;
+        margin-top: 133px;
+
+        @media screen and (min-width: 768px) {
+            margin-top: 0;
+        }
+    }
+
+    .news__title {
+        font: 800 46px @raleway;
+        color: white;
+        margin-bottom: 30px;
+    }
+
+    .btn__news.desk {
+        display: none;
+
+        @media screen and (min-width: 768px) {
+            display: block;
+            width: 192px;
+        }
+    }
+
+    .btn__news.mobile {
+        width: 192px;
+        margin-top: 30px;
+        margin-bottom: 40px;
+
+        @media screen and (min-width: 768px) {
+            display: none;
+        }
+    }
+
+    .is--desktop {
+        display: none;
+
+        @media screen and (min-width: 768px) {
+            display: block;
+
+            .card {
+                min-height: 451px;
+
+                .card-body {
+                    padding: 5px;
+                    position: relative;
+                    z-index: 5;
+
+                    .tag__date {
+                        position: absolute;
+                        top: 189px;
+                        left: 25px;
+                        z-index: 10;
+                        width: 119px;
+                        padding-top: 5px;
+                        padding-bottom: 5px;
+                        background-color: @skyBlue;
+                        border-radius: 5px;
+                        font: 700 16px @raleway;
+                        color: white;
+                        text-align: center;
+                    }
+
+                    .title {
+                        padding: 39px 32px 0 25px;
+                        font: 800 22px @raleway;
+                        color: @marineBlue;
+                        line-height: 30px;
+                    }
+
+                    .cover {
+                        height: 200px;
+                        border-radius: 10px 10px 0 0;
+
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            border-radius: 10px 10px 0 0;
+                        }
+                    }
+                }
+
+                .icon__dots {
+                    width: fit-content;
+                    margin-bottom: 25px;
+                    margin-left: 25px;
+                }
+
+                &:hover {
+                    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.3);
+                }
+            }
+        }
+    }
+
+    .is--mobile {
+
+        @media screen and (min-width: 768px) {
+            display: none;
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        background-image: url('/assets/img/bg-news.webp');
+        background-position: bottom -2px left 0;
+        padding-bottom: 70px;
+    }
+}

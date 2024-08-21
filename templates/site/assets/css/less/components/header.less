@@ -1,0 +1,275 @@
+// out: false
+
+@import "../base/_pallete.less";
+
+.page__header {
+    position: absolute;
+    z-index: 3000;
+    width: 100%;
+    margin-top: 20px;
+    background-color: white;
+    box-shadow: 0 0 36px rgba(0, 0, 0, 0.06);
+    
+    .logo__header {
+        margin-top: 34px;
+        margin-bottom: 34px;
+        margin-left: 15px;
+    }
+
+    .is--desktop {
+        display: none;
+
+        @media screen and (min-width: 768px) {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .menu__header {
+                padding-left: 0;
+                padding-right: 30px;
+
+                .link__header {
+                    font: 500 15px @raleway;
+                    color: @umber;
+                    padding-top: 40px;
+                    padding-bottom: 39px;
+                    border-bottom: 3px solid transparent;
+                    
+                    &:hover {
+                        font: 700 15px @raleway;
+                        color: @skyBlue;
+                        border-bottom: 3px solid @skyBlue;
+                    }
+                }
+            }
+
+            .search__bar {
+                display: flex;
+                flex-direction: row;
+
+                .search__btn {
+                    position: absolute;
+                    border: none;
+                    background-color: rgb(249, 249, 249);
+                    top: 35px;
+                    right: 35px;
+                }
+                
+                .search__area {
+                    background-color: rgb(249, 249, 249);
+                    border: 1px solid transparent;
+                    caret-color: transparent;
+                    border-radius: 5px;
+                    padding: 24px 0 25px 30px;
+                    width: 420px;
+                    font: 400 15px @raleway;
+                    color: @marineBlue;
+
+                    &::placeholder {
+                        font: 500 15px @raleway;
+                        color: @marineBlue;
+                    }
+
+                    &:hover {
+                        border-color: @softBlue;
+                        outline: 1px solid transparent;
+                    }
+
+                    &:focus-visible {
+                        outline: 1px solid @skyBlue;
+                    }
+
+                    &::-webkit-search-cancel-button {
+
+                        -webkit-appearance: none;
+                        background-color: @softBlue;
+                        background-image: url('../img/icon-close.svg');
+                        background-repeat: no-repeat;
+                        background-size: 10px;
+                        background-position: top 5px left 5px;
+                        height: 20px;
+                        width: 20px;
+                        border-radius: 100%;
+                        margin-right: 10px;
+                    }
+                }
+            }
+        }
+    }
+
+    .is--mobile {
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+
+        .navbar__hamburguer {
+            margin: 11px;
+
+            img {
+                width: 24px;
+            }
+        }
+
+        .navbar__search {
+            margin: 11px;
+
+            img {
+                width: 28px;
+            }
+        }
+
+        .overlay__search {
+            z-index: 3000;
+            display: none;
+
+            &.open {
+                display: flex;
+                width: 100%;
+                position: fixed;
+                top: 20px;
+                left: 0;
+                background-color: white;
+                overflow: hidden !important;
+                transition: all linear 0.5s;
+                padding-top: 20px;
+                padding-left: 10px;
+                padding-bottom: 20px;
+
+                .search__content {
+                    overflow-y: auto !important;
+                    
+                    .search__bar {
+                        display: flex;
+                        flex-direction: row;
+        
+                        .search__btn {
+                            position: absolute;
+                            border: none;
+                            background-color: rgb(249, 249, 249);
+                            top: 42px;
+                            right: 42px;
+                        }
+                        
+                        .search__area {
+                            background-color: rgb(249, 249, 249);
+                            border: 1px solid transparent;
+                            caret-color: transparent;
+                            border-radius: 5px;
+                            padding: 24px 0 25px 30px;
+                            width: 340px;
+                            font: 400 15px @raleway;
+                            color: @marineBlue;
+        
+                            &::placeholder {
+                                font: 500 15px @raleway;
+                                color: @marineBlue;
+                            }
+        
+                            &:hover {
+                                border-color: @softBlue;
+                                outline: 1px solid transparent;
+                            }
+        
+                            &:focus-visible {
+                                outline: 1px solid @skyBlue;
+                            }
+        
+                            &::-webkit-search-cancel-button {
+        
+                                -webkit-appearance: none;
+                                background-color: @softBlue;
+                                background-image: url('../img/icon-close.svg');
+                                background-repeat: no-repeat;
+                                background-size: 10px;
+                                background-position: top 5px left 5px;
+                                height: 20px;
+                                width: 20px;
+                                border-radius: 100%;
+                                margin-right: 5px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .navbar__overlay {
+            z-index: 3000;
+            display: none;
+        
+            &.open {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                width: 100%;
+                position: fixed;
+                                
+                top: 0;
+                right: 0;
+                background-color: @marineBlue;
+                background-image: url('../img/bg-menu.svg');
+                background-repeat: no-repeat;
+                background-position: bottom -10px right -33px;
+                overflow: hidden !important;
+                transition: all linear 0.5s;
+        
+                .overlay__content {
+                    
+                    overflow-y: auto !important;
+                    height: 90%;
+        
+                    
+                    .overlay__close {
+                        margin: 30px 30px 10px 0;
+                        font-size: 20px;
+                        color: white;
+                    }
+
+                    .overlay__logo {
+                        margin: 30px 0 0 30px; 
+                        width: 125px;
+                    }
+
+                    .overlay__menu {
+                        margin: 0;
+                        
+                        .overlay__links {
+                            margin-top: 82px;
+
+                            .link {
+                                color: white;
+                                font: 500 15px @raleway;
+                                margin-bottom: 15px;
+
+                                &:hover {
+                                    color: @softBlue;
+                                    font-weight: 700;
+                                }
+                            }
+                        }
+                    }
+
+                    .overlay__social {
+
+                        width: 102px;
+                        
+                        .icon__menu {
+
+                            &:hover {
+                                filter: brightness(0) saturate(100%) invert(92%) sepia(11%) saturate(7071%) hue-rotate(155deg) brightness(93%) contrast(88%);
+                            }
+                        }
+                    }
+                }
+            } 
+        }
+
+        @media screen and (min-width: 768px) {
+            display: none;
+        }
+        
+    }
+}
+

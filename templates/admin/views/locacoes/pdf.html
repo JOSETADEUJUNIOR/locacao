@@ -1,0 +1,84 @@
+
+<div class="gallery">
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Relatório de Locações</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #337ab7;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        h1, h2, h3 {
+            color: #333;
+        }
+
+        .invoice-details {
+            margin-bottom: 20px;
+        }
+
+        .invoice-details p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Relatório de Locações</h1>
+    <!-- Detalhes da Locação -->
+    <div data-fancybox="gallery" class="invoice-details overflow zoom ">
+        <h3>Detalhes da Locação</h3>
+        <p><strong>ID da Locação:</strong> {{locacao.id}}</p>
+        <p><strong>Setor:</strong> {{locacao.setor_nome}}</p>
+        <p><strong>Igreja:</strong> {{locacao.igreja_nome}}</p>
+        <p><strong>Retirado Por:</strong> {{retiradoPor.nome}}</p>
+        <p><strong>Data de Locação:</strong> {{locacao.data_locacao|date("d/m/Y")}}</p>
+        <p><strong>Data de Devolução:</strong> {{locacao.data_devolucao|date("d/m/Y")}}</p>
+        <p><strong>Status:</strong> {{locacao.status}}</p>
+        <p><strong>Observações:</strong> {{locacao.observacoes}}</p>
+    </div>
+
+    <!-- Tabela de Equipamentos Locados -->
+    <h3>Equipamentos Locados</h3>
+    <table>
+        <tr>
+            <th>ID do Equipamento</th>
+            <th>Nome do Equipamento</th>
+        </tr>
+        {% for equipamento in equipamentos %}
+        <tr>
+            <td>{{equipamento.id}}</td>
+            <td>{{equipamento.titulo}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <p>Total de Equipamentos Locados: {{ total.equipamentos }}</p>
+</body>
+
+</html>

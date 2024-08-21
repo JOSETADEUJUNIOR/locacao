@@ -1,0 +1,7 @@
+﻿@model Plataforma.Models.SelectField
+
+<div class="form-group col-md-@Model.Col">
+    <label>@Model.Label<span class="required" aria-required="true"> * </span></label>
+
+    @Html.DropDownList(Model.Name,new SelectList(ViewBag.Lista,Model.FieldID,"Nome", Model.Value),"Selecione um valor", new { @class = "form-control select2", @data_search = "true", @required = Model.Required })
+</div>

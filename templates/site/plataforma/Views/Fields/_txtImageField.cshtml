@@ -1,0 +1,19 @@
+﻿@model Plataforma.Models.UploadField
+
+<div class="form-group col-md-@(Model.Col - 1) col-xs-12">
+    <label class="form-label">
+        @Model.Label
+    @if (!String.IsNullOrEmpty(Model.Required))
+    {
+        <span class="required" aria-required="true"> * </span>
+    }
+</label>
+<input type="text" name="@Model.Name" id="@(Model.Name)_@(Model.Counter)" readonly onclick="openCustomRoxy_@(Model.Counter)()" class="form-control" value="@Model.Value" placeholder="Clique aqui para selecionar imagem" minlength="3" @Model.Required>
+<img src="@Model.Value" id="customRoxyImage_@Model.Counter" class="img-md img-thumbnail" style="max-width:180px;">
+<div id="roxyCustomPanel_@Model.Counter" style="display: none;">
+    <iframe src="~/Scripts/fileman/index.html?integration=custom&Input=@(Model.Name)_@(Model.Counter)&InputImg=customRoxyImage_@Model.Counter&Popup=@(Model.Counter)" style="width:100%;height:100%" frameborder="0"></iframe>
+</div>
+</div>
+<div class="form-group col-md-1">
+    <a onclick="$('@("#"+Model.Name + "_" +Model.Counter)').val('');" style="position: absolute;top: 32px;left: 0px;"> X Limpar</a>
+</div>

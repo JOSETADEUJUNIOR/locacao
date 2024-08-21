@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<style>
+    /* Estilo para esconder o input de arquivo padrão */
+.input-file {
+    display: none;
+}
+
+/* Estilo para o label do input de arquivo */
+.btn-tertiary {
+    background-color: #007bff; /* Cor de fundo */
+    color: white; /* Cor do texto */
+    padding: 10px 20px; /* Espaçamento interno */
+    border-radius: 5px; /* Bordas arredondadas */
+    cursor: pointer; /* Cursor de mãozinha */
+    display: inline-block; /* Exibir como bloco inline */
+    font-size: 16px; /* Tamanho da fonte */
+    text-align: center; /* Alinhamento do texto */
+}
+
+/* Estilo para o texto dentro do label */
+.btn-tertiary .js-fileName {
+    margin-right: 10px; /* Espaçamento à direita */
+}
+
+.btn-tertiary .btn__blue {
+    color: white; /* Cor do texto */
+    background-color: #007bff; /* Cor de fundo */
+    padding: 10px 20px; /* Espaçamento interno */
+    border-radius: 5px; /* Bordas arredondadas */
+}
+
+</style>
+
+<body>
+
+    <section class="breadcrumb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1 class="title">
+                        Compliance
+                    </h1>
+                </div>
+                <div class="menu col-md-6 d-flex align-items-center">
+                    <a href="{{ url('') }}" class="previous">Home</a>
+                    <img src="{{url('templates/site/assets/img/arrow-right.svg')}}" class="arrow">
+                    <p class="current">Compliance</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
+    <section class="page__compliance">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="{{ url('templates/site/assets/img/compliance-cover.webp') }}" alt="compliance" class="img-fluid">
+                </div>
+                <div class="col-md-6 compliance__text">
+                    <h2>
+                        A Arthrom está
+                        empenhada em manter
+                        uma
+                        <span>
+                            conduta
+                            corporativa exemplar e
+                            de alto padrão ético.
+                        </span>
+                    </h2>
+                    <p>O Compliance estabelece normas e regras a serem seguidas e é destinado a colaboradores e parceiros que possam interagir com funcionários públicos e profissionais de saúde em nome da Arthrom.</p>
+                    <p>Nosso Compliance foi desenvolvido para garantir que todos mantenham o mesmo padrão ético estabelecido pela Arthrom, bem como todas as leis, regulamentos e códigos aplicáveis ao país que nós atuamos.</p>
+                    <p>Se qualquer um dos requisitos do nosso Compliance for violado, inconsistente, se houver um conflito com uma lei ou se tiver alguma dúvida, entre em contato com o Departamento de Compliance da Arthrom utilizando os meios de comunicação.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="page__downloads">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="download__box">
+                        <p>
+                            Código de Ética e
+                            de Conduta
+                        </p>
+                        <a href="{{ url('templates/site/assets/material/CODIGO-DE-CONDUTA-E-ETICA.pdf') }}" target="_blank">
+                            <img src="{{ url('templates/site/assets/img/icon-pdf-small.svg') }}" alt="PDF">
+                            Download
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="download__box">
+                        <p>
+                            Manual de
+                            Compliance
+                        </p>
+                        <a href="{{ url('templates/site/assets/material/MANUAL_DE_COMPLIANCE.pdf') }}" target="_blank">
+                            <img src="{{ url('templates/site/assets/img/icon-pdf-small.svg') }}" alt="PDF">
+                            Download
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="download__box">
+                        <p>Termo - LGPD</p>
+                        <a href="{{ url('templates/site/assets/material/termo.pdf') }}" target="_blank">
+                            <img src="{{ url('templates/site/assets/img/icon-pdf-small.svg') }}" alt="PDF">
+                            Download
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> 
+    <section id="denuncia" class="page__complaint">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h2>Central de Denuncia</h2>
+                </div>
+            </div>
+            {{flash()}}
+            <form action="{{ url('/contato/denuncia')}}" enctype="multipart/form-data" class="form__standard row" autocomplete="on" method="post" id="form-compliance">
+                <div class="col-12">
+                    <p class="instruction">
+                        <img src="{{ url('templates/site/assets/img/icon-user.svg')}}" alt="ícone" aria-hidden="true">
+                        <span><strong>Anônimo ou Identificado</strong>: Informe seus dados para denúncia identificada, ou deixe em branco para denúncia anônima.</span>
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <input name="nome" type="text" placeholder="Nome Completo (Não obrigatório)">
+                </div>
+                <div class="col-md-6">
+                    <input name="funcao" type="text" placeholder="Função (Não obrigatório)">
+                </div>
+                <div class="col-md-6">
+                    <input name="email" type="email" placeholder="E-mail (Não obrigatório)">
+                </div>
+                <div class="col-md-6">
+                    <input name="telefone" type="tel" placeholder="Telefone para contato (Não obrigatório)" class="phone-mask">
+                </div>
+                
+                <div class="col-12">
+                    <input name="localidade" type="text" placeholder="Localidade da denúncia* (obrigatório)" required>
+                </div>
+                <div class="col-12">
+                    <textarea name="comentario" id="" rows="4" placeholder="Comentários"></textarea>
+                </div>
+                <div class="col-12">
+                    <input name="nome_envolvido" type="text" placeholder="Nome Completo da pessoa denunciada/envolvida (Obrigatório)" required>
+                </div>
+                <div class="col-12">
+                    <input name="cargo" type="text" placeholder="Cargo da pessoa denunciada/envolvida (Obrigatório)" required>
+                </div>
+                <div class="col-md-6" style="padding-left: 0;">
+                    <div class="form-group col-md-12" style="margin-bottom: 0; padding: 0;">
+                        <input type="file" name="file" id="file" class="input-file" accept="application/pdf" />
+                        <label for="file" class="btn-tertiary js-labelFile">
+                            <span id="file-name" class="js-fileName">Nenhum arquivo selecionado</span>
+                            <span id="file-name2" class="btn__blue">Selecionar um arquivo</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-6 form__footer">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}">
+                    <div class="g-recaptcha" data-sitekey="6LfwRgEqAAAAAMAX0hVNDxf4eDhoaiuHvZWnFgyU"></div>
+                    <button type="submit" class="btn__blue">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </section>
+    
+    <script>
+        document.querySelector('.input-file').addEventListener('change', function(event) {
+    var input = event.target;
+    var fileName = input.files[0] ? input.files[0].name : 'Nenhum arquivo selecionado';
+    document.getElementById('file-name').textContent = fileName;
+});
+</script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+</body>
+
+<!-- Mirrored from arthrom.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 04 Apr 2024 00:14:40 GMT -->
+
+</html>
+{% endblock %}

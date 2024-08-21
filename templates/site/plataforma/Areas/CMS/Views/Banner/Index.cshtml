@@ -1,0 +1,80 @@
+﻿@model IEnumerable<Data.Models.Banner>
+@{
+    ViewBag.Title = "Banners";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    @Html.Partial("~/Views/Shared/_AlertasGrid.cshtml")
+</div>
+
+
+<div class="portlet light ">
+    <div class="portlet-title">
+        <div class="caption font-green">
+            <span class="caption-subject bold uppercase"><a href="@Url.RouteUrl("cms.banner")" class="btn btn-info"><i class="fa fa-plus"></i>&nbsp; Novo Registro</a></span>
+        </div>
+        <div class="tools"> </div>
+    </div>
+    <div class="portlet-body">
+        <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="sample_2">
+            <thead>
+                <tr>
+                    <th class="all" width="10%">Ações</th>
+                    <th class="all">Nome</th>
+                    @*<th class="all">Tipo</th>*@
+                    <th class="all">Data Início</th>
+                    <th class="all">Data Fim</th>
+                    <th class="all">Link</th>
+                    @if (Tiles.Idioma == "true")
+                    {
+                        <th class="all">Idioma</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <th>
+                        <a title="Ver Registro" class="btn btn-default btn-sm blue" data-toggle="tooltip" data-title="Ver Pedido" href="@Url.RouteUrl("cms.banner", new { id= item.Banner_ID })">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <a title="Ver Registro" class="btn btn-default btn-sm red" data-toggle="tooltip" data-title="Ver Pedido" href="@Url.RouteUrl("cms.banner.excluir", new { id= item.Banner_ID })">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </th>
+                    <td>@item.Nome</td>
+                    @*<td>@(item.Extra5.Equals("bannerprincipal") ? "Banner Principal" : "Banner Vitrine" )</td>*@
+                    <td>@(item.DataInicio != null ? item.DataInicio.Value.ToString("dd/MM/yyyy") : "")</td>
+                    <td>@(item.DataFim != null ? item.DataFim.Value.ToString("dd/MM/yyyy") : "")</td>
+                    <td><a href="@item.Extra1" target="_blank">Link</a></td>
+                    @if (Tiles.Idioma == "true")
+                    {
+                        if (item.Idioma != null)
+                        {
+                            <td>@item.Idioma.Nome</td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+                    }
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts{
+    <script src="/app_themes/plataforma/global/scripts/datatable.js" type="text/javascript"></script>
+    <script src="/app_themes/plataforma/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
+    <script src="/app_themes/plataforma/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
+    <script src="/app_themes/plataforma/pages/scripts/table-datatables-responsive.js" type="text/javascript"></script>
+}
+
+@section styles{
+    <link href="/app_themes/plataforma/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
+    <link href="/app_themes/plataforma/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
+}

@@ -1,0 +1,109 @@
+{% extends "dashboard.html" %}
+
+{% block conteudo %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{{url('admin/dashboard')}}">
+                Home
+            </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            Categorias
+        </li>
+    </ol>
+</nav>
+{{flash()}}
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
+        <form
+            action="{% if categoria.id %}{{url('admin/categorias/editar/'~categoria.id)}}{%else%}{{url('admin/categorias/cadastrar')}}{%endif%}"
+            method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="titulo" class="form-label">Título</label>
+                <input type="text" name="titulo" id="titulo" value="{{categoria.titulo}}" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="titulo" class="form-label">Tipo da categoria</label>
+                <select class="form-select" name="tipo_categoria">
+                    <option value="produto" {% if categoria.tipo_categoria=='produto' %}selected{%endif%}>Produto
+                    </option>
+                    <option value="noticia" {% if categoria.tipo_categoria=='noticia' %}selected{%endif%}>Notícia
+                    </option>
+                </select>
+            </div>
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="mb-3">
+                        <label for="capa" class="form-label">Capa da categoria</label>
+                        <input class="form-control" type="file" id="capa" name="capa" accept=".png, .jpg, .jpeg, .webp">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="capa_ativa" class="form-label">Capa Ativa</label>
+                        <select class="form-select" name="capa_ativa">
+                            <option value="1" {% if categoria.capa_ativa=='1' %}selected{%endif%}>Sim</option>
+                            <option value="0" {% if categoria.capa_ativa=='0' %}selected{%endif%}>Não</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    {% if categoria.imagem %}
+                    <div class="gallery">
+                        <a data-fancybox="gallery" data-caption="{{categoria.imagem}}" class="overflow zoom "
+                            href="{{url('uploads/categoria/'~categoria.imagem)}}">
+                            <img src="{{url('uploads/categoria/thumbs/'~categoria.imagem)}}" alt="galeria">
+                        </a>
+                    </div>
+
+                    {% else %}
+                    <img src="{{url('templates/admin/assets/img/semcapa.png')}}" class="capa" />
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="mb-3">
+                        <label for="capa" class="form-label">Arquivo da categoria</label>
+                        <input class="form-control" type="file" id="arquivo" name="arquivo" accept=".pdf, .doc, .docx">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="mb-3">
+                        <label for="arquivo_ativo" class="form-label">Arquivo ativo</label>
+                        <select class="form-select" name="arquivo_ativo">
+                            <option value="1" {% if categoria.arquivo_ativo=='1' %}selected{%endif%}>Sim</option>
+                            <option value="0" {% if categoria.arquivo_ativo=='0' %}selected{%endif%}>Não</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="mb-3">
+                        <label for="arquivo_ativo" class="form-label">Visualizar</label>
+                        {% if categoria.arquivo %}
+                        <div class="">
+                            <a data-fancybox="gallery" data-caption="{{categoria.arquivo}}" class="overflow zoom"
+                                href="{{url('uploads/categoria/arquivo/'~categoria.arquivo)}}">
+                                <i class="fa-solid fa-file-pdf fa-xl" style="color: #d71e09; margin-top: 18px"></i>
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <select class="form-select" name="status">
+                    <option value="1" {% if categoria.status=='1' %}selected{%endif%}>Ativo</option>
+                    <option value="0" {% if categoria.status=='0' %}selected{%endif%}>Inativo</option>
+                </select>
+            </div>
+
+            <input type="submit" class="btn btn-primary"
+                value="{% if categoria.id %}Atualizar{%else%}Cadastrar{%endif%}">
+        </form>
+    </div>
+</div>
+</div>
+{% endblock %}

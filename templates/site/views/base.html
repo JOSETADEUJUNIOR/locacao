@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        {% if titulo %}
+        {{titulo}}
+        {% else %}
+        {{constant('SITE_NOME')}}
+        {% endif %}
+    </title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="#0f0f4d">
+    <meta name="description" content="{{config.config_site_description}}">
+    <meta name="keywords" content="{{config.config_site_keywords}}">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B0YKZ0EX6L"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-B0YKZ0EX6L');
+    </script>
+    <meta name="robots" content="index, follow" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store" />
+    <meta http-equiv="Pragma" content="no-cache, no-store" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="content-language" content="pt-br">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+
+    <!--  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url('templates/assets/css/estilos.css') }}">
+    <link rel="stylesheet" href="{{ url('templates/site/assets/css/site.css') }}"> -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url('templates/site/assets/libs/owl.carousel.min.css')}}">
+    <link rel="stylesheet" href="{{ url('templates/site/assets/libs/owl.theme.default.min.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="{{ url('templates/site/assets/css/main.css')}}">
+
+    <script defer src="{{ url('templates/site/assets/js/header__mobile.js')}}"></script>
+    <script defer src="https://kit.fontawesome.com/845932d5ad.js" crossorigin="anonymous"></script>
+
+
+    <link href="{{ url('uploads/empresa/favicon/'~config.config_favicon)}}" rel="icon">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.2.0/css/all.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!-- Vendor CSS Files -->
+    <!--     <link href="{{ url('templates/site/assets/vendor/aos/aos.css')}}" rel="stylesheet">
+    <link href="{{ url('templates/site/assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{ url('templates/site/assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
+    <link href="{{ url('templates/site/assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
+    <link href="{{ url('templates/site/assets/vendor/glightbox/css/glightbox.min.css')}}" rel="stylesheet">
+    <link href="{{ url('templates/site/assets/vendor/remixicon/remixicon.css')}}" rel="stylesheet">
+    <link href="{{ url('templates/site/assets/vendor/swiper/swiper-bundle.min.css')}}" rel="stylesheet">-->
+
+    <!-- Template Main CSS File -->
+    <!--  <link href="{{ url('templates/site/assets/css/style.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url('templates/assets/css/estilos.css') }}">
+    <link rel="stylesheet" href="{{ url('templates/site/assets/css/site.css') }}"> -->
+</head>
+
+<body>
+
+    {% include 'topo.html' %}
+
+    {% block conteudo %} {% endblock %}
+
+    {% include 'rodape.html' %}
+
+    <!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script> -->
+    <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="{{ url('templates/site/assets/js/scripts.js') }}"></script>
+    <script src="{{ url('templates/site/assets/js/site.js') }}"></script>
+    <script src="{{ url('templates/site/assets/vendor/aos/aos.js')}}"></script>
+    <script src="{{ url('templates/site/assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{ url('templates/site/assets/vendor/glightbox/js/glightbox.min.js')}}"></script>
+    <script src="{{ url('templates/site/assets/vendor/isotope-layout/isotope.pkgd.min.js')}}"></script>
+    <script src="{{ url('templates/site/assets/vendor/swiper/swiper-bundle.min.js')}}"></script>
+    <script src="{{ url('templates/site/assets/vendor/waypoints/noframework.waypoints.js')}}"></script>
+    <script src="{{ url('templates/site/assets/vendor/php-email-form/validate.js')}}"></script>
+ -->
+    <!-- Template Main JS File -->
+    <!-- <script src="{{ url('templates/site/assets/js/main.js')}}"></script> -->
+    <script src="{{ url('templates/site/assets/js/scripts.js') }}"></script>
+    <!--     <script src="{{ url('templates/site/assets/js/site.js')}}"></script> -->
+
+    <!-- bootstrap 4.6.1 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+        crossorigin="anonymous"></script>
+        <script src="{{ url('templates/site/Scripts/jquery.mask.min.js')}}"></script>
+        <script src="{{ url('templates/site/Scripts/execmasks.js')}}"></script>
+
+<script>
+        var onloadCallback = function () {
+            window.grecaptcha.render('g-recaptcha-here', {
+                'sitekey': '6LcKjRQjAAAAAJBoYLoBMEtq4jypA-c3floWQq71'
+            });
+        };
+    
+            $('#form-compliance').on('submit', function (e) {
+            if (window.grecaptcha.getResponse() == "") {
+                e.preventDefault();
+                alert("Por favor complete o Captcha!");
+            }
+        });
+    
+    
+    
+        function getExt(filename) {
+            var dot_pos = filename.lastIndexOf(".");
+            if (dot_pos == -1) {
+                return "";
+            }
+            return filename.substr(dot_pos + 1).toLowerCase();
+        }
+    
+        $("#file").on("change", function () {
+            validate_ext();
+        });
+    
+        function validate_ext() {
+            var filename = document.getElementById("file").value;
+            var ext = getExt(filename);
+            if (!((ext == "pdf"))) {
+                $("#file").val("");
+                $(".js-fileName").html("<img src='Content/images/file.html' /> Anexar arquivo");
+                alert("Só é aceito os arquivos nos formatos .PDF!");
+                return false;
+            }
+            return true;
+        }
+    
+        (function () {
+            'use strict';
+    
+            $('.input-file').each(function () {
+                var $input = $(this),
+                    $label = $input.next('.js-labelFile'),
+                    labelVal = $label.html();
+    
+                $input.on('change', function (element) {
+                    var fileName = '';
+                    if (element.target.value)
+                        fileName = element.target.value.split('\\').pop();
+                    fileName
+                        ? $label.addClass('has-file').find('.js-fileName').html(fileName)
+                        : $label.removeClass('has-file').html(labelVal);
+                });
+            });
+            })();
+    
+    
+            if (location.href.includes('denunciation')) {
+                history.pushState({}, null, location.href.replace("denunciation","#denuncia"));
+            }
+    
+        </script>
+
+    <script>
+
+
+        $('.partners__carousel').owlCarousel({
+            loop: false,
+            nav: false,
+            dots: true,
+
+            responsive: {
+                0: {
+                    items: 1,
+                    margin: 0,
+                    stagePadding: 80,
+
+                },
+                768: {
+                    items: 4,
+                    margin: 30,
+                },
+                1080: {
+                    items: 6,
+                    margin: 30,
+                },
+
+            }
+        });
+
+        $('.services__carousel').owlCarousel({
+            loop: false,
+            nav: false,
+            dots: true,
+
+            responsive: {
+                0: {
+                    items: 1,
+                    margin: 20,
+                },
+                768: {
+                    items: 4,
+                    margin: 30,
+                }
+            }
+        });
+
+        $(".owl-prev").html('<i class="fa-solid fa-arrow-left"></i>');
+        $(".owl-next").html('<i class="fa-solid fa-arrow-right"></i>');
+    </script>
+
+
+    <!-- owl carousel controls -->
+    <script src="{{ url('templates/site/assets/libs/owl.carousel.min.js')}}"></script>
+
+    <script>
+
+        $('.banner__carousel').owlCarousel({
+            loop: true,
+            nav: false,
+            dots: true,
+            autoplay: true,
+            responsive: {
+                0: {
+                    items: 1,
+                    margin: 0,
+                }
+            }
+        });
+
+        $('.banner__mobile').owlCarousel({
+            loop: true,
+            nav: false,
+            dots: true,
+            autoplay: true,
+            responsive: {
+                0: {
+                    items: 1,
+                    margin: 0,
+                }
+            }
+        });
+
+        $('.products__mobile').owlCarousel({
+            loop: false,
+            nav: false,
+            dots: true,
+            stagePadding: 24,
+
+            responsive: {
+                0: {
+                    items: 1,
+                    margin: 20,
+                    center: true,
+                }
+            }
+        });
+
+        $('.news__mobile').owlCarousel({
+            loop: false,
+            nav: false,
+            dots: true,
+            stagePadding: 30,
+
+            responsive: {
+                0: {
+                    items: 1,
+                    margin: 20,
+                    center: true,
+                }
+            }
+        });
+
+        $(".owl-prev").html('<i class="fa-solid fa-arrow-left"></i>');
+        $(".owl-next").html('<i class="fa-solid fa-arrow-right"></i>');
+
+
+
+
+
+        const HAMBURGUER = document.querySelector('.navbar__hamburguer');
+        const MENU = document.querySelector('.navbar__overlay');
+        const CLOSE = document.querySelector('.overlay__close');
+
+        HAMBURGUER.addEventListener('click', () => {
+            MENU.classList.toggle('open');
+        })
+
+        CLOSE.addEventListener('click', () => {
+            MENU.classList.toggle('open');
+        })
+
+        const SEARCH = document.querySelector('.navbar__search');
+        const MENUSEARCH = document.querySelector('.overlay__search');
+        const CLOSESEARCH = document.querySelector('section');
+
+        SEARCH.addEventListener('click', () => {
+            MENUSEARCH.classList.toggle('open');
+        })
+
+        CLOSESEARCH.addEventListener('click', () => {
+            MENUSEARCH.classList.toggle('open');
+        })
+
+
+
+    </script>
+ <a class="button__whatsapp--floating animate__animated animate__bounceInDown"
+ href="http://api.whatsapp.com/send?phone=554388002812" target="_blank">
+ <i class="fa-brands fa-whatsapp"></i>
+</a>
+</body>
+
+</html>

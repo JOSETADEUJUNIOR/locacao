@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Relatório de Categorias</title>
+    <style>
+        /* Adicione seus estilos CSS aqui */
+        /* Seus outros estilos CSS aqui */
+        body {
+            font-family: Arial, sans-serif;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #337ab7;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body style="margin-left: 20px; margin-right: 20px;">
+    <h1>Relatório de Produtos</h1>
+    <table>
+        <tr>
+            <th>id</th>
+            <th>Produto</th>
+            <th>Categoria</th>
+            <th>Link</th>
+            <th class="text-center">Status</th>
+        </tr>
+        {% for produto in produtos %}
+        <tr>
+            <th>{{produto.id}}</th>
+            <td class="fw-bold">{{produto.titulo}}</td>
+            <td class="fw-bold">{{produto.categoria_nome}}</td>
+            <td class="fw-bold">{{url('/produto/'~produto.slug)}}</td>
+            <td class="text-center">
+                {% if produto.status == 1 %}
+                <i class="fa-solid fa-circle text-success" tooltip="tooltip" title="Ativo">Ativo</i>
+                {% else %}
+                <i class="fa-solid fa-circle text-danger" tooltip="tooltip" title="Inativo">Inativo</i>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <p>Total de produtos: {{ total.produtos }}</p>
+</body>
+
+</html>

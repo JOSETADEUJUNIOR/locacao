@@ -1,0 +1,71 @@
+﻿@model Data.Models.Banner
+@{
+    ViewBag.Title = "Banner";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section scripts{
+    <script src="~/Scripts/custom.js"></script>
+}
+<div class="portlet light ">
+    <div class="portlet-title">
+        <div class="caption font-green">
+            <i class="fa fa-list font-green"></i>
+            <span class="caption-subject bold uppercase">Gerenciar @ViewBag.Title</span>
+        </div>
+        <div class="tools"> </div>
+    </div>
+    <div class="portlet-body">
+        <div class="page-content-col">
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.Partial("~/Views/Shared/_AlertasGrid.cshtml")
+                    <div class="portlet  ">
+                        <div class="portlet-body form">
+                            @using (Html.BeginForm("Manager", "Banner", FormMethod.Post, new { @id = "registerForm" }))
+                            {
+                                @Html.HiddenFor(model => model.Banner_ID)
+                                @Html.HiddenFor(model => model.Habilitado)
+                                @Html.ValidationSummary(true)
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-body clearfix">
+
+                                    <div class="row">
+                                        @if (Tiles.Idioma == "true")
+                                        {
+                                            /*Valida se o Idioma esta ativo no painel admin*/
+                                            @Html.Partial("~/Views/Fields/_selectField.cshtml", new Plataforma.Models.SelectField("Idioma", "Idioma_ID", Model.Idioma_ID.ToString(), "Idioma_ID", "required", 6))
+                                        }
+                                        @*@Html.Partial("~/Views/Fields/_selectField3.cshtml", new Plataforma.Models.SelectField("Tipo de Banner", "Extra5", Model.Extra5, "ID", "required", 6))*@
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Nome", "Nome", Model.Nome, "required", 4))
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Data Início", "DataInicio", Model.DataInicio.ToString(), "required", 4))
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Data Fim", "DataFim", Model.DataFim.ToString(), "required", 4))
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Link do Banner", "Extra1", Model.Extra1, "", 12))
+                                        @Html.Partial("~/Views/Fields/_txtImageField.cshtml", new Plataforma.Models.UploadField("Imagem (1366 x 750px)", "Imagem", Model.Imagem, "required", 6, 1))
+                                        @Html.Partial("~/Views/Fields/_txtImageField.cshtml", new Plataforma.Models.UploadField("Imagem Mobile (360 x 600px)", "ImagemMobile", Model.ImagemMobile, "", 6, 2))
+                                        <hr />
+                                        @*<div class="col-md-12">
+                                            <h4>
+                                                Atributos de Banner Vitrine
+                                            </h4>
+                                        </div>
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Headline", "Extra6", Model.Extra6, "", 3))
+                                        @Html.Partial("~/Views/Fields/_txtImageField.cshtml", new Plataforma.Models.UploadField("Icone", "Extra2", Model.Extra2, "", 3, 3))
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Descrição", "Extra3", Model.Extra3, "", 3))
+                                        @Html.Partial("~/Views/Fields/_txtField.cshtml", new Plataforma.Models.TextField("Texto Botão", "Extra4", Model.Extra4, "", 3))*@
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn blue">Salvar</button>
+                                    <a href="@Url.RouteUrl("cms.banners")" class="btn default">Cancelar</a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

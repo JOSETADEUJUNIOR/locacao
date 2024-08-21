@@ -1,0 +1,85 @@
+<header class="page__header" id="header">
+    <div class="container">
+        <div class="row" style=" align-items: center;">
+
+            <div class="col col-md-2">
+                <a href="{{ url() }}">
+                    <img src="{{ url('templates/site/assets/img/logo-arthrom.svg')}}" alt="Arthrom - Soluções em Ortopedia">
+                </a>
+            </div>
+
+            <div class="col-md-10 px-0 is--desktop">
+
+                <nav class="d-flex justify-content-between w-100 menu__header"
+                    style="justify-content:flex-end!important;gap:30px;">
+
+                    <a href="{{ url('')}}" class="link__header">Home</a>
+                    <a href="{{ url('/arthrom')}}" class="link__header">Arthrom</a>
+                    <a href="{{ url('/produtos')}}" class="link__header">Produtos</a>
+                    <a href="{{ url('/compliance')}}" class="link__header">Compliance</a>
+                    <a href="{{ url('/blog')}}" class="link__header">Blog</a>
+                    <a href="https://londrina.arthrom.com/" class="link__header" target="_blank">Portal</a>
+                    <a href="{{ url('/contato')}}" class="link__header">Contato</a>
+
+                </nav>
+
+            </div>
+
+            <div class="col col-md-2 is--mobile">
+
+
+                <menu class="navbar__hamburguer">
+                    <img src="{{ url('templates/site/assets/img/burger-bar.svg')}}" alt="Menu">
+                </menu>
+
+
+
+                <div id="navbar__overlay" class="navbar__overlay animate__animated animate__backInRight">
+                    <div class="overlay__content">
+
+                        <div class="d-flex justify-content-between">
+                            <img src="{{ url('templates/site/assets/img/logo-arthrom-w.svg')}}" alt="Arthrom" class="overlay__logo">
+
+                            <i class="fa-solid fa-xmark overlay__close"></i>
+                        </div>
+
+                        <div
+                            class="container d-flex flex-column align-items-center justify-content-start overlay__menu h-100">
+
+                            <nav class="overlay__links">
+                                <a class="text-center link" href="{{ url('')}}">Home</a>
+                                <a class="text-center link" href="{{ url('/Arthrom')}}">Arthrom</a>
+                                <a class="text-center link" href="{{ url('/produtos')}}">Produtos</a>
+                                <a class="text-center link" href="{{ url('/compliance')}}">Compliance</a>
+                                <a class="text-center link" href="{{ url('/blog')}}">Blog</a>
+                                <a class="text-center link" href="https://londrina.arthrom.com/"
+                                    target="_blank">Portal</a>
+                                <a class="text-center link" href="{{ url('/contato') }}">Contato</a>
+                            </nav>
+
+                            <div class="overlay__social d-flex flex-row justify-content-between pt-4 pb-2"
+                                role="navigation" aria-label="links sociais">
+
+                                <a href="https://www.instagram.com/arthrom.ortopedia/" target="_blank">
+                                    <img src="{{ url('templates/site/assets/img/icon-insta.svg')}}" alt="Instagram" class="icon__menu">
+                                </a>
+                                <a href="https://pt-br.facebook.com/arthrom.ortopedia" target="_blank">
+                                    <img src="{{ url('templates/site/assets/img/icon-face2.svg')}}" alt="Facebook" class="icon__menu">
+                                </a>
+
+                                <a href="https://www.linkedin.com/company/arthrom" target="_blank">
+                                    <img src="{{ url('templates/site/assets/img/icon-linkedin.svg')}}" alt="Linkedin" class="icon__menu">
+                                </a>
+                            </div>
+
+                            <a class="button__whatsapp--floating animate__animated animate__bounceInDown"
+                                href="http://api.whatsapp.com/send?phone=554388002812" target="_blank">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

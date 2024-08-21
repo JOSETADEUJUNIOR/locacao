@@ -1,0 +1,78 @@
+﻿@if (Request.QueryString.Count > 0)
+{
+
+    if (Request.QueryString[0] == "sucesso")
+    {
+        <div class="note note-success">
+            <h4 class="block">Cadastro com sucesso</h4>
+            <p>
+                O registro foi cadastrado com sucesso, para editar, procure-o na lista abaixo.
+            </p>
+        </div>
+    }
+
+    if (Request.QueryString[0] == "upload-sucesso")
+    {
+        <div class="note note-success">
+            <h4 class="block">Importação feito com sucesso</h4>
+            <p>
+                Os registros do seu arquivo CSV foram cadastrado com sucesso, para editar, procure-o na lista abaixo.
+            </p>
+        </div>
+    }
+
+    if (Request.QueryString[0] == "CadastroSucesso")
+    {
+        <div class="note note-success">
+            <h4 class="block">Cadastro com sucesso</h4>
+            <p>
+                O registro foi cadastrado com sucesso, para editar, procure-o na lista abaixo.
+            </p>
+        </div>
+    }
+
+    if (Request.QueryString[0] == "ProdutoSucesso")
+    {
+        <div class="note note-warning pulsate-regular">
+            <h4 class="block">Cadastro realizado com sucesso</h4>
+            <p>
+                A partir de agora, você pode adicionar imagens e atributos a este produto.
+            </p>
+        </div>
+    }
+
+    if (Request.QueryString[0] == "EditSucesso")
+    {
+        <div class="note note-success">
+            <h4 class="block">Edição com sucesso</h4>
+            <p>
+                O registro foi editado com sucesso.
+            </p>
+        </div>
+    }
+
+    if (Request.QueryString[0] == "DeleteSucesso")
+    {
+        <div class="note note-success">
+            <h4 class="block">Deleção com sucesso</h4>
+            <p>
+                O registro foi excluído com sucesso.
+            </p>
+        </div>
+    }
+
+    if (Request.QueryString[0] == "NotFound")
+    {
+        <div class="note note-danger">
+            <h4 class="block">Registro não encontrado!</h4>
+            <p>
+                Você pode estar tentando acessar um registro que não existe ou foi desativado, tente novamente!
+            </p>
+        </div>
+    }
+
+    if (Request.QueryString[0] == "DeleteFail")
+    {
+
+    }
+}

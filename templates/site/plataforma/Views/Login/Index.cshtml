@@ -1,0 +1,68 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutOut.cshtml";
+    ViewBag.Title = "Login";
+}
+
+<div class="user-login-5">
+    <div class="row bs-reset">
+        <div class="col-md-6 bs-reset mt-login-5-bsfix" style="background-image:url(https://londrinasa.com.br/content/img/criacao-de-sites-em-londrina.jpg)">
+            <div class="login-bg" style="background: rgba(0,0,0,.5);">
+                <img class="login-logo" src="https://londrinasa.com.br/content/img/logo.png" height="50">
+            </div>
+        </div>
+        <div class="col-md-6 login-container bs-reset mt-login-5-bsfix">
+            <div class="login-content">
+                <h1>Olá, bem vindo ao administrador do seu website</h1>
+                <p> Design moderno. Ambiente rápido. Responsivo.  </p>
+                <form action="/login" class="login-form" method="post">
+                    @if (Request.QueryString.Count > 0)
+                    {
+                        <input type="hidden" id="returnurl" name="returnurl" value="@Request.QueryString[0]" />
+                    }
+                    <div class="alert alert-danger display-hide">
+                        <button class="close" data-close="alert"></button>
+                        <span>Insira seu usuário e senha. </span>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <input class="form-control form-control-solid placeholder-no-fix form-group" type="text" autocomplete="off" placeholder="Login" name="login" id="login" required />
+                        </div>
+                        <div class="col-xs-6">
+                            <input class="form-control form-control-solid placeholder-no-fix form-group" type="password" autocomplete="off" placeholder="Senha" name="password" id="password" required />
+                        </div>
+                    </div>
+                    <div class="row">
+                      
+                        <div class="col-sm-8 text-right">
+                            @*<div class="forgot-password">
+                                    <a href="javascript:;" id="forget-password" class="forget-password">Forgot Password?</a>
+                                </div>*@
+                            <button class="btn green" type="submit">Entrar</button>
+                        </div>
+                    </div>
+                </form>
+             
+            </div>
+            <div class="login-footer">
+                <div class="row bs-reset">
+                    <div class="col-xs-5 bs-reset">
+                        <ul class="login-social">
+                            <li>
+                                <a href="http://www.londrinasa.com.br" target="_blank">
+                                    <i class="icon-link"></i>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="col-xs-7 bs-reset">
+                        <div class="login-copyright text-right">
+                            <p>Copyright &copy; Londrina S/A @DateTime.Now.Year</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

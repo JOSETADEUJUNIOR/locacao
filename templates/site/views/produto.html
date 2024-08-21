@@ -1,0 +1,252 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+
+<style>
+    .owl-carousel .item img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+</style>
+
+<body>
+    <section class="breadcrumb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1 class="title">
+                        Produto
+                    </h1>
+                </div>
+                <div class="menu col-md-6 d-flex align-items-center">
+                    <a href="{{ url() }}" class="previous">Home</a>
+                    <img src="{{  url('templates/site/assets/img/arrow-right.svg') }}" class="arrow">
+                    <a href="/produtos">
+                        <p class="current">Produto</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page__product--detail">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div class="row justify-content-between product__upper">
+                        <div class="col-md-5">
+                            <div class="owl-carousel owl-theme product__carousel">
+                                {% if fotos is empty %}
+                                <div class="item">
+                                    <img src="{{ url('uploads/produtos/'~produto.capa)}}" alt="Capa do Produto">
+                                </div>
+                                {% else %}
+                                {% for foto in fotos %}
+                                <div class="item">
+                                    <img src="{{ url('uploads/produtos/'~foto.foto)}}" alt="{{ foto.descricao }}">
+                                </div>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 product__about">
+                            <p class="tag">
+                                {{categoria.titulo}}
+                            </p>
+                            <h2 class="name">
+                                {{ produto.titulo | raw }}
+                            </h2>
+                            <p class="description">
+                                {{ produto.sub_titulo | raw }}
+                            </p>
+
+                            <div class="ask">
+                                <span class="text">Indicações:</span>
+                                <span class="product">
+                                    {{ produto.indicacoes | raw }}
+                                </span>
+                            </div>
+
+                            <p class="ask">
+                                <span class="text">Formas de pedir ao convênio:</span>
+                                <span class="product">{{ produto.forma_convenio }}</span>
+                            </p>
+                            <a href="http://api.whatsapp.com/send?phone=554388002812&text=Olá Arthrom, vim pelo site! Tenho interesse na disponibilidade do produto: {{produto.titulo}}"
+                                class="button" target="_blank">
+                                <img src="{{  url('templates/site/assets/img/icon-product-whatsapp.webp') }}"
+                                    alt="ícone" aria-hidden="true">
+                                Solicitar disponibilidade
+                            </a>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-12 product__description">
+                            <div id="botao_arquivos">
+
+                                {% if produto.texto_botao_1 %}
+                                <a href="{{ url('uploads/capa_botao_1/'~produto.capa_botao_1) }}" class="button2"
+                                    target="_blank">
+                                    {{produto.texto_botao_1}}
+                                </a>
+                                {% endif %}
+
+                                {% if produto.texto_botao_2 %}
+                                <a href="{{ url('uploads/capa_botao_2/'~produto.capa_botao_2) }}" class="button2"
+                                    target="_blank">
+                                    {{produto.texto_botao_2}}
+                                </a>
+                                {% endif %}
+
+                                {% if produto.texto_botao_3 %}
+                                <a href="{{ url('uploads/capa_botao_3/'~produto.capa_botao_3) }}" class="button2"
+                                    target="_blank">
+                                    {{produto.texto_botao_3}}
+                                </a>
+                                {% endif %}
+
+                            </div>
+                            <h3>Descrição</h3>
+
+                            <p>
+                                {{produto.texto | raw}}
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- bootstrap 4.6.1 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+        crossorigin="anonymous"></script>
+
+    <script src="{{ url('templates/site/assets/libs/owl.carousel.min.js')}}"></script>
+    <script>
+        $('.product__carousel').owlCarousel({
+            loop: true,
+            nav: false,
+            dots: true,
+            autoplay: true,
+            autoplayTimeout: 3000,
+
+            responsive: {
+                0: {
+                    items: 1,
+                    margin: 0,
+                }
+            }
+        });
+    </script>
+
+    <!-- owl carousel controls -->
+    <script src="/assets/libs/owl.carousel.min.js"></script>
+
+    <script>
+
+        $('.banner__carousel').owlCarousel({
+            loop: true,
+            nav: false,
+            dots: true,
+            autoplay: true,
+            responsive: {
+                0: {
+                    items: 1,
+                    margin: 0,
+                }
+            }
+        });
+
+        $('.banner__mobile').owlCarousel({
+            loop: true,
+            nav: false,
+            dots: true,
+            autoplay: true,
+            responsive: {
+                0: {
+                    items: 1,
+                    margin: 0,
+                }
+            }
+        });
+
+        $('.products__mobile').owlCarousel({
+            loop: false,
+            nav: false,
+            dots: true,
+            stagePadding: 24,
+
+            responsive: {
+                0: {
+                    items: 1,
+                    margin: 20,
+                    center: true,
+                }
+            }
+        });
+
+        $('.news__mobile').owlCarousel({
+            loop: false,
+            nav: false,
+            dots: true,
+            stagePadding: 30,
+
+            responsive: {
+                0: {
+                    items: 1,
+                    margin: 20,
+                    center: true,
+                }
+            }
+        });
+
+        $(".owl-prev").html('<i class="fa-solid fa-arrow-left"></i>');
+        $(".owl-next").html('<i class="fa-solid fa-arrow-right"></i>');
+
+
+
+
+
+        const HAMBURGUER = document.querySelector('.navbar__hamburguer');
+        const MENU = document.querySelector('.navbar__overlay');
+        const CLOSE = document.querySelector('.overlay__close');
+
+        HAMBURGUER.addEventListener('click', () => {
+            MENU.classList.toggle('open');
+        })
+
+        CLOSE.addEventListener('click', () => {
+            MENU.classList.toggle('open');
+        })
+
+        const SEARCH = document.querySelector('.navbar__search');
+        const MENUSEARCH = document.querySelector('.overlay__search');
+        const CLOSESEARCH = document.querySelector('section');
+
+        SEARCH.addEventListener('click', () => {
+            MENUSEARCH.classList.toggle('open');
+        })
+
+        CLOSESEARCH.addEventListener('click', () => {
+            MENUSEARCH.classList.toggle('open');
+        })
+
+
+
+
+
+    </script>
+
+</body>
+
+<!-- Mirrored from arthrom.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 04 Apr 2024 00:14:40 GMT -->
+
+</html>
+{% endblock %}

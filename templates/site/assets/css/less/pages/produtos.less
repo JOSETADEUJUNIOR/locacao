@@ -1,0 +1,123 @@
+// out: false
+
+@import "../base/_pallete.less";
+
+.page__products--grid {
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+    .products__categories {
+        margin-bottom: 30px;
+
+        h2 {
+            color: rgb(0, 102, 169);
+            font: 300 20px @raleway;
+            margin-bottom: 21px;
+            letter-spacing: 4px;
+        }
+
+        .category {
+            font: 400 16px @raleway;
+            color: @marineBlue;
+            margin-bottom: 18px;
+
+            &.active {
+                font-weight: 800;
+                text-decoration: underline;
+            }
+        }
+
+        a {
+            padding-top: 5px;
+            padding-bottom: 5px;
+            font: 400 16px @raleway;
+            color: rgb(0, 20, 56);
+            margin-bottom: 5px;
+            border-radius: 4px;
+
+            &.active {
+                font-weight: 700;
+                text-decoration: underline;
+                text-underline-offset: 4px;
+            }
+
+            .--transition();
+
+            &:hover {
+                background-color: rgba(81, 206, 225, .25);
+                padding-left: 10px;
+            }
+        }
+    }
+
+    .products__cards {
+        .product__card {
+            margin-bottom: 30px;
+            border-radius: 10px;
+            border: 1px solid rgb(238, 238, 238);
+            background-color: rgb(255, 255, 255);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            .cover {
+                height: 192px;
+                border-radius: 10px 10px 0 0;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 10px 10px 0 0;
+                }
+            }
+
+            .info {
+                padding-left: 30px;
+                padding-right: 15px;
+                flex-grow: 1;
+                margin-bottom: 9px;
+
+                .tag {
+                    margin-bottom: 10px;
+                    color: rgb(81, 206, 225);
+                    font: 400 14px @raleway;
+                    letter-spacing: 7px;
+                    text-transform: uppercase;
+                }
+
+                .name {
+                    color: rgb(0, 20, 56);
+                    font: 800 18px @raleway;
+                    margin-bottom: 19px;
+                }
+
+                .text {
+                    color: rgb(57, 60, 64);
+                    font: 400 14px/20px @raleway;
+                    margin-bottom: 9px;
+                }
+            }
+
+            .button {
+                padding: 20px;
+                background-color: rgb(0, 102, 169);
+                border-radius: 0 0 10px 10px;
+                color: white;
+                font: 700 18px @raleway;
+                text-align: center;
+            }
+
+            &:hover {
+                box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+                .button {
+                    background-color: lighten(hsl(204, 100%, 33%), 10%);
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        padding-top: 100px;
+    }
+}

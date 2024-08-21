@@ -1,0 +1,113 @@
+﻿@model IEnumerable<Data.Models.Portfolio>
+@{
+    ViewBag.Title = "Produtos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    @Html.Partial("~/Views/Shared/_AlertasGrid.cshtml")
+</div>
+
+<div class="portlet light ">
+    <div class="portlet-title">
+        <div class="caption font-green">
+            <span class="caption-subject bold uppercase"><a href="@Url.RouteUrl("catalogo.portfolio")" class="btn btn-info"><i class="fa fa-plus"></i>&nbsp; Novo Registro</a></span>
+        </div>
+        <div class="tools"> </div>
+    </div>
+    <div class="portlet-body">
+        <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="sample_2">
+            <thead>
+                <tr>
+                    <th class="all" width="10%">Ações</th>
+                    <th class="all">Ordem</th>
+                    <th class="all">Produto</th>
+                    <th class="all">Categoria</th>
+                    <th class="all">Imagens</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.OrderBy(a => a.Categoria.Nome).ThenBy(a => a.Ordem))
+                {
+                <tr>
+                    <th>
+                        <a title="Ver Registro" class="btn btn-default btn-sm blue" data-toggle="tooltip" data-title="Ver Pedido" href="@Url.RouteUrl("catalogo.portfolio", new { id= item.Portfolio_ID })">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <a title="DUPLICAR" class="btn btn-default btn-sm" data-toggle="tooltip" data-title="DUPLICAR" style="background-color: #3293BF; color: #fff " href="@Url.RouteUrl("catalogo.portfolio", new { id= item.Portfolio_ID, r= "duplicar" })">
+                            <i class="fa fa-copy"></i>
+                        </a>
+                        <a href="@Url.Action("imagens", new { id= item.Portfolio_ID })" class="btn btn-default btn-sm purple">
+                            <i class="fa fa-picture-o"></i>
+                        </a>
+                        <a title="Ver Registro" class="btn btn-default btn-sm red" data-toggle="tooltip" data-title="Ver Pedido" href="@Url.RouteUrl("catalogo.portfolio.excluir", new { id= item.Portfolio_ID })">
+                            <i class="fa fa-times"></i>
+                        </a>
+                        <a title="Ver Registro" class="btn btn-default btn-sm blue" data-toggle="tooltip" data-title="VER NO SITE" href="https://arthrom.com/@item.Url/@item.Categoria.Url/p" target="_blank">
+                            <i class="fa fa-link"></i>
+                        </a>
+                    </th>
+                    <td>
+                        <input type="text" class="ordem form-control text-center" style="max-width:150px;" name="ordem" id="ordem-@item.Portfolio_ID" data-id="@item.Portfolio_ID" value="@item.Ordem" />
+                        <div class="alertas" id="alerta-@item.Portfolio_ID" style="display: none;">
+                            <div class="note note-success" style="">
+                                <p>
+                                    Modificado com Sucesso
+                                </p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>@item.Nome</td>
+                    <td>@item.Categoria.Nome</td>
+                    <td>@item.PortfolioImagem.Where(a => a.Ativo == true).Count()</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section styles{
+    <link href="/app_themes/plataforma/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
+    <link href="/app_themes/plataforma/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
+
+    <style>
+        .alertas {
+            width: auto;
+        }
+    </style>
+}
+
+@section scripts{
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        })
+    </script>
+
+    <script>
+        $(".ordem").on("change", function () {
+            var id = $(this).data("id");
+            var valorordem = $("#ordem-" + id).val();
+                    $("#alerta-" + id).show();
+            $.ajax({
+                url: "@Url.RouteUrl("Portfolio.updateordem")",
+                type: 'get',
+                data: {
+                    id: id,
+                    ordem: valorordem
+                },
+                done: function () {
+                }
+            });
+
+            setTimeout(function HideAlert() {
+                $("#alerta-" + id).hide();
+            }, 3000);
+        });
+    </script>
+
+}

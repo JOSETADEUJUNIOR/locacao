@@ -1,0 +1,22 @@
+<input type="checkbox" id="menu">
+<label for="menu" class="menu-toggle">
+    <i class="fa fa-bars"></i>
+</label>
+
+<header class="topbar">
+    <div class="logo">
+        <a href="{{url('admin/dashboard')}}" tooltip="tooltip" title="Dashboard">
+            <img src="{{url('uploads/empresa/thumbs/'~configs().config_foto)}}" width="50" height="30" alt="{{constant('SITE_NOME')}}" />
+        </a>
+    </div>
+    <nav class="topbarMenu">
+        <ul>
+            <li><a href="{{url('admin/banner/listar')}}" tooltip="tooltip" title="Administração de banner"><i class="fa-regular fa-image"></i><span>Banners</span></a></li>
+            <li><a href="{{url('admin/categorias/listar')}}" tooltip="tooltip" title="Administração de Categorias"><i class="fa fa-tags"></i><span>Categorias</span></a></li>
+            <li><a href="{{url('admin/produtos/listar')}}" tooltip="tooltip" title="Administração de produtos"><i class="fas fa-box"></i><span>Produto</span></a></li>
+            <li><a href="{{url('admin/posts/listar')}}" tooltip="tooltip" title="Administração de notícias"><i class="fas fa-newspaper"></i><span>Notícias</span></a></li>
+            <li><a href="{{url('admin/usuarios/listar')}}" tooltip="tooltip" title="Administração de Usuários"><i class="fas fa-users"></i><span>Usuários</span></a></li>
+            <li><a href="{{url('admin/configuracao/listar')}}"><i class="fas fa-cog"></i><span>Configurações do site</span></a></li>
+        </ul>
+    </nav>
+</header>
