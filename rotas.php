@@ -7,7 +7,7 @@ try {
     //ROTAS SITE
     SimpleRouter::setDefaultNamespace('sistema\Controlador');
 
-    SimpleRouter::get(URL_SITE, 'SiteControlador@index');
+   /*  SimpleRouter::get(URL_SITE, 'SiteControlador@index');
     SimpleRouter::get(URL_SITE . 'index', 'SiteControlador@index');
     SimpleRouter::get(URL_SITE . 'blog', 'SiteControlador@blog');
     SimpleRouter::post(URL_SITE . 'popup', 'SiteControlador@popup');
@@ -22,7 +22,7 @@ try {
     SimpleRouter::get(URL_SITE . '404', 'SiteControlador@erro404');
     SimpleRouter::match(['get', 'post'], URL_SITE . 'contato', 'SiteControlador@contato');
     SimpleRouter::match(['get', 'post'], URL_SITE . 'contato/denuncia', 'SiteControlador@denuncia');
-
+ */
 
     //USUARIOS
     SimpleRouter::match(['get', 'post'], URL_SITE . 'cadastro', 'UsuarioControlador@cadastro');
@@ -52,13 +52,13 @@ try {
         SimpleRouter::get(URL_ADMIN . 'dashboard', 'AdminDashboard@dashboard');
         SimpleRouter::get(URL_ADMIN . 'sair', 'AdminDashboard@sair');
 
-        //BANNER
+      /*   //BANNER
         SimpleRouter::get(URL_ADMIN . 'banner/listar', 'AdminBanner@listar');
         SimpleRouter::match(['get', 'post'],URL_ADMIN . 'banner/cadastrar', 'AdminBanner@cadastrar');
         SimpleRouter::match(['get', 'post'],URL_ADMIN . 'banner/editar/{id}', 'AdminBanner@editar');
         SimpleRouter::get(URL_ADMIN . 'banner/deletar/{id}', 'AdminBanner@deletar');
         SimpleRouter::get(URL_ADMIN . 'banner/gerar-pdf/{searchTerm}', 'AdminBanner@gerarPDF');
-        SimpleRouter::get(URL_ADMIN . 'banner/gerar-excel/{searchTerm}', 'AdminBanner@gerarExcel');
+        SimpleRouter::get(URL_ADMIN . 'banner/gerar-excel/{searchTerm}', 'AdminBanner@gerarExcel'); */
 
         //CLIENTES
         SimpleRouter::get(URL_ADMIN . 'clientes/listar', 'AdminClientes@listar');
@@ -85,6 +85,7 @@ try {
          //ADMIN PRODUTOS
          SimpleRouter::get(URL_ADMIN . 'produtos/listar', 'AdminProdutos@listar');
          SimpleRouter::match(['get', 'post'], URL_ADMIN . 'produtos/cadastrar', 'AdminProdutos@cadastrar');
+         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'produtos/importar-xml', 'AdminProdutos@importarXML');
          SimpleRouter::match(['get', 'post'], URL_ADMIN . 'produtos/duplicar', 'AdminProdutos@duplicar');
          SimpleRouter::match(['get', 'post'], URL_ADMIN . 'produtos/editar/{id}', 'AdminProdutos@editar');
          SimpleRouter::match(['get', 'post'], URL_ADMIN . 'produtos/duplicar/{id}', 'AdminProdutos@duplicar');

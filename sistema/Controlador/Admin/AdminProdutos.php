@@ -114,6 +114,97 @@ class AdminProdutos extends AdminControlador
 
     return $patrimonio;
 }
+
+
+public function importarXML(): void
+{
+    if (isset($_FILES['arquivo_xml']) && $_FILES['arquivo_xml']['error'] == 0) {
+        $xmlString = file_get_contents($_FILES['arquivo_xml']['tmp_name']);
+        $this->importarProdutosDoXML($xmlString);
+    } else {
+        $this->mensagem->erro("Erro ao carregar o arquivo XML.")->flash();
+    }
+
+    Helpers::redirecionar('admin/produtos/listar');
+}
+
+
+
+public function importarProdutosDoXML(string $xmlString): void
+{
+    // Carregar o XML
+    $xml = simplexml_load_string($xmlString);
+
+    // Extrair os produtos do XML
+    $produtos = $xml->NFe->infNFe->det;
+
+    foreach ($produtos as $produto) {
+        // Mapear os dados do produto
+        $dados = [
+            'categoria_id' => $this->definirCategoria($produto->prod->xProd), // Função que pode definir a categoria baseado na descrição do produto
+            'slug' => Helpers::slug((string) $produto->prod->xProd),
+            'titulo' => (string) $produto->prod->xProd,
+            'sub_titulo' => '', // Se não houver subtítulo no XML
+            'data_aquisicao' => date('Y-m-d'), // Ajustar conforme necessário
+            'numero_serie' => (string) $produto->prod->cProd,
+            'estado_atual' => 1,
+            'localizacao' => 'Default', // Ajustar conforme necessário
+            'fabricante' => (string) $produto->prod->xProd, // Se houver uma maneira de identificar o fabricante
+            'modelo' => '', // Se não houver modelo específico no XML
+            'valor_aquisicao' => (float) $produto->prod->vProd,
+            'data_ultima_manutencao' => null, // Se não disponível
+            'proxima_manutencao' => null, // Se não disponível
+            'patrimonio' => $this->gerarPatrimonioUnico(),
+            'texto' => (string) $produto->prod->xProd,
+            'status' => 'ativo',
+            'texto_botao_1' => '',
+            'texto_botao_2' => '',
+            'texto_botao_3' => '',
+        ];
+
+        // Validar os dados
+        if ($this->validarDados($dados)) {
+            $post = new ProdutoModelo();
+
+            $post->usuario_id = $this->usuario->id;
+            $post->categoria_id = $dados['categoria_id'];
+            $post->slug = $dados['slug'];
+            $post->titulo = $dados['titulo'];
+            $post->sub_titulo = $dados['sub_titulo'];
+            $post->data_aquisicao = $dados['data_aquisicao'];
+            $post->numero_serie = $dados['numero_serie'];
+            $post->estado_atual = 1;
+            $post->localizacao = $dados['localizacao'];
+            $post->fabricante = $dados['fabricante'];
+            $post->modelo = $dados['modelo'];
+            $post->valor_aquisicao = $dados['valor_aquisicao'];
+            $post->data_ultima_manutencao = $dados['data_ultima_manutencao'];
+            $post->proxima_manutencao = $dados['proxima_manutencao'];
+            $post->patrimonio = $dados['patrimonio'];
+            $post->texto = $dados['texto'];
+            $post->status = $dados['status'];
+
+            // Salvar o produto no banco de dados
+            if ($post->salvar()) {
+                $this->mensagem->sucesso("Produto '{$post->titulo}' importado com sucesso")->flash();
+            } else {
+                $this->mensagem->erro("Erro ao salvar o produto '{$post->titulo}': " . $post->erro())->flash();
+            }
+        }
+    }
+    
+    Helpers::redirecionar('admin/produtos/listar');
+}
+
+private function definirCategoria(string $descricaoProduto): int
+{
+    // Lógica para definir a categoria com base na descrição do produto
+    // Por exemplo, uma busca no banco de dados por palavras-chave, etc.
+    return 1; // Categoria padrão se não encontrar nenhuma
+}
+
+
+
     /**
      * Cadastra posts
      * @return void
