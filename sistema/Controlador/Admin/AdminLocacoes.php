@@ -2,6 +2,7 @@
 
 namespace sistema\Controlador\Admin;
 
+use DateInterval;
 use DateTime;
 use sistema\Modelo\CategoriaModelo;
 use sistema\Nucleo\Helpers;
@@ -73,17 +74,17 @@ class AdminLocacoes extends AdminControlador
         $produtos = new ProdutoModelo();
         $locacao  = new LocacaoModelo();
         $usuarios = new UsuarioModelo();
-    
+
         $produtosLocados = $produtos->busca("estado_atual = 2")->ordem('data_devolucao DESC')->resultado(true) ?? [];
         $locacoesAtivas = $locacao->busca('status = "ativa"')->ordem('data_devolucao DESC')->resultado(true) ?? [];
         $usuariosAtivos = $usuarios->busca('status = 1')->ordem('nome DESC')->resultado(true) ?? [];
-    
+
         // Criar um mapa para associar locações aos responsáveis
         $usuarioMap = [];
         foreach ($usuariosAtivos as $usuario) {
             $usuarioMap[$usuario->id] = $usuario->nome;
         }
-    
+
         // Criar um mapa para associar produtos às suas locações
         $locacaoMap = [];
         foreach ($locacoesAtivas as $loc) {
@@ -93,7 +94,7 @@ class AdminLocacoes extends AdminControlador
                 'retirado_por' => $usuarioMap[$loc->retirado_por] ?? 'N/A'
             ];
         }
-    
+
         foreach ($produtosLocados as $produto) {
             if (isset($locacaoMap[$produto->locacao_id])) {
                 $produto->data_locacao = $locacaoMap[$produto->locacao_id]['data_locacao'];
@@ -105,7 +106,7 @@ class AdminLocacoes extends AdminControlador
                 $produto->retirado_por = 'N/A';
             }
         }
-    
+
         echo $this->template->renderizar('locacoes/produtos-locados.html', [
             'produtos' => $produtosLocados,
             'total' => [
@@ -115,33 +116,33 @@ class AdminLocacoes extends AdminControlador
             ]
         ]);
     }
-    
+
     public function produtosManutencao(): void
     {
         $produtos = new ProdutoModelo();
         $usuarios = new UsuarioModelo();
-    
+
         // Busca produtos em manutenção (estado_atual = 3)
         $produtosManutencao = $produtos->busca("estado_atual = 3")->resultado(true);
-    
+
         // Se a consulta não retornar nada, garantimos que seja um array vazio
         if (!$produtosManutencao) {
             $produtosManutencao = [];
         }
-    
+
         $usuariosAtivos = $usuarios->busca('status = 1')->ordem('nome DESC')->resultado(true);
-    
+
         // Criar um mapa para associar usuários responsáveis
         $usuarioMap = [];
         foreach ($usuariosAtivos as $usuario) {
             $usuarioMap[$usuario->id] = $usuario->nome;
         }
-    
+
         foreach ($produtosManutencao as $produto) {
             // Aqui o produto não deve estar associado a nenhuma locação, mas ainda assim, podemos exibir o responsável por ele.
             $produto->retirado_por = isset($usuarioMap[$produto->retirado_por]) ? $usuarioMap[$produto->retirado_por] : 'N/A';
         }
-    
+
         echo $this->template->renderizar('locacoes/produtos-manutencao.html', [
             'produtos'                => $produtosManutencao,
             'total' => [
@@ -150,7 +151,7 @@ class AdminLocacoes extends AdminControlador
             ]
         ]);
     }
-    
+
 
 
 
@@ -324,57 +325,95 @@ class AdminLocacoes extends AdminControlador
         if (isset($dados)) {
             // Buscar o produto pelo ID
             $produto = (new ProdutoModelo())->buscaPorId($dados['produto_id']);
-            
+            $idLocacao =  $produto->locacao_id;
+
             if ($produto) {
                 // Buscar o registro de locação de equipamento antes de alterar o locacao_id
                 $locacaoEquipamento = (new LocacaoEquipamentoModelo())->busca("equipamento_id = :equipamento_id AND locacao_id = :locacao_id", "equipamento_id={$produto->id}&locacao_id={$produto->locacao_id}")->resultado(true);
-                
+
                 if ($locacaoEquipamento && isset($locacaoEquipamento[0])) {
                     // Atualizar o status do produto
                     $produto->estado_atual = $dados['status'];
                     $produto->locacao_id = 0;
                     $produto->salvar();
-    
+
                     // Atualizar a devolução do equipamento na tabela de locação de equipamentos
                     $locacaoEquipamento[0]->data_devolucao = date('Y-m-d');
                     $locacaoEquipamento[0]->status = 1; // Status 1 indica devolvido
                     $locacaoEquipamento[0]->salvar();
-                    
+
                     // Buscar o contrato para analisar se tem mais itens ativos
-                    $contrato = (new LocacaoModelo())->buscaPorId($produto->locacao_id);
-                    r($contrato);exit;
-                    if ($contrato[0]) {
+                    $contrato = (new LocacaoModelo())->buscaPorId($idLocacao);
+                    if ($contrato) {
                         $produtosAtivos = (new LocacaoEquipamentoModelo())->busca("locacao_id = :locacao_id AND status = 0", "locacao_id={$contrato->id}")->resultado(true);
-    
+
                         // Se não houver mais produtos ativos, finalizar o contrato
                         if (empty($produtosAtivos)) {
-                            $contrato->status = 'finalizada';
+                            $contrato->status        = 'finalizada';
+                            $contrato->devolvidos_em = date('Y-m-d');
                             $contrato->salvar();
                         }
                     } else {
                         $this->mensagem->erro('Erro: Contrato não encontrado.')->flash();
                         Helpers::redirecionar('admin/locacoes/listar');
                     }
-    
+
                     // Exibir mensagem de sucesso e redirecionar
-                    $this->mensagem->sucesso('Produto e locação atualizados com sucesso')->flash();
-                    Helpers::redirecionar('admin/locacoes/listar');
+                    $this->mensagem->sucesso('Produtos e locação atualizados com sucesso')->flash();
+                    Helpers::redirecionar('admin/produtos-locados/listar');
                 } else {
                     $this->mensagem->erro('Erro: Equipamento não encontrado na locação.')->flash();
-                    Helpers::redirecionar('admin/locacoes/listar');
+                    Helpers::redirecionar('admin/produtos-locados/listar');
                 }
             } else {
-                $this->mensagem->erro('Erro: Produto não encontrado.')->flash();
-                Helpers::redirecionar('admin/locacoes/listar');
+                $this->mensagem->erro('Erro: Produtos não encontrado.')->flash();
+                Helpers::redirecionar('admin/produtos-locados/listar');
             }
         } else {
             $this->mensagem->erro('Erro ao tentar atualizar o status')->flash();
-            Helpers::redirecionar('admin/locacoes/listar');
+            Helpers::redirecionar('admin/produtos-locados/listar');
         }
     }
-    
 
-    
+    public function atualizarStatusManutencao()
+    {
+        // Verifica se os dados foram enviados via POST
+        $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+        if (isset($dados)) {
+            // Buscar o produto pelo ID
+            $produto = (new ProdutoModelo())->buscaPorId($dados['produto_id']);
+
+            if ($produto) {
+                // Atualizar o estado atual do produto para indicar que está disponível
+                $produto->estado_atual = 1; // Status 1 pode indicar disponível para locação
+                $produto->data_ultima_manutencao = date('Y-m-d');
+
+                // Calcular a próxima manutenção, por exemplo, 6 meses a partir da data atual
+                $intervalo = new DateInterval('P6M');
+                $dataProximaManutencao = (new DateTime())->add($intervalo);
+                $produto->proxima_manutencao = $dataProximaManutencao->format('Y-m-d');
+
+                // Salvar as alterações
+                if ($produto->salvar()) {
+                    // Exibir mensagem de sucesso e redirecionar
+                    $this->mensagem->sucesso('Status de manutenção atualizado com sucesso')->flash();
+                    Helpers::redirecionar('admin/proodutos-manutencao/listar');
+                } else {
+                    $this->mensagem->erro('Erro ao tentar salvar as atualizações do produto.')->flash();
+                    Helpers::redirecionar('admin/produtos-manutencao/listar');
+                }
+            } else {
+                $this->mensagem->erro('Erro: Produto não encontrado.')->flash();
+                Helpers::redirecionar('admin/produtos-manutencao/listar');
+            }
+        } else {
+            $this->mensagem->erro('Erro ao tentar atualizar o status')->flash();
+            Helpers::redirecionar('admin/produtos-manutencao/listar');
+        }
+    }
+
+
+
 
 
     /**

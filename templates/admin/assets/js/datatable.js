@@ -1,10 +1,19 @@
 $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
     var url = $('table').attr('url');
-
+    $('#datatable').DataTable({
+        responsive: true
+    });
+    $('#datatable-keytable').DataTable({ 
+        keys: true,
+        responsive: true
+    });
+    $('#datatable-responsive').DataTable({
+        responsive: true
+    });
     $.extend($.fn.dataTable.defaults, {
         language: {
-            url: '//cdn.datatables.net/plug-ins/1.13.3/i18n/pt-BR.json'
+            url:  url+'templates/admin/assets/js/pt-BR.json'
         },
         initComplete: function (settings, json) {
             $('[tooltip="tooltip"]').tooltip();
@@ -32,6 +41,30 @@ $(document).ready(function () {
         order: [[1, 'asc']]
     });
     $('#tabelaBanner').DataTable({
+        paging: false,
+        columnDefs: [
+            {
+                targets: [-1, -2],
+                orderable: false
+            }
+        ],
+        order: [[1, 'asc']],
+        buttons: [
+            {
+                extend: 'pdf',
+                text: '<i class="fa-solid fa-file-pdf"></i> PDF',
+                titleAttr: 'Exportar como PDF'
+            },
+            {
+                extend: 'excel',
+                text: '<i class="fa-solid fa-file-excel"></i> Excel',
+                titleAttr: 'Exportar como Excel'
+            }
+        ],
+    });
+    $('#tabelaCongregacao').DataTable({
+        order: [[0, 'desc']],
+        processing: true,
         paging: false,
         columnDefs: [
             {
@@ -194,7 +227,13 @@ $(document).ready(function () {
                     }
                 }
             },
-            null, null, null,
+            {
+                data: null,
+                render: function (data, type, row) {
+                    return '<a href="' + url + 'admin/produtos/editar/' + row[0] + '" tooltip="tooltip" title="Editar">' + row[2] + '</a>';
+                }
+            },
+            null,
             {
                 data: null,
                 render: function (data, type, row) {
@@ -208,15 +247,14 @@ $(document).ready(function () {
             {
                 data: null,
                 render: function (data, type, row) {
-                    
                     if (row[6] === '1') {
-                        return'<span class="badge bg-success">Disponível</span>';
+                        return '<span class="badge bg-success">Disponível</span>';
                     } else if (row[6] === '2') {
-                        return'<span class="badge bg-warning text-dark">Locado</span>';
+                        return '<span class="badge bg-warning text-dark">Locado</span>';
                     } else if (row[6] === '3') {
-                        return'<span class="badge bg-danger">Em Manutenção</span>';
+                        return '<span class="badge bg-danger">Em Manutenção</span>';
                     } else {
-                        return'<span class="badge bg-secondary">N/A</span>'; // Para qualquer outro valor inesperado
+                        return '<span class="badge bg-secondary">N/A</span>'; // Para qualquer outro valor inesperado
                     }
                 }
             },
@@ -224,15 +262,6 @@ $(document).ready(function () {
                 data: null,
                 render: function (data, type, row) {
                     var html = '';
-                    html += '<a href="' + url + 'produto/' + row[6] + '" tooltip="tooltip" title="Link do produto" target="_blank"><i class="fas fa-link m-1"></i></a>';
-                    return html;
-                }
-            },
-            {
-                data: null,
-                render: function (data, type, row) {
-                    var html = '';
-                    html += '<a href="' + url + 'admin/produtos/editar/' + row[0] + '" tooltip="tooltip" title="Editar"><i class="fa-solid fa-pen m-1"></i></a>';
                     html += '<a href="' + url + 'admin/produtos/duplicar/' + row[0] + '" tooltip="tooltip" title="Duplicar produto"><i class="fas fa-copy m-1"></i></a>';
                     html += '<a href="' + url + 'admin/produtos/deletar/' + row[0] + '"><i class="fa-solid fa-trash m-1" tooltip="tooltip" title="Deletar"></i></a>';
                     return html;
@@ -249,11 +278,12 @@ $(document).ready(function () {
                 targets: [0, 1, 3, 4, 5, 6]
             },
             {
-                orderable: false,
+                orderable: true,
                 targets: [1, -1]
             }
         ]
     });
+    
     
 
 

@@ -112,6 +112,7 @@ try {
         SimpleRouter::get(URL_ADMIN . 'produtos-locados/listar', 'AdminLocacoes@produtosLocados');
         SimpleRouter::get(URL_ADMIN . 'produtos-manutencao/listar', 'AdminLocacoes@produtosManutencao');
         SimpleRouter::post(URL_ADMIN . 'produtos/atualizar-status', 'AdminLocacoes@atualizarStatus');
+        SimpleRouter::post(URL_ADMIN . 'produtos/atualizar-status-manutencao', 'AdminLocacoes@atualizarStatusManutencao');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'locacoes/cadastrar', 'AdminLocacoes@cadastrar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'locacoes/editar/{id}', 'AdminLocacoes@editar');
         SimpleRouter::get(URL_ADMIN . 'locacoes/gerar-pdf/{searchTerm}', 'AdminLocacoes@gerarPDF');

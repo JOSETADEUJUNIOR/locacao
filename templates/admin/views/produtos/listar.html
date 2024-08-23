@@ -36,6 +36,18 @@
                     {{formatarNumero(total.produtosInativo)}} 
                 </span>       inativo         
             </span> 
+            <span class="text-secondary">|</span>
+            <span class="badge text-secondary">
+                <span class="text-warning">
+                    {{formatarNumero(total.produtosLocados)}} 
+                </span>       Locados         
+            </span>
+            <span class="text-secondary">|</span>
+            <span class="badge text-secondary">
+                <span class="text-warning">
+                    {{formatarNumero(total.produtosManutencao)}} 
+                </span>       Em manutenção         
+            </span> 
         </div>
         <div>
             <!-- Botão para baixar um PDF -->
@@ -71,10 +83,8 @@
                         <th>Capa</th>
                         <th>Produto</th>
                         <th>Categoria</th>
-                        <th>Visitas</th>
                         <th>Status</th>
                         <th>Situação</th>
-                        <th>Link</th>
                         <th>Ação</th>
                     </tr>
                 </thead>

@@ -68,22 +68,48 @@
                     <tr>
                         <th>{{locacao.id}}</th>
                         <td>{{locacao.data_locacao|date("d/m/Y")}}</td>
-                        <td title='devolução em: {{locacao.data_devolucao|date("d/m/Y")}}'>
-                            {% set diasRestantes = calcularTempoRestante(locacao.data_devolucao) %}
-                            {% if diasRestantes == 0 %}
-                                <button class="btn btn-danger btn-xs p-1" style="font-size: 0.8rem; min-width: 60px;">
-                                    {{ contarTempoRestante(locacao.data_devolucao) }}
-                                </button>
-                            {% elseif diasRestantes == 1 %}
-                                <button class="btn btn-warning btn-xs p-1" style="font-size: 0.8rem; min-width: 60px;">
-                                    {{ contarTempoRestante(locacao.data_devolucao) }}
-                                </button>
+                        <td title="{% if locacao.status == 'finalizada' %}Tinha que devolver em: {{ locacao.data_devolucao|date('d/m/Y') }}{% else %}Devolução em: {{ locacao.data_devolucao|date('d/m/Y') }}{% endif %}">
+                            {% if locacao.status == 'finalizada' %}
+                                {% set diasDevolucao = calcularTempoRestante(locacao.data_devolucao, locacao.devolvidos_em) %}
+                                {% if diasDevolucao < 0 %}
+                                    <button class="btn btn-warning btn-xs p-0" style="font-size: 0.7rem; min-width: 80px;">
+                                        Devolvido em: {{ locacao.devolvidos_em|date('d/m/Y') }} (Devolvido com {{ diasDevolucao * -1 }} dias de atraso)
+                                    </button>
+                                {% elseif diasDevolucao == 0 %}
+                                    <button class="btn btn-secondary btn-xs p-0" style="font-size: 0.7rem; min-width: 80px;">
+                                        Devolvido em: {{ locacao.devolvidos_em|date('d/m/Y') }} (Devolvido no prazo)
+                                    </button>
+                                {% else %}
+                                    <button class="btn btn-success btn-xs p-0" style="font-size: 0.7rem; min-width: 80px;">
+                                        Devolvido em: {{ locacao.devolvidos_em|date('d/m/Y') }} (Devolvido {{ diasDevolucao }} dias adiantado)
+                                    </button>
+                                {% endif %}
                             {% else %}
-                                <button class="btn btn-success btn-xs p-1" style="font-size: 0.8rem; min-width: 60px;">
-                                    {{ contarTempoRestante(locacao.data_devolucao) }}
-                                </button>
+                                {% set diasRestantes = calcularTempoRestante(locacao.data_devolucao) %}
+                                {% if diasRestantes < 0 %}
+                                    <button class="btn btn-danger btn-xs p-0" style="font-size: 0.7rem; min-width: 80px;">
+                                        {{ diasRestantes * -1 }} dias em atraso
+                                    </button>
+                                {% elseif diasRestantes == 0 %}
+                                    <button class="btn btn-danger btn-xs p-0" style="font-size: 0.7rem; min-width: 80px;">
+                                        {{ contarTempoRestante(locacao.data_devolucao) }}
+                                    </button>
+                                {% elseif diasRestantes == 1 %}
+                                    <button class="btn btn-warning btn-xs p-0" style="font-size: 0.7rem; min-width: 80px;">
+                                        {{ contarTempoRestante(locacao.data_devolucao) }}
+                                    </button>
+                                {% else %}
+                                    <button class="btn btn-success btn-xs p-0" style="font-size: 0.7rem; min-width: 80px;">
+                                        {{ contarTempoRestante(locacao.data_devolucao) }}
+                                    </button>
+                                {% endif %}
                             {% endif %}
                         </td>
+                        
+                        
+                        
+                        
+                        
                         
                         {% if congregacoes %}
                             {% for congregacao in congregacoes%}
@@ -93,13 +119,18 @@
                             {% endfor %}
                         {% endif %}
                 
+                        {% set responsavelNome = "N/A" %}
+
                         {% if responsavelRetirada %}
                             {% for responsavel in responsavelRetirada %}
-                            {% if responsavel.id == locacao.retirado_por%}
-                            <td>{{responsavel.nome}}</td>
-                            {% endif %}
+                                {% if responsavel.id == locacao.retirado_por %}
+                                    {% set responsavelNome = responsavel.nome %}
+                                {% endif %}
                             {% endfor %}
                         {% endif %}
+                        
+                        <td>{{ responsavelNome }}</td>
+                        
                         
                         <td class="text-center">
                             {% if locacao.status == 'ativa' %}

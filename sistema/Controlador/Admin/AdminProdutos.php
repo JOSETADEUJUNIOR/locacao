@@ -95,12 +95,15 @@ class AdminProdutos extends AdminControlador
     public function listar(): void
     {
         $produtos = new ProdutoModelo();
-
+       
         echo $this->template->renderizar('produtos/listar.html', [
             'total' => [
-                'produtos' => $produtos->busca(null, 'COUNT(id)', 'id')->total(),
-                'produtosAtivo' => $produtos->busca('status = :s', 's=1 COUNT(status))', 'status')->total(),
-                'produtosInativo' => $produtos->busca('status = :s', 's=0 COUNT(status)', 'status')->total(),
+                'produtos'            => $produtos->busca(null, 'COUNT(id)', 'id')->total(),
+                'produtosAtivo'       => $produtos->busca('status = :s', 's=1 COUNT(status))', 'status')->total(),
+                'produtosInativo'     => $produtos->busca('status = :s', 's=0 COUNT(status)', 'status')->total(),
+                'produtosLocados'     => $produtos->busca('estado_atual = :s', 's=2 COUNT(estado_atual)', 'estado_atual')->total(),
+                'produtosManutencao'  => $produtos->busca('estado_atual = :s', 's=3 COUNT(estado_atual)', 'estado_atual')->total(),
+
             ]
         ]);
     }

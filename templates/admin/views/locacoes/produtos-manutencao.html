@@ -37,7 +37,7 @@
                     {% for produto in produtos %}
                     <tr>
                         <th>{{ produto.id }}</th>
-                        <td>{{ produto.titulo }}</td>
+                        <td><a href="{{ url('admin/produtos/editar/'~produto.id) }}">{{ produto.titulo }}</a></td>
                         <td>{{ produto.retirado_por }}</td>
                         <td>{{ produto.updated_at|date("d/m/Y H:i") }}</td>
                         <td class="text-center">
@@ -63,22 +63,17 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="detalharForm" method="post" action="{{ url('admin/produtos/atualizar-status') }}">
+                        <form id="detalharForm" method="post" action="{{ url('admin/produtos/atualizar-status-manutencao') }}">
                             <input type="hidden" name="produto_id" id="produto_id">
-
+                        
                             <div class="mb-3">
                                 <label for="status" class="form-label">Status do Produto</label>
                                 <select class="form-select" name="status" id="status" required>
                                     <option value="1">Disponível</option>
-                                    <option value="3">Em Manutenção</option>
                                 </select>
                             </div>
-
-                            <div class="mb-3" id="parecerContainer" style="display: none;">
-                                <label for="parecer" class="form-label">Parecer</label>
-                                <textarea class="form-control" name="parecer" id="parecer" rows="3" placeholder="Descreva o parecer..."></textarea>
-                            </div>
-
+                        
+                          
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                                 <button type="submit" class="btn btn-primary">Salvar</button>
