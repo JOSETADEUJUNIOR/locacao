@@ -56,7 +56,7 @@
                                 <span>Data não disponível</span>
                             {% endif %}
                         </td>
-                        
+
                         <td>
                             {% if produto.data_devolucao != 'N/A' %}
                                 <span title='devolução em: {{ produto.data_devolucao|date("d/m/Y") }}'>
@@ -79,7 +79,7 @@
                                 <span>Data não disponível</span>
                             {% endif %}
                         </td>
-                        
+
                         <td>{{ produto.retirado_por }}</td>
                         <td class="text-center">
                             {% if produto.estado_atual == 2 %}
@@ -94,11 +94,11 @@
                                 <i class="fa-solid fa-trash m-1"></i>
                             </a>
                         </td>
-                        
+
                     </tr>
                     {% endfor %}
                 </tbody>
-                
+
             </table>
         </div>
         <!-- Modal -->

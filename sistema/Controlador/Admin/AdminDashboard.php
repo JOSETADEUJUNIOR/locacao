@@ -10,6 +10,7 @@ use sistema\Modelo\UsuarioModelo;
 use sistema\Modelo\CategoriaModelo;
 use sistema\Modelo\ConfiguracaoModelo;
 use sistema\Modelo\CongregacaoModelo;
+use sistema\Modelo\LocacaoModelo;
 use sistema\Modelo\PopupModelo;
 use sistema\Modelo\ProdutoModelo;
 use sistema\Modelo\SolicitacaoModelo;
@@ -37,7 +38,8 @@ class AdminDashboard extends AdminControlador
         $popup          = new PopupModelo();
         $config         = (new ConfiguracaoModelo())->busca()->resultado(true);
         $solicitacao    = new SolicitacaoModelo();
-        
+        $locacoes       = new LocacaoModelo();
+
         echo $this->template->renderizar('dashboard.html', [
             'posts' => [
                 'posts' => $posts->busca()->ordem('id DESC')->limite(5)->resultado(true),
@@ -56,6 +58,19 @@ class AdminDashboard extends AdminControlador
                 'total' => $congregacoes->busca()->total(),
                 'congregacoesAtiva' => $congregacoes->busca('status = 1')->total(),
                 'congregacoesInativa' => $congregacoes->busca('status = 0')->total(),
+            ],
+            'locacoes' => [
+               'locacoes' => $locacoes->busca()->ordem('id DESC')->resultado(true),
+               'total' => $locacoes->busca()->total(),
+               'locacoesAtiva' => $locacoes->busca('status = "ativa"')->total(),
+               'locacoesPendente' => $locacoes->busca('status = "pendente"')->total(),
+               'locacoesFinalizado' => $locacoes->busca('status = "finalizada"')->total(),
+            ],
+            'devolucaoLocacoes' => [
+               'devolucaoLocacoes' => $locacoes->busca('status != "finalizada"')->ordem('data_devolucao DESC')->limite(5)->resultado(true),
+               'devolucaoProdutos' => $produto->busca("estado_atual = 2")->ordem('data_devolucao DESC')->resultado(true),
+               'devolucaoCongregacoes' => $congregacoes->busca()->ordem('nome DESC')->resultado(true),
+               'devolucaoResponsavelLocacao'  => $usuarios->busca()->resultado(true),
             ],
             'banners' => [
                 'banners' => $banner->busca()->ordem('id DESC')->limite(5)->resultado(true),
@@ -76,7 +91,6 @@ class AdminDashboard extends AdminControlador
             'popup' => [
                 'popup' => $popup->busca()->ordem('id DESC')->limite(1)->resultado(true),
                 'total' => $popup->busca()->total(),
-               
             ],
             'usuarios' => [
                 'logins' => $usuarios->busca()->ordem('ultimo_login DESC')->limite(5)->resultado(true),
