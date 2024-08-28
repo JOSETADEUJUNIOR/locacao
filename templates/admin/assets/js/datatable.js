@@ -21,7 +21,12 @@ $(document).ready(function () {
     });
 
     $('#tabelaCategorias').DataTable({
+        processing: true,
         paging: true,
+        language: {
+            url: url + 'templates/admin/assets/js/pt-BR.json'
+        },
+        
         buttons: [
             {
                 extend: 'copy',
@@ -63,9 +68,12 @@ $(document).ready(function () {
         ],
     });
     $('#tabelaCongregacao').DataTable({
+        language: {
+            url: url + 'templates/admin/assets/js/pt-BR.json'
+        },
         order: [[0, 'desc']],
         processing: true,
-        paging: false,
+        paging: true,
         columnDefs: [
             {
                 targets: [-1, -2],
@@ -88,6 +96,9 @@ $(document).ready(function () {
     });
 //Tabela de Setores
     $('#tabelaSetores').DataTable({
+        language: {
+            url: url + 'templates/admin/assets/js/pt-BR.json'
+        },
         paging: true,
         columnDefs: [
             {
@@ -111,6 +122,9 @@ $(document).ready(function () {
     });
 
     $('#tabelaLocacoes').DataTable({
+        language: {
+            url: url + 'templates/admin/assets/js/pt-BR.json'
+        },
         paging: true,
         columnDefs: [
             {
@@ -237,7 +251,7 @@ $(document).ready(function () {
             {
                 data: null,
                 render: function (data, type, row) {
-                    if (row[5] === '1') {
+                    if (row[5] == 1) {
                         return '<i class="fa-solid fa-circle text-success" tooltip="tooltip" title="Ativo"></i>';
                     } else {
                         return '<i class="fa-solid fa-circle text-danger" tooltip="tooltip" title="Inativo"></i>';
@@ -489,7 +503,7 @@ $(document).ready(function () {
             {
                 data: null,
                 render: function (data, type, row) {
-                    if (row[3] === '3') {
+                    if (row[3] == 3) {
                         return '<span class="text-danger">Administrador</span>';
                     } else {
                         return '<span class="text-secondary">Usuário</span>';
@@ -499,7 +513,7 @@ $(document).ready(function () {
             {
                 data: null,
                 render: function (data, type, row) {
-                    if (row[4] === '1') {
+                    if (row[4] == 1) {
                         return '<i class="fa-solid fa-circle text-success" tooltip="tooltip" title="Ativo"></i>';
                     } else {
                         return '<i class="fa-solid fa-circle text-danger" tooltip="tooltip" title="Inativo"></i>';

@@ -397,7 +397,7 @@ class AdminLocacoes extends AdminControlador
                 if ($produto->salvar()) {
                     // Exibir mensagem de sucesso e redirecionar
                     $this->mensagem->sucesso('Status de manutenção atualizado com sucesso')->flash();
-                    Helpers::redirecionar('admin/proodutos-manutencao/listar');
+                    Helpers::redirecionar('admin/produtos-manutencao/listar');
                 } else {
                     $this->mensagem->erro('Erro ao tentar salvar as atualizações do produto.')->flash();
                     Helpers::redirecionar('admin/produtos-manutencao/listar');

@@ -13,7 +13,7 @@ use sistema\Nucleo\Modelo;
  {
     protected $schema;
 
-    public function __construct(string $slug = 'locacao')
+    public function __construct(string $slug = 'pizzar15_locacao')
     {
         $this->schema = $slug;
         parent::__construct('config', $this->schema);

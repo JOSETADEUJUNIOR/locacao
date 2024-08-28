@@ -23,7 +23,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-hover table-striped" id="tabelaCategorias">
+            <table class="table table-hover table-striped" url="{{url()}}" id="tabelaCategorias">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -41,12 +41,9 @@
                         <td>{{ produto.retirado_por }}</td>
                         <td>{{ produto.updated_at|date("d/m/Y H:i") }}</td>
                         <td class="text-center">
-                            <button type="button" class="btn btn-info btn-sm" onclick="detalharProduto({{ produto.id }}, '{{ produto.estado_atual }}')" data-bs-toggle="modal" data-bs-target="#detalharModal" tooltip="tooltip" title="Detalhar">
+                            <button type="button" class="btn btn-info btn-sm" onclick="detalharProduto({{ produto.id }}, '{{ produto.estado_atual }}')" data-bs-toggle="modal" data-bs-target="#detalharModal" tooltip="tooltip" title="Mudar Status">
                                 <i class="fa-solid fa-info-circle"></i>
                             </button>
-                            <a href="{{ url('admin/produtos/deletar/'~produto.id) }}" tooltip="tooltip" title="Deletar">
-                                <i class="fa-solid fa-trash m-1"></i>
-                            </a>
                         </td>
                     </tr>
                     {% endfor %}
