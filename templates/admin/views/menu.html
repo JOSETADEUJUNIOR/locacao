@@ -1,66 +1,57 @@
-<input type="checkbox" id="menu">
-<div class="sidebar">
-    <div class="sidebarLogo">
+<input type="checkbox" id="menu" class="hidden">
+<div class="sidebar bg-gray-800 text-white h-screen w-64">
+    <!-- Logo -->
+    <div class="sidebarLogo p-4 flex justify-center items-center md:mt-0 mt-8">
         <a href="{{url('admin/dashboard')}}" tooltip="tooltip" title="Dashboard">
             <div class="logo">
-                <img src="{{url('uploads/empresa/thumbs/'~configs().config_foto)}}" width="50" height="30" alt=" {{constant('SITE_NOME')}}"/>
+                <img src="{{url('uploads/empresa/thumbs/'~configs().config_foto)}}" width="50" height="30" alt="{{constant('SITE_NOME')}}" class="rounded-full"/>
             </div>
         </a>
     </div>
 
+    <!-- Menu -->
     <div class="sidebarMenu">
-        <ul>
-            <li class="sidebarTitulo">
+        <ul class="space-y-2">
+            <!-- Título do menu -->
+            <li class="sidebarTitulo text-gray-400 uppercase px-4 py-2 text-sm font-semibold">
                 Administração
             </li>
-            <li>
-                <a href="#" tooltip="tooltip" title="Gestão de clientes">
-                    <i class="fa-solid fa-plus"></i>
-                    <span>Cadastros</span>
-                </a>
-                <ul class="submenu">
-                    <li><a href="{{url('admin/setores/listar')}}"><i class="fas fa-sitemap"></i>Setores</a></li>
-                    <li><a href="{{url('admin/congregacoes/listar')}}"><i class="fas fa-building"></i>Congregações</a></li>
-                    <li><a href="{{url('admin/categorias/listar')}}"><i class="fa fa-tags"></i>Categorias</a></li>
-                    <li><a href="{{url('admin/produtos/listar')}}"><i class="fas fa-box"></i>Produtos</a></li>
-                    <li><a href="{{url('admin/usuarios/listar')}}"><i class="fa fa-users"></i>Usuários</a></li>
-                    <!-- Adicione mais opções conforme necessário -->
-                </ul>
-            </li>
-            <li>
-                <a href="#" tooltip="tooltip" title="Gestão de clientes">
-                    <i class="fas fa-briefcase"></i>
-                    <span>Gerenciar locação</span>
-                </a>
-                <ul class="submenu">
-                    <li><a href="{{url('admin/locacoes/listar')}}"><i class="fas fa-file-contract"></i>Locações</a></li>
-                    <li><a href="{{url('admin/produtos-locados/listar')}}"><i class="fas fa-file-contract"></i>Produtos Locados</a></li>
-                    <li><a href="{{url('admin/produtos-manutencao/listar')}}"><i class="fas fa-file-contract"></i>Produtos em manutenção</a></li>
-                    <!-- Adicione mais opções conforme necessário -->
-                </ul>
-            </li>
-           <!--  <li>
-                <a href="{{url('admin/clientes/listar')}}" tooltip="tooltip" title="Administração de Posts">
-                    <i class="fas fa-users"></i>
-                    <span>Clientes</span>
-                </a>
-            </li>  
-            <li>
-                <a href="{{url('admin/posts/listar')}}" tooltip="tooltip" title="Administração de Posts">
-                    <i class="fa-solid fa-file-pen"></i>
-                    <span>Posts</span>
-                </a>
-            </li>   -->
             
-            <!-- <li>
-                <a href="{{url('admin/solicitacao/listar')}}" tooltip="tooltip" title="Addministração de chamados">
-                    <i class="fas fa-phone"></i> 
-                    <span>Solicitações</span>
+            <!-- Menu de Cadastros -->
+            <li class="group">
+                <a href="#" tooltip="tooltip" title="Gestão de clientes" class="flex items-center px-4 py-2 hover:bg-gray-700">
+                    <i class="fa-solid fa-plus text-gray-400 group-hover:text-white"></i>
+                    <span class="ml-3">Cadastros</span>
                 </a>
-            </li> -->
-            <li><a href="{{url('admin/configuracao/listar')}}"><i class="fas fa-cog"></i>Configurações</a></li>
-                   
+                <ul class="submenu ml-6 mt-2 hidden group-hover:block">
+                    <li><a href="{{url('admin/setores/listar')}}" class="flex items-center px-4 py-2 hover:bg-gray-700"><i class="fas fa-sitemap mr-2"></i>Setores</a></li>
+                    <li><a href="{{url('admin/congregacoes/listar')}}" class="flex items-center px-4 py-2 hover:bg-gray-700"><i class="fas fa-building mr-2"></i>Congregações</a></li>
+                    <li><a href="{{url('admin/categorias/listar')}}" class="flex items-center px-4 py-2 hover:bg-gray-700"><i class="fa fa-tags mr-2"></i>Categorias</a></li>
+                    <li><a href="{{url('admin/produtos/listar')}}" class="flex items-center px-4 py-2 hover:bg-gray-700"><i class="fas fa-box mr-2"></i>Produtos</a></li>
+                    <li><a href="{{url('admin/usuarios/listar')}}" class="flex items-center px-4 py-2 hover:bg-gray-700"><i class="fa fa-users mr-2"></i>Usuários</a></li>
+                </ul>
+            </li>
+
+            <!-- Menu de Gestão de Locação -->
+            <li class="group">
+                <a href="#" tooltip="tooltip" title="Gestão de clientes" class="flex items-center px-4 py-2 hover:bg-gray-700">
+                    <i class="fas fa-briefcase text-gray-400 group-hover:text-white"></i>
+                    <span class="ml-3">Gerenciar locação</span>
+                </a>
+                <ul class="submenu ml-6 mt-2 hidden group-hover:block">
+                    <li><a href="{{url('admin/locacoes/listar')}}" class="flex items-center px-4 py-2 hover:bg-gray-700"><i class="fas fa-file-contract mr-2"></i>Locações</a></li>
+                    <li><a href="{{url('admin/produtos-locados/listar')}}" class="flex items-center px-4 py-2 hover:bg-gray-700"><i class="fas fa-file-contract mr-2"></i>Produtos Locados</a></li>
+                    <li><a href="{{url('admin/produtos-manutencao/listar')}}" class="flex items-center px-4 py-2 hover:bg-gray-700"><i class="fas fa-file-contract mr-2"></i>Produtos em manutenção</a></li>
+                </ul>
+            </li>
+
+            <!-- Menu de Configurações -->
+            <li>
+                <a href="{{url('admin/configuracao/listar')}}" class="flex items-center px-4 py-2 hover:bg-gray-700">
+                    <i class="fas fa-cog text-gray-400 group-hover:text-white"></i>
+                    <span class="ml-3">Configurações</span>
+                </a>
+            </li>
         </ul>
     </div>
-    
 </div>

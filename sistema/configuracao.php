@@ -16,11 +16,11 @@ define('URL_DESENVOLVIMENTO', 'http://localhost/locacao');
 
 if (Helpers::localhost()) {
     //dados de acesso ao banco de dados em localhost
-    define('DB_HOST', 'localhost');
+    define('DB_HOST', 'ns792.hostgator.com.br');
     define('DB_PORTA', '3306');
-    define('DB_NOME', 'locacao');
-    define('DB_USUARIO', 'root');
-    define('DB_SENHA', '');
+    define('DB_NOME', 'pizzar15_locacao');
+    define('DB_USUARIO', 'pizzar15_admin');
+    define('DB_SENHA', '@Jtrj121221');
 
     define('URL_SITE', 'locacao/');
     define('URL_ADMIN', 'locacao/admin/');

@@ -1,28 +1,29 @@
-<header class="bg-white">
-    <h2>
-        <label for="menu">
-            <i class="fa-solid fa-bars-staggered" tooltip="tooltip" title="MENU"></i>
+<header class="bg-white shadow-sm flex justify-between items-center py-2 px-4">
+    <h2 class="flex items-center">
+        <label for="menu" class="cursor-pointer text-gray-600 hover:text-gray-800">
+            <i class="fa-solid fa-bars-staggered text-xl" tooltip="tooltip" title="MENU"></i>
         </label>
-        <a href="{{url()}}" target="_blank" class="text-secondary fs-4 mb-2">
+        
+        <a href="{{url()}}" target="_blank" class="text-gray-600 hover:text-gray-800 ml-4 text-xl">
             <i class="fa-solid fa-house"></i>
         </a>
     </h2>
-    <div class="btn-group mb-2">
-        <button type="button" class="btn bg-white dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+    <div class="relative">
+        <button type="button" class="flex items-center bg-white text-gray-600 hover:text-gray-800 border border-gray-200 rounded-lg px-4 py-1 focus:outline-none focus:ring-2 focus:ring-gray-300" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
             <i class="fa-solid fa-user me-2"></i> {{usuario().nome}}
+            <i class="fa-solid fa-chevron-down ml-2"></i>
         </button>
-        <ul class="dropdown-menu dropdown-menu-lg-end">
+        <ul class="dropdown-menu right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg absolute">
             <li>
-                <a class="dropdown-item" href="#" tooltip="tooltip" title="Perfil">
+                <a class="dropdown-item block px-4 py-2 text-gray-600 hover:bg-gray-100" href="#" tooltip="tooltip" title="Perfil">
                     Perfil
                 </a>
             </li>
             <li>
-                <a class="dropdown-item text-danger" href="{{url('admin/sair')}}" tooltip="tooltip" title="Sair do Sistema">
+                <a class="dropdown-item block px-4 py-2 text-red-600 hover:bg-red-100" href="{{url('admin/sair')}}" tooltip="tooltip" title="Sair do Sistema">
                     Sair
                 </a>
             </li>
         </ul>
     </div>
-
 </header>

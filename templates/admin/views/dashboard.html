@@ -7,10 +7,12 @@
     {% include 'topo.html' %}
     <main>
         {% block conteudo %}
-        <h5 class="mb-3">Dashboard <small class="saudacao text-muted"> - {{saudacao()}}, {{usuario().nome}}. Seu último
-                login foi em {{usuario().ultimo_login |date('d/m/Y')}} às {{usuario().ultimo_login
-                |date('H:i')}}</small></h5>
-
+        <h5 class="mb-3 text-xl font-semibold text-gray-700">
+            Dashboard 
+            <small class="text-sm text-gray-500">
+                - {{saudacao()}}, {{usuario().nome}}. Seu último login foi em {{usuario().ultimo_login |date('d/m/Y')}} às {{usuario().ultimo_login |date('H:i')}}
+            </small>
+        </h5>
 
         {{ flash() }}
 
@@ -20,42 +22,33 @@
                     <div class="row">
                         <!--INICIO POSTS-->
                         <div class="col-sm-4">
-                            <div class="card border-0 shadow-sm mb-3">
+                            <div class="card border-0 shadow-sm mb-3 bg-white rounded-lg">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
-                                            <h6 class="fw-bold text-secondary">Congregações</h6>
+                                            <h6 class="text-lg font-bold text-gray-600">Congregações</h6>
                                         </div>
-
-                                        <div class="col-auto text-secondary">
-                                            <a href="{{url('admin/congregacoes/cadastrar')}}" tooltip="tooltip"
-                                                title="Cadastrar Congregação">
+                                        <div class="col-auto text-gray-500">
+                                            <a href="{{url('admin/congregacoes/cadastrar')}}" class="hover:text-blue-500" tooltip="tooltip" title="Cadastrar Congregação">
                                                 <i class="fas fa-building"></i>
                                             </a>
                                         </div>
                                     </div>
-                                    <h1 class="mt-1 mb-3">
+                                    <h1 class="mt-1 mb-3 text-3xl font-bold text-gray-800">
                                         {{ formatarNumero(congregacoes.total ?? 0) }}
                                     </h1>
-
                                     <div class="row">
                                         <div class="col-auto">
-                                            <span class="badge text-bg-success bg-opacity-10">
-                                                <span class="text-success fw-bold">{{
-                                                    formatarNumero(congregacoes.congregacoesAtiva ?? 0) }}</span>
-                                                <span class="badge text-secondary">Ativo</span>
+                                            <span class="badge bg-green-100 text-green-600">
+                                                {{ formatarNumero(congregacoes.congregacoesAtiva ?? 0) }} Ativo
                                             </span>
                                         </div>
                                         <div class="col-auto">
-                                            <span class="badge text-bg-danger bg-opacity-10">
-                                                <span class="text-danger fw-bold">{{
-                                                    formatarNumero(congregacoes.congregacoesInativa ?? 0) }}</span>
-                                                <span class="badge text-secondary">Inativo</span>
+                                            <span class="badge bg-red-100 text-red-600">
+                                                {{ formatarNumero(congregacoes.congregacoesInativa ?? 0) }} Inativo
                                             </span>
                                         </div>
                                     </div>
-
-
                                 </div>
                             </div>
                         </div>
@@ -63,35 +56,27 @@
 
                         <!--INICIO CATEGORIAS-->
                         <div class="col-sm-4">
-                            <div class="card border-0 shadow-sm mb-3">
+                            <div class="card border-0 shadow-sm mb-3 bg-white rounded-lg">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
-                                            <h6 class="fw-bold text-secondary">Categorias</h6>
+                                            <h6 class="text-lg font-bold text-gray-600">Categorias</h6>
                                         </div>
-
-                                        <div class="col-auto text-secondary">
-                                            <a href="{{url('admin/categorias/cadastrar')}}" tooltip="tooltip"
-                                                title="Cadastrar Categoria">
+                                        <div class="col-auto text-gray-500">
+                                            <a href="{{url('admin/categorias/cadastrar')}}" class="hover:text-blue-500" tooltip="tooltip" title="Cadastrar Categoria">
                                                 <i class="fa fa-tags"></i>
                                             </a>
                                         </div>
                                     </div>
-                                    <h1 class="mt-1 mb-3">{{categorias.total}}</h1>
-
+                                    <h1 class="mt-1 mb-3 text-3xl font-bold text-gray-800">{{categorias.total}}</h1>
                                     <div class="row">
                                         <div class="col-auto">
-                                            <span class="badge text-bg-success bg-opacity-10"> <span
-                                                    class="text-success fw-bold">{{categorias.categoriasAtiva}}</span>
-                                                <span class="badge text-secondary">Ativo</span> </span>
+                                            <span class="badge bg-green-100 text-green-600">{{categorias.categoriasAtiva}} Ativo</span>
                                         </div>
                                         <div class="col-auto">
-                                            <span class="badge text-bg-danger bg-opacity-10"> <span
-                                                    class="text-danger fw-bold">{{categorias.categoriasInativa}}</span>
-                                                <span class="badge text-secondary">Inativo</span> </span>
+                                            <span class="badge bg-red-100 text-red-600">{{categorias.categoriasInativa}} Inativo</span>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -99,35 +84,27 @@
 
                         <!--INICIO USUARIOS-->
                         <div class="col-sm-4">
-                            <div class="card border-0 shadow-sm mb-3">
+                            <div class="card border-0 shadow-sm mb-3 bg-white rounded-lg">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
-                                            <h6 class="fw-bold text-secondary">Produtos</h6>
+                                            <h6 class="text-lg font-bold text-gray-600">Produtos</h6>
                                         </div>
-
-                                        <div class="col-auto text-secondary">
-                                            <a href="{{url('admin/produtos/cadastrar')}}" tooltip="tooltip"
-                                                title="Cadastrar Produto">
+                                        <div class="col-auto text-gray-500">
+                                            <a href="{{url('admin/produtos/cadastrar')}}" class="hover:text-blue-500" tooltip="tooltip" title="Cadastrar Produto">
                                                 <i class="fas fa-box"></i>
                                             </a>
                                         </div>
                                     </div>
-                                    <h1 class="mt-1 mb-3">{{produtos.total}}</h1>
-
+                                    <h1 class="mt-1 mb-3 text-3xl font-bold text-gray-800">{{produtos.total}}</h1>
                                     <div class="row">
                                         <div class="col-auto">
-                                            <span class="badge text-bg-success bg-opacity-10"> <span
-                                                    class="text-success fw-bold">{{produtos.produtoAtivo}}</span> <span
-                                                    class="badge text-secondary">Ativo</span> </span>
+                                            <span class="badge bg-green-100 text-green-600">{{produtos.produtoAtivo}} Ativo</span>
                                         </div>
                                         <div class="col-auto">
-                                            <span class="badge text-bg-danger bg-opacity-10"> <span
-                                                    class="text-danger fw-bold">{{produtos.produtoInativo}}</span> <span
-                                                    class="badge text-secondary">Inativo</span> </span>
+                                            <span class="badge bg-red-100 text-red-600">{{produtos.produtoInativo}} Inativo</span>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -135,113 +112,80 @@
 
                         <!--INICIO ADMIN-->
                         <div class="col-sm-4">
-                            <div class="card border-0 shadow-sm mb-3">
+                            <div class="card border-0 shadow-sm mb-3 bg-white rounded-lg">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
-                                            <h6 class="fw-bold text-secondary">Usuários</h6>
+                                            <h6 class="text-lg font-bold text-gray-600">Usuários</h6>
                                         </div>
-
-                                        <div class="col-auto text-secondary">
-                                            <a href="{{url('admin/usuarios/cadastrar')}}" tooltip="tooltip"
-                                                title="Cadastrar Usuário">
+                                        <div class="col-auto text-gray-500">
+                                            <a href="{{url('admin/usuarios/cadastrar')}}" class="hover:text-blue-500" tooltip="tooltip" title="Cadastrar Usuário">
                                                 <i class="fas fa-users"></i>
                                             </a>
                                         </div>
                                     </div>
-                                    <h1 class="mt-1 mb-3">{{usuarios.usuarios}}</h1>
-
+                                    <h1 class="mt-1 mb-3 text-3xl font-bold text-gray-800">{{usuarios.usuarios}}</h1>
                                     <div class="row">
                                         <div class="col-auto">
-                                            <span class="badge text-bg-success bg-opacity-10"> <span
-                                                    class="text-success fw-bold">{{usuarios.usuariosAtivo}}</span> <span
-                                                    class="badge text-secondary">Ativo</span> </span>
+                                            <span class="badge bg-green-100 text-green-600">{{usuarios.usuariosAtivo}} Ativo</span>
                                         </div>
                                         <div class="col-auto">
-                                            <span class="badge text-bg-danger bg-opacity-10"> <span
-                                                    class="text-danger fw-bold">{{usuarios.usuariosInativo}}</span>
-                                                <span class="badge text-secondary">Inativo</span> </span>
+                                            <span class="badge bg-red-100 text-red-600">{{usuarios.usuariosInativo}} Inativo</span>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-sm-4">
-                            <div class="card border-0 shadow-sm mb-3">
+                            <div class="card border-0 shadow-sm mb-3 bg-white rounded-lg">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
-                                            <h6 class="fw-bold text-secondary">Usuários Admin</h6>
+                                            <h6 class="text-lg font-bold text-gray-600">Usuários Admin</h6>
                                         </div>
-
-                                        <div class="col-auto text-secondary">
-                                            <a href="{{url('admin/usuarios/cadastrar')}}" tooltip="tooltip"
-                                                title="Cadastrar Usuário">
+                                        <div class="col-auto text-gray-500">
+                                            <a href="{{url('admin/usuarios/cadastrar')}}" class="hover:text-blue-500" tooltip="tooltip" title="Cadastrar Usuário">
                                                 <i class="fa-solid fa-user-pen"></i>
                                             </a>
                                         </div>
                                     </div>
-                                    <h1 class="mt-1 mb-3">{{usuarios.admin}}</h1>
-
+                                    <h1 class="mt-1 mb-3 text-3xl font-bold text-gray-800">{{usuarios.admin}}</h1>
                                     <div class="row">
                                         <div class="col-auto">
-                                            <span class="badge text-bg-success bg-opacity-10"> <span
-                                                    class="text-success fw-bold">{{usuarios.adminAtivo}}</span> <span
-                                                    class="badge text-secondary">Ativo</span> </span>
+                                            <span class="badge bg-green-100 text-green-600">{{usuarios.adminAtivo}} Ativo</span>
                                         </div>
                                         <div class="col-auto">
-                                            <span class="badge text-bg-danger bg-opacity-10"> <span
-                                                    class="text-danger fw-bold">{{usuarios.adminInativo}}</span> <span
-                                                    class="badge text-secondary">Inativo</span> </span>
+                                            <span class="badge bg-red-100 text-red-600">{{usuarios.adminInativo}} Inativo</span>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
                         <!--FIM ADMIN-->
                         <div class="col-sm-4">
-                            <div class="card border-0 shadow-sm mb-3">
+                            <div class="card border-0 shadow-sm mb-3 bg-white rounded-lg">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
-                                            <h6 class="fw-bold text-secondary">Locações</h6>
+                                            <h6 class="text-lg font-bold text-gray-600">Locações</h6>
                                         </div>
-
-                                        <div class="col-auto text-secondary">
-                                            <a href="{{url('admin/locacoes/cadastrar')}}" tooltip="tooltip"
-                                                title="Cadastrar Locação">
+                                        <div class="col-auto text-gray-500">
+                                            <a href="{{url('admin/locacoes/cadastrar')}}" class="hover:text-blue-500" tooltip="tooltip" title="Cadastrar Locação">
                                                 <i class="fa-solid fa-file-pen"></i>
                                             </a>
                                         </div>
                                     </div>
-                                    <h1 class="mt-1 mb-3">
-                                        {{ formatarNumero(locacoes.total ?? 0) }}
-                                    </h1>
-
+                                    <h1 class="mt-1 mb-3 text-3xl font-bold text-gray-800">{{ formatarNumero(locacoes.total ?? 0) }}</h1>
                                     <div class="row">
                                         <div class="col-auto">
-                                            <span class="badge text-bg-primary bg-opacity-10">
-                                                <span class="text-primary fw-bold">{{
-                                                    formatarNumero(locacoes.locacoesAtiva ?? 0) }}</span>
-                                                <span class="badge text-secondary">Ativo</span>
-                                            </span>
+                                            <span class="badge bg-blue-100 text-blue-600">{{ formatarNumero(locacoes.locacoesAtiva ?? 0) }} Ativo</span>
                                         </div>
                                         <div class="col-auto">
-                                            <span class="badge text-bg-danger bg-opacity-10">
-                                                <span class="text-danger fw-bold">{{
-                                                    formatarNumero(locacoes.locacoesPendente ?? 0) }}</span>
-                                                <span class="badge text-secondary">Pendente</span>
-                                            </span>
+                                            <span class="badge bg-red-100 text-red-600">{{ formatarNumero(locacoes.locacoesPendente ?? 0) }} Pendente</span>
                                         </div>
                                         <div class="col-auto">
-                                            <span class="badge text-bg-success bg-opacity-10">
-                                                <span class="text-success fw-bold">{{
-                                                    formatarNumero(locacoes.locacoesFinalizado ?? 0) }}</span>
-                                                <span class="badge text-secondary">Finalizado</span>
-                                            </span>
+                                            <span class="badge bg-green-100 text-green-600">{{ formatarNumero(locacoes.locacoesFinalizado ?? 0) }} Finalizado</span>
                                         </div>
                                     </div>
                                 </div>
@@ -251,10 +195,10 @@
                 </div>
             </div>
 
-            <div class="col-sm-12 col-md-6 col-xl-4 mb-4">
-                <div class="card border-0 shadow-sm  h-100">
+            <div class="col-sm-12 col-md-12 col-xl-12 mb-4">
+                <div class="card border-0 shadow-sm  h-100 bg-white rounded-lg">
                     <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center mt-2">
-                        <h6 class="fw-bold text-secondary">
+                        <h6 class="fw-bold text-gray-600">
                             Últimas Categorias
                         </h6>
                     </div>
@@ -262,40 +206,34 @@
                         {% if categorias.categorias %}
                         <div class="table-responsive">
                             <table class="table table-hover">
-                                <thead>
+                                <thead class="bg-gray-100 text-gray-700">
                                     <tr>
-
-                                        <th>Título</th>
-                                        <th class="text-center">Visitas</th>
-                                        <th class="text-center">Ação</th>
+                                        <th class="px-4 py-2">Título</th>
+                                        <th class="px-4 py-2 text-center">Visitas</th>
+                                        <th class="px-4 py-2 text-center">Ação</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% for categoria in categorias.categorias %}
-                                    <tr>
-
-                                        <td>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-4 py-2">
                                             <span>
                                                 {% if categoria.status == 1 %}
-                                                <i class="fa-solid fa-circle text-success" tooltip="tooltip"
-                                                    title="Ativo"></i>
+                                                <i class="fa-solid fa-circle text-green-500" tooltip="tooltip" title="Ativo"></i>
                                                 {% else %}
-                                                <i class="fa-solid fa-circle text-danger" tooltip="tooltip"
-                                                    title="Inativo"></i>
+                                                <i class="fa-solid fa-circle text-red-500" tooltip="tooltip" title="Inativo"></i>
                                                 {% endif %}
                                             </span>
                                             {{categoria.titulo}}
                                         </td>
-                                        <td class="text-center">
+                                        <td class="px-4 py-2 text-center">
                                             {{formatarNumero(categoria.visitas)}}
                                         </td>
-                                        <td class="text-center">
-                                            <a href="{{ url('admin/categorias/editar/'~categoria.id) }}"
-                                                tooltip="tooltip" title="Editar">
+                                        <td class="px-4 py-2 text-center">
+                                            <a href="{{ url('admin/categorias/editar/'~categoria.id) }}" tooltip="tooltip" title="Editar" class="text-blue-500 hover:text-blue-700">
                                                 <i class="fa-solid fa-pen m-1"></i>
                                             </a>
-                                            <a href="{{ url('admin/categorias/deletar/'~categoria.id) }}"
-                                                tooltip="tooltip" title="Deletar">
+                                            <a href="{{ url('admin/categorias/deletar/'~categoria.id) }}" tooltip="tooltip" title="Deletar" class="text-red-500 hover:text-red-700">
                                                 <i class="fa-solid fa-trash m-1"></i>
                                             </a>
                                         </td>
@@ -305,7 +243,7 @@
                             </table>
                         </div>
                         {% else %}
-                        <div class="alert alert-warning" role="alert">
+                        <div class="alert alert-warning text-yellow-600 bg-yellow-100" role="alert">
                             Nenhuma categoria cadastrada para exibir!
                         </div>
                         {% endif %}
@@ -314,10 +252,10 @@
             </div>
 
             <!--INICIO ULTIMOS LOGIN-->
-            <div class="col-sm-6 col-md-6 col-xl-4 mb-4">
-                <div class="card border-0 shadow-sm  h-100">
+            <div class="col-sm-12 col-md-12 col-xl-12 mb-4">
+                <div class="card border-0 shadow-sm  h-100 bg-white rounded-lg">
                     <div class="card-header bg-white border-0 mt-2">
-                        <h6 class="fw-bold text-secondary">
+                        <h6 class="fw-bold text-gray-600">
                             Últimos Logins
                         </h6>
                     </div>
@@ -326,18 +264,16 @@
                         <ul class="list-group list-group-flush">
                             {% for usuario in usuarios.logins %}
                             <li class="list-group-item">
-                                <p>
+                                <p class="font-semibold text-gray-700">
                                     <i class="fa-solid fa-user me-2"></i>
-                                    <span class="fw-bold">{{usuario.nome}}</span>
+                                    <span>{{usuario.nome}}</span>
                                 </p>
-                                <small class="text-muted">{{ contarTempo(usuario.cadastrado_em) }} em {{
-                                    usuario.cadastrado_em|date("d/m/Y") }} às {{ usuario.ultimo_login|date("H:i")
-                                    }}</small>
+                                <small class="text-gray-500">{{ contarTempo(usuario.cadastrado_em) }} em {{ usuario.cadastrado_em|date("d/m/Y") }} às {{ usuario.ultimo_login|date("H:i") }}</small>
                             </li>
                             {%endfor%}
                         </ul>
                         {% else %}
-                        <div class="alert alert-warning" role="alert">
+                        <div class="alert alert-warning text-yellow-600 bg-yellow-100" role="alert">
                             Nenhum login para exibir!
                         </div>
                         {% endif %}
@@ -346,10 +282,10 @@
             </div>
             <!--FIM ULTIMOS LOGIN-->
 
-            <div class="col-sm-6 col-md-12 col-xl-4 mb-4">
-                <div class="card border-0 shadow-sm  h-100">
+            <div class="col-sm-12 col-md-12 col-xl-12 mb-4">
+                <div class="card border-0 shadow-sm  h-100 bg-white rounded-lg">
                     <div class="card-header bg-white border-0 mt-2">
-                        <h6 class="fw-bold text-secondary">
+                        <h6 class="fw-bold text-gray-600">
                             Últimos Produtos
                         </h6>
                     </div>
@@ -357,40 +293,34 @@
                         {% if produtos.produtos %}
                         <div class="table-responsive">
                             <table class="table table-hover">
-                                <thead>
+                                <thead class="bg-gray-100 text-gray-700">
                                     <tr>
-
-                                        <th>Título</th>
-                                        <th class="text-center">Visitas</th>
-                                        <th class="text-center">Ação</th>
+                                        <th class="px-4 py-2">Título</th>
+                                        <th class="px-4 py-2 text-center">Visitas</th>
+                                        <th class="px-4 py-2 text-center">Ação</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% for produto in produtos.produtos %}
-                                    <tr>
-
-                                        <td>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-4 py-2">
                                             <span>
                                                 {% if produto.status == 1 %}
-                                                <i class="fa-solid fa-circle text-success" tooltip="tooltip"
-                                                    title="Ativo"></i>
+                                                <i class="fa-solid fa-circle text-green-500" tooltip="tooltip" title="Ativo"></i>
                                                 {% else %}
-                                                <i class="fa-solid fa-circle text-danger" tooltip="tooltip"
-                                                    title="Inativo"></i>
+                                                <i class="fa-solid fa-circle text-red-500" tooltip="tooltip" title="Inativo"></i>
                                                 {% endif %}
                                             </span>
                                             {{produto.titulo}}
                                         </td>
-                                        <td class="text-center">
+                                        <td class="px-4 py-2 text-center">
                                             {{ produto.visitas is not null ? formatarNumero(produto.visitas) : 'N/A' }}
                                         </td>
-                                        <td class="text-center">
-                                            <a href="{{ url('admin/produtos/editar/'~produto.id) }}" tooltip="tooltip"
-                                                title="Editar">
+                                        <td class="px-4 py-2 text-center">
+                                            <a href="{{ url('admin/produtos/editar/'~produto.id) }}" tooltip="tooltip" title="Editar" class="text-blue-500 hover:text-blue-700">
                                                 <i class="fa-solid fa-pen m-1"></i>
                                             </a>
-                                            <a href="{{ url('admin/produtos/deletar/'~produto.id) }}" tooltip="tooltip"
-                                                title="Deletar">
+                                            <a href="{{ url('admin/produtos/deletar/'~produto.id) }}" tooltip="tooltip" title="Deletar" class="text-red-500 hover:text-red-700">
                                                 <i class="fa-solid fa-trash m-1"></i>
                                             </a>
                                         </td>
@@ -400,60 +330,57 @@
                             </table>
                         </div>
                         {% else %}
-                        <div class="alert alert-warning" role="alert">
+                        <div class="alert alert-warning text-yellow-600 bg-yellow-100" role="alert">
                             Nenhum produto cadastrado para exibir!
                         </div>
                         {% endif %}
                     </div>
                 </div>
             </div>
+
             <div class="col-xl-12 col-xxl-12 mb-4">
-                <div class="card border-0 shadow-sm">
+                <div class="card border-0 shadow-sm bg-white rounded-lg">
                     <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center mt-2">
-                        <div>
-                            <h6 class="fw-bold text-secondary">
-                                Devoluções
-                            </h6>
-                        </div>
+                        <h6 class="text-lg font-bold text-gray-600">Devoluções</h6>
                     </div>
                     <div class="card-body">
                         {% if devolucaoLocacoes.devolucaoLocacoes %}
                         <div class="table-responsive">
                             <table class="table table-hover">
-                                <thead>
+                                <thead class="bg-gray-100 text-gray-700">
                                     <tr>
-                                        <th>ID</th>
-                                        <th class="text-center">Produto</th>
-                                        <th class="text-center">Data da Locação</th>
-                                        <th class="text-center">Data de Devolução</th>
-                                        <th class="text-center">Igreja</th>
-                                        <th class="text-center">Responsável</th>
+                                        <th class="px-4 py-2">ID</th>
+                                        <th class="px-4 py-2 text-center">Produto</th>
+                                        <th class="px-4 py-2 text-center">Data da Locação</th>
+                                        <th class="px-4 py-2 text-center">Data de Devolução</th>
+                                        <th class="px-4 py-2 text-center">Igreja</th>
+                                        <th class="px-4 py-2 text-center">Responsável</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% for item in devolucaoLocacoes.devolucaoLocacoes %}
-                                    <tr>
-                                        <td class="text-center">{{item.id}}</td>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-4 py-2 text-center">{{item.id}}</td>
                                         {% if devolucaoLocacoes.devolucaoProdutos %}
                                         {% for produto in devolucaoLocacoes.devolucaoProdutos %}
                                         {% if produto.locacao_id == item.id%}
-                                        <td class="text-center">{{produto.titulo}}</td>
+                                        <td class="px-4 py-2 text-center">{{produto.titulo}}</td>
                                         {% endif %}
                                         {% endfor %}
                                         {% endif %}
-                                        <td class="text-center">{{item.data_locacao|date("d/m/Y")}}</td>
-                                        <td class="text-center">{{item.data_devolucao|date("d/m/Y")}}</td>
+                                        <td class="px-4 py-2 text-center">{{item.data_locacao|date("d/m/Y")}}</td>
+                                        <td class="px-4 py-2 text-center">{{item.data_devolucao|date("d/m/Y")}}</td>
                                         {% if devolucaoLocacoes.devolucaoCongregacoes %}
                                         {% for igreja in devolucaoLocacoes.devolucaoCongregacoes %}
                                         {% if igreja.id == item.igreja_id%}
-                                        <td class="text-center">{{igreja.nome}}</td>
+                                        <td class="px-4 py-2 text-center">{{igreja.nome}}</td>
                                         {% endif %}
                                         {% endfor %}
                                         {% endif %}
                                         {% if devolucaoLocacoes.devolucaoResponsavelLocacao %}
                                         {% for responsavel in devolucaoLocacoes.devolucaoResponsavelLocacao %}
                                         {% if responsavel.id == item.retirado_por %}
-                                        <td class="text-center">{{responsavel.nome}}</td>
+                                        <td class="px-4 py-2 text-center">{{responsavel.nome}}</td>
                                         {% endif %}
                                         {% endfor %}
                                         {% endif %}
@@ -463,7 +390,7 @@
                             </table>
                         </div>
                         {% else %}
-                        <div class="alert alert-warning" role="alert">
+                        <div class="alert alert-warning text-yellow-600 bg-yellow-100" role="alert">
                             Nenhuma devolução cadastrada para exibir!
                         </div>
                         {% endif %}
